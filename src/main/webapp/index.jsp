@@ -36,4 +36,7 @@
         <INPUT TYPE="text" NAME="item[2]" VALUE="대나무"><br />
         <INPUT TYPE="submit" VALUE="전송">
     </FORM>
+
+    <a href="map"> ToMap </a><br/>
+
 </body>
