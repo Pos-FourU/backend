@@ -1,9 +1,7 @@
 package Pack01.presentation;
 
 import Pack01.domain.cafe.application.CafeReadService;
-import Pack01.domain.cafe.dto.CafeFindReqDto;
-import Pack01.domain.cafe.entity.Cafe;
-import Pack01.domain.member.application.MemberWriteService;
+import Pack01.domain.cafe.dto.CafeFindRespDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +16,7 @@ public class CafeController {
     private final CafeReadService cafeReadService;
     @RequestMapping("/map")
     public String Findfunc(Model model){
-        List<Cafe> cafeList = cafeReadService.findAll();
-
+        List<CafeFindRespDto> cafeList = cafeReadService.findAll();
         model.addAttribute("cafeList",cafeList);
         return "mapView";
     }
