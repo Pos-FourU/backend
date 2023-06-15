@@ -4,53 +4,61 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
          pageEncoding="EUC-KR"%>
-<%--
-  Created by IntelliJ IDEA.
-  User: ys000
-  Date: 2023-06-15
-  Time: 오전 10:53
-  To change this template use File | Settings | File Templates.
---%>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-  <title> 지도 </title>
+  <title>지도</title>
   <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=3u5p451mjv"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-
+  <style>
+    #map {
+      width: 100%;
+      height: 800px;
+    }
+  </style>
 </head>
 <body>
-<div id="map" style="width:100%; height:800px;"></div>
+<div id="map"></div>
+<div id="rentalForm" style="display: none;">
+  <h3>텀블러 대여 신청</h3>
+  <form id="rentalRequestForm" method="post" action="/rental/request">
+    <input type="hidden" id="cafeId" name="cafeId">
+    <label for="name">이름:</label>
+    <input type="text" id="name" name="name" required>
+    <br>
+    <label for="phone">전화번호:</label>
+    <input type="text" id="phone" name="phone" required>
+    <br>
+    <button type="submit">신청</button>
+  </form>
+</div>
+
+<%
+  List<Cafe> cafeList = (List<Cafe>)request.getAttribute("cafeList");
+%>
 
 <script>
-
   $(function() {
-
     initMap();
-
   });
 
-  <%
-    List<Cafe> cafeList = (List<Cafe>)request.getAttribute("cafeList");
-  %>
   function initMap() {
-
-    let markers = new Array(); // 마커 정보를 담는 배열
-    let infoWindows = new Array(); // 정보창을 담는 배열
-
     var map = new naver.maps.Map('map', {
-      center: new naver.maps.LatLng(37.498095, 1127.027610),
+      center: new naver.maps.LatLng(37.498095, 127.027610),
       zoom: 15
     });
 
+    var markers = [];
+    var infoWindows = [];
+
     <%
-       for (int i = 0; i < cafeList.size(); i++) {
-         Cafe cafe = cafeList.get(i);
-         double latitude = cafe.getCafe_latitude();
-         double longitude = cafe.getCafe_longitude();
-     %>
+      for (int i = 0; i < cafeList.size(); i++) {
+        Cafe cafe = cafeList.get(i);
+        double latitude = cafe.getCafe_latitude();
+        double longitude = cafe.getCafe_longitude();
+    %>
 
     var marker<%= i %> = new naver.maps.Marker({
       map: map,
@@ -63,24 +71,28 @@
       }
     });
 
-    /* 정보창 */
-    var infoWindow = new naver.maps.InfoWindow({
+    var infoWindow<%= i %> = new naver.maps.InfoWindow({
       content: '<div style="width:200px;text-align:center;padding:10px;">' +
               '<b> <%= cafe.getCafe_name() %> </b>' +
               '<br> - 남은 텀블러 수 - ' +
-              '<br> n 개 </div>'
-    }); // 클릭했을 때 띄워줄 정보 입력
+              '<br> n 개 ' +
+              '<br> <button onclick="showRentalForm(<%= i %>)">대여하기</button> </div>'
+    });
 
-    markers.push(marker<%= i %>); // 생성한 마커를 담는다.
-    infoWindows.push(infoWindow<%= i %>); // 생성한 정보창을 담는다.
+    markers.push(marker<%= i %>);
+    infoWindows.push(infoWindow<%= i %>);
 
-    naver.maps.Event.addListener(marker<%= i %>, 'click', getClickHandler<%= i %>); // 클릭 이벤트 핸들러 등록
+    naver.maps.Event.addListener(marker<%= i %>, 'click', getClickHandler(<%= i %>));
 
-    function getClickHandler<%= i %>() {
-      var marker = markers[<%= i %>];
-      var infoWindow = infoWindows[<%= i %>];
+    <%
+      }
+    %>
 
+    function getClickHandler(index) {
       return function(e) {
+        let marker = markers[index];
+        let infoWindow = infoWindows[index];
+
         if (infoWindow.getMap()) {
           infoWindow.close();
         } else {
@@ -88,13 +100,22 @@
         }
       }
     }
-    <%
+    function showRentalForm(index) {
+      let cafeId = markers[index].title;
+      document.getElementById('cafeId').value = cafeId;
+      document.getElementById('rentalForm').style.display = 'block';
+    }
+
+    document.getElementById('rentalRequestForm').addEventListener('submit', function(e) {
+      let cafeId = document.getElementById('cafeId').value;
+      if (cafeId === '') {
+        alert('카페 ID를 선택하세요.');
+        e.preventDefault();
+      } else {
+        alert('텀블러 대여 신청이 완료되었습니다.');
       }
-    %>
+    });
   }
 </script>
-
-
-
 </body>
 </html>
