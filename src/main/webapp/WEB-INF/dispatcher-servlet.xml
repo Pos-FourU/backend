@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+<!-- 컨트롤러 위치 설정 -->
+    <context:component-scan base-package="Pack01"/>
+
+    <mvc:annotation-driven/>
+    <mvc:default-servlet-handler/>
+
+<!-- 뷰 위치 설정 -->
+    <mvc:view-resolvers>
+        <mvc:jsp prefix="/WEB-INF/Views/"/> <!--대부분 Views 폴더는 전부 소문자로 하나, 위에서 컨트롤러를 생성할 패키지 첫문자를 대문자로 작성하여, 일관성을 위해 앞글자를 대문자로 써주었다.-->
+    </mvc:view-resolvers>
+
+</beans>
