@@ -29,7 +29,6 @@ public class MemberWriteServiceImp implements MemberWriteService {
                 .update_at(LocalDate.now())
                 .build();
         memberRepository.registerMember(member);
-
     }
 
     @Override
