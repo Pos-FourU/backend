@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class MemberReadServiceImp {
+public class MemberReadServiceImp implements MemberReadService{
     private final MemberRepository memberRepository;
 
     public void loginAdmin(AdminLoginReqDto adminLoginReqDto){
@@ -21,7 +21,7 @@ public class MemberReadServiceImp {
         validateUser(member);
     }
 
-    private static void validateUser(List<Member> member) {
+    private void validateUser(List<Member> member) {
         if(member.size()<1){
             throw new RuntimeException();
         }
