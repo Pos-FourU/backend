@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; ccharset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, java.text.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ include file="header_footer.jsp" %>
 <head>
     <title>메인 페이지</title>
+    <meta charset="UTF-8">
 </head>
 
 <body>

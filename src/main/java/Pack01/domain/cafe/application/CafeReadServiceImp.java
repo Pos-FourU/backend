@@ -1,6 +1,7 @@
 package Pack01.domain.cafe.application;
 
 import Pack01.domain.cafe.dto.CafeFindRespDto;
+import Pack01.domain.cafe.dto.CafeLeftCountRespDto;
 import Pack01.domain.cafe.entity.Cafe;
 import Pack01.domain.cafe.repository.CafeRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,10 @@ public class CafeReadServiceImp implements CafeReadService {
                         .cafe_longitude(cafe.getCafe_longitude())
                         .build())
                 .collect(Collectors.toList());
+    }
+    @Override
+    public List<CafeLeftCountRespDto>  getLeftItemCount() {
+        return cafeRepository.getCafeLeftItemCount();
     }
 
 }
