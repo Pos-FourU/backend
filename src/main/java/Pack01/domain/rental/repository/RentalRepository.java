@@ -1,5 +1,6 @@
 package Pack01.domain.rental.repository;
 
+
 import Pack01.domain.item.entity.Item;
 import Pack01.domain.item.entity.ItemCategory;
 import Pack01.domain.item.entity.ItemStatus;

@@ -3,7 +3,6 @@ package Pack01.domain.rental.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import java.util.Date;
 
 import static lombok.AccessLevel.PROTECTED;
@@ -38,4 +37,5 @@ public class Rental {
     public void updateRental_returnTime(Date return_time){
         this.return_time=return_time;
     }
+
 }
