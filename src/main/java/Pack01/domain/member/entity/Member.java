@@ -20,12 +20,14 @@ public class Member {
     private MemberRole member_role;
     private String member_name;
     private MemberStatus member_status;
-    private Integer warning_count;
+
+    private Long warning_count;
+
     private LocalDate create_at;
     private LocalDate update_at;
 
     @Builder
-    public Member(Long member_id, String member_email, String member_pw, String member_phone, MemberRole member_role, String member_name, MemberStatus member_status, Integer warning_count, LocalDate create_at, LocalDate update_at) {
+    public Member(Long member_id, String member_email, String member_pw, String member_phone, MemberRole member_role, String member_name, MemberStatus member_status, Long warning_count, LocalDate create_at, LocalDate update_at) {
         isValidEmail(member_email);
         this.member_id = member_id;
         this.member_email = member_email;
