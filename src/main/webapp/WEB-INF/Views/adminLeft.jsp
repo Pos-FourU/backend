@@ -1,4 +1,4 @@
-<%--
+<%@ page import="Pack01.domain.member.entity.MemberRole" %><%--
   Created by IntelliJ IDEA.
   User: kimheeah
   Date: 2023/06/15
@@ -11,14 +11,21 @@
     <title>Title</title>
 </head>
 <body>
+<%
+    if(session.getAttribute("role")=="ADMIN"){
+        out.println("<button onclick=\"menuClick('manageRental')\">대여 관리</button><br/>");
+        out.println("<button onclick=\"menuClick('manageItem')\">물품 관리</button><br/>");
+    }
+    else{
+        out.println("<button onclick=\"menuClick('manageMember')\">유저 관리</button><br/>");
+        out.println("<button onclick=\"menuClick('manageManager')\">관리자 관리</button><br/>");
+    }
+%>
 <script>
     function menuClick(s){
         location.href=s;
     }
 </script>
-<button onclick="menuClick('manageRental')">대여 관리</button><br/>
-<button onclick="menuClick('manageItem')">물품 관리</button><br/>
-<button onclick="menuClick('manageMember')">유저 관리</button><br/>
-<button onclick="menuClick('manageManager')">관리자 관리</button><br/>
+
 </body>
 </html>
