@@ -1,7 +1,7 @@
 package Pack01.domain.member.entity;
 
 public enum MemberRole {
-    ADMIN("admin"), CAFE_ADMIN("cafe_admin"), USER("user"), BLACK_LIST("black");
+    ADMIN("admin"), MANAGER("manager"), USER("user"), BLACK_LIST("black");
 
     private String role;
 
@@ -12,4 +12,5 @@ public enum MemberRole {
     public static MemberRole getMemberRole(String s){
         return MemberRole.valueOf(s);
     }
+
 }

@@ -12,9 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class ItemWriteService {
+public class ItemWriteServiceImp implements ItemWriterService{
     private final ItemRepository itemRepository;
 
+    @Override
     public void register(ItemRegisterReqDto itemRegisterReqDto){
         Item item = Item.of(
                 ItemStatus.VALID,

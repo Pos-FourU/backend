@@ -24,7 +24,7 @@
         <INPUT TYPE="submit" VALUE="전송">
     </FORM>
 
-    <a href="map"> ToMap </a><br/>
+    <a href="/api/v1/cafe/map"> ToMap </a><br/>
 
 
 </body>

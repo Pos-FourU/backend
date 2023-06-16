@@ -1,8 +1,9 @@
 package Pack01.domain.member.repository;
 
-import Pack01.domain.member.dto.MemberRegisterReqDto;
+import Pack01.domain.member.entity.Manager;
 import Pack01.domain.member.entity.Member;
 import Pack01.domain.member.entity.MemberRole;
+import Pack01.domain.member.entity.MemberStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -21,17 +21,18 @@ public class MemberRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public void registerMember(MemberRegisterReqDto member) {
+    public void registerMember(Member member) {
 
         String sql = "INSERT INTO " + TABLE + " (member_email, member_pw, member_phone, member_name, member_role, create_at, update_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql,
-                member.getMemberEmail(),
-                member.getMemberPw(),
-                member.getMemberPhone(),
-                member.getMemberName(),
-                MemberRole.USER,
-                LocalDate.now(),
-                LocalDate.now());
+                member.getMember_name(),
+                member.getMember_pw(),
+                member.getMember_phone(),
+                member.getMember_name(),
+                member.getMember_role(),
+                member.getCreate_at(),
+                member.getUpdate_at());
+
     }
 
     public List<Member> loginAdmin(String email, String pw) {
@@ -39,14 +40,25 @@ public class MemberRepository {
         return jdbcTemplate.query(sql, new MemberRowMapper());
     }
 
-    public Member findById(Long memberId) {
-        String sql = "SELECT * FROM " + TABLE + " WHERE member_id = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{memberId}, new MemberRowMapper());
-    }
+
 
     public List<Member> findAll() {
         String sql = "SELECT * FROM " + TABLE;
         return jdbcTemplate.query(sql, new MemberRowMapper());
+    }
+
+  public List<Member> findByWaringCountUser() {
+        String sql = "SELECT * FROM " + TABLE+" where warning_count>=3";
+        return jdbcTemplate.query(sql, new MemberRowMapper());
+  
+    public List<Member> findMembers(MemberRole memberRole){
+        String sql = "SELECT * FROM " + TABLE + " WHERE member_role = '"+memberRole+"'";
+        return jdbcTemplate.query(sql, new MemberRowMapper());
+    }
+
+    public List<Manager> findManagers(){
+        String sql = "SELECT * FROM " + TABLE + " JOIN cafes ON members.member_id=cafes.member_id";
+        return jdbcTemplate.query(sql, new ManagerRowMapper());
     }
 
     public void updateMember(Member member) {
@@ -58,19 +70,21 @@ public class MemberRepository {
                 member.getMember_name(),
                 member.getUpdate_at(),
                 member.getMember_id());
+
     }
 
-    public void deleteMember(Long memberId) {
-        String sql = "DELETE FROM " + TABLE + " WHERE member_id = ?";
+    public void increaseWarningCount(Long memberId) {
+        String sql = "UPDATE members SET warning_count = warning_count + 1 WHERE member_id = ?";
+        jdbcTemplate.update(sql, memberId);
+    }
+    public void ChangeBlackList(Long memberId) {
+        String sql = "UPDATE members SET member_status = 'BLACK_LIST'WHERE member_id = ?";
         jdbcTemplate.update(sql, memberId);
     }
 
-    // RowMapper class for mapping database result set to Member object
     private class MemberRowMapper implements RowMapper<Member> {
         @Override
         public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
-            if(rowNum==0) return null;
-
             return Member.builder()
                     .member_id(rs.getLong("member_id"))
                     .member_email(rs.getString("member_email"))
@@ -78,8 +92,25 @@ public class MemberRepository {
                     .member_phone(rs.getString("member_phone"))
                     .member_name(rs.getString("member_name"))
                     .member_role(MemberRole.getMemberRole(rs.getString("member_role")))
+                    .member_status(MemberStatus.getMemberStatus(rs.getString("member_status")))
+                    .warning_count(rs.getLong("warning_count"))
                     .create_at(rs.getDate("create_at").toLocalDate())
                     .update_at(rs.getDate("update_at").toLocalDate())
+                    .build();
+        }
+    }
+
+    private class ManagerRowMapper implements RowMapper<Manager> {
+        @Override
+        public Manager mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return Manager.builder()
+                    .member_id(rs.getLong("member_id"))
+                    .member_name(rs.getString("member_name"))
+                    .member_phone(rs.getString("member_phone"))
+                    .member_email(rs.getString("member_email"))
+                    .cafe_id(rs.getLong("cafe_id"))
+                    .cafe_name(rs.getString("cafe_name"))
+                    .cafe_address(rs.getString("cafe_address"))
                     .build();
         }
     }

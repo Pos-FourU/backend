@@ -17,7 +17,7 @@ public class MemberController {
     private final MemberWriteService memberWriteService;
     @PostMapping()
     public String register(@RequestBody MemberRegisterReqDto memberRegisterReqDto){
-        memberWriteService.registerUser(memberRegisterReqDto);
+        memberWriteService.register(memberRegisterReqDto);
         return "index";
 
     }
