@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -19,7 +20,7 @@ public class MemberRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public void registerMember(Member member) {
+    public void registerMember(MemberRegisterReqDto member) {
 
         String sql = "INSERT INTO " + TABLE + " (member_email, member_pw, member_phone, member_name, member_role, create_at, update_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql,
@@ -30,6 +31,7 @@ public class MemberRepository {
                 member.getMember_role(),
                 member.getCreate_at(),
                 member.getUpdate_at());
+
     }
 
     public List<Member> loginAdmin(String email, String pw) {

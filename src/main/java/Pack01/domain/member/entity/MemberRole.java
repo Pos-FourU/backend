@@ -12,4 +12,5 @@ public enum MemberRole {
     public static MemberRole getMemberRole(String s){
         return MemberRole.valueOf(s);
     }
+
 }

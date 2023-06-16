@@ -1,6 +1,5 @@
 package Pack01.domain.member.dto;
 
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
