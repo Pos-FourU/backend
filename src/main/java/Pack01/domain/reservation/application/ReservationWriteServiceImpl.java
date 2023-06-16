@@ -12,8 +12,9 @@ import java.time.LocalDate;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class ReservationWriteServiceImpl {
+public class ReservationWriteServiceImpl implements ReservationWriteService {
     private final ReservationRepository reservationRepository;
+    @Override
     public void register(ReservationRegistDto reservationRegistDto) {
         Reservation reservation = Reservation.builder()
                 .member_id(reservationRegistDto.getMember_id())
