@@ -36,10 +36,9 @@ public class MemberRepository {
     }
 
     public List<Member> loginAdmin(String email, String pw) {
-        String sql = "SELECT * FROM " + TABLE + " WHERE member_email ='"+ email+"' AND  member_pw = '"+pw+"'AND member_role in ('ADMIN','CAFE_ADMIN')";
+        String sql = "SELECT * FROM " + TABLE + " WHERE member_email ='" + email + "' AND  member_pw = '" + pw + "'AND member_role in ('ADMIN','CAFE_ADMIN')";
         return jdbcTemplate.query(sql, new MemberRowMapper());
     }
-
 
 
     public List<Member> findAll() {
@@ -47,16 +46,17 @@ public class MemberRepository {
         return jdbcTemplate.query(sql, new MemberRowMapper());
     }
 
-  public List<Member> findByWaringCountUser() {
-        String sql = "SELECT * FROM " + TABLE+" where warning_count>=3";
-        return jdbcTemplate.query(sql, new MemberRowMapper());
-  
-    public List<Member> findMembers(MemberRole memberRole){
-        String sql = "SELECT * FROM " + TABLE + " WHERE member_role = '"+memberRole+"'";
+    public List<Member> findByWaringCountUser() {
+        String sql = "SELECT * FROM " + TABLE + " where warning_count>=3";
         return jdbcTemplate.query(sql, new MemberRowMapper());
     }
 
-    public List<Manager> findManagers(){
+    public List<Member> findMembers(MemberRole memberRole) {
+        String sql = "SELECT * FROM " + TABLE + " WHERE member_role = '" + memberRole + "'";
+        return jdbcTemplate.query(sql, new MemberRowMapper());
+    }
+
+    public List<Manager> findManagers() {
         String sql = "SELECT * FROM " + TABLE + " JOIN cafes ON members.member_id=cafes.member_id";
         return jdbcTemplate.query(sql, new ManagerRowMapper());
     }
@@ -77,6 +77,7 @@ public class MemberRepository {
         String sql = "UPDATE members SET warning_count = warning_count + 1 WHERE member_id = ?";
         jdbcTemplate.update(sql, memberId);
     }
+
     public void ChangeBlackList(Long memberId) {
         String sql = "UPDATE members SET member_status = 'BLACK_LIST'WHERE member_id = ?";
         jdbcTemplate.update(sql, memberId);
@@ -115,4 +116,5 @@ public class MemberRepository {
         }
     }
 }
+
 
