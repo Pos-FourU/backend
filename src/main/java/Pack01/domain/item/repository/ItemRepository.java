@@ -36,6 +36,11 @@ public class ItemRepository {
         return jdbcTemplate.query(sql, new ItemRowMapper());
     }
 
+    public int getCafeAllItemCounts(Long cafeId) {
+        String sql = "SELECT COUNT(*) FROM " + TABLE + " WHERE cafe_id = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{cafeId}, Integer.class);
+    }
+
     private class ItemRowMapper implements RowMapper<Item> {
         @Override
         public Item mapRow(ResultSet rs, int rowNum) throws SQLException {

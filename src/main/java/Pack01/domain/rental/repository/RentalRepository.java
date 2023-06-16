@@ -37,6 +37,11 @@ public class RentalRepository {
         return jdbcTemplate.query(sql, new Pack01.domain.rental.repository.RentalRepository.RentalRowMapper());
     }
 
+    public int getCafeRentedItems(Long cafeId) {
+        String sql = "SELECT COUNT(*) FROM " + TABLE + " WHERE cafe_id = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{cafeId}, Integer.class);
+    }
+
     private class RentalRowMapper implements RowMapper<Rental> {
         @Override
         public Rental mapRow(ResultSet rs, int rowNum) throws SQLException {
