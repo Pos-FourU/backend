@@ -10,23 +10,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
 
 @Configuration
-@PropertySource("classpath:application.yml")
 public class JdbcTemplateConfig {
-
-    private final String url;
-    private final String user;
-    private final String password;
-    private final String driveClassName;
-
-    public JdbcTemplateConfig(@Value("${datasource.url}")String url
-            ,@Value("${datasource.username}") String user
-            ,@Value("${datasource.password}") String password
-            ,@Value("${datasource.driveClassName}") String driveClassName) {
-        this.url = url;
-        this.user = user;
-        this.password = password;
-        this.driveClassName = driveClassName;
-    }
 
     @Bean
     public DataSource dataSource() {
