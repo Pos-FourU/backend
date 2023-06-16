@@ -9,7 +9,7 @@ public class ControllerAdvice {
     @ExceptionHandler(RuntimeException.class)
     public ModelAndView handleRuntimeException(){
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("error");
+        mav.setViewName("index");
         return mav;
     }
 }

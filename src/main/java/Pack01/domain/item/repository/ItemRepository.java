@@ -3,7 +3,6 @@ package Pack01.domain.item.repository;
 import Pack01.domain.item.entity.Item;
 import Pack01.domain.item.entity.ItemCategory;
 import Pack01.domain.item.entity.ItemStatus;
-import Pack01.domain.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

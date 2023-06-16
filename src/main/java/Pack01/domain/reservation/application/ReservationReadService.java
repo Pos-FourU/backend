@@ -1,4 +1,4 @@
 package Pack01.domain.reservation.application;
 
-public class ReservationReadService {
+public interface ReservationReadService {
 }
