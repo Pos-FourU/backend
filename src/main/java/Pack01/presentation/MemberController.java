@@ -2,6 +2,9 @@ package Pack01.presentation;
 
 import Pack01.domain.member.application.MemberWriteService;
 import Pack01.domain.member.dto.MemberRegisterReqDto;
+import Pack01.global.exception.FourUAdminException;
+import Pack01.global.exception.FourUException;
+import Pack01.global.exception.FourUUserException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +24,14 @@ public class MemberController {
         memberWriteService.register(memberRegisterReqDto);
         return "index";
     }
-    @GetMapping
+    @GetMapping("/1")
     public void test(){
-        throw new RuntimeException();
+        throw new FourUAdminException("어드민") {
+        };
     }
+    @GetMapping("/3")
+    public void test1(){
+        throw new FourUUserException("유저");
+    }
+
 }
