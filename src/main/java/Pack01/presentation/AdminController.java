@@ -25,7 +25,7 @@ public class AdminController {
 
     @PostMapping("/login")
     public String LoginAdmin(AdminLoginReqDto adminLoginReqDto){
-        memberReadService.loginAdmin(adminLoginReqDto);
+//        memberReadService.loginAdmin(adminLoginReqDto);
         return "redirect:/api/v1/admin/manageRental";
     }
 

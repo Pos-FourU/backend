@@ -24,5 +24,10 @@ public class MemberWriteServiceImp implements MemberWriteService {
         memberRepository.registerMember(member);
     }
 
+    @Override
+    public void registerUser(MemberRegisterReqDto memberRegisterReqDto) {
+
+    }
+
 
 }
