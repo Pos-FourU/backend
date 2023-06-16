@@ -44,19 +44,7 @@ public class Member {
         this.create_at = create_at;
         this.update_at = update_at;
     }
-
-    public static Member of(String member_email, String member_pw, String member_phone, MemberRole member_role,String member_name) {
-        return Member.builder()
-                .member_email(member_email)
-                .member_pw(member_pw)
-                .member_phone(member_phone)
-                .member_role(member_role)
-                .member_name(member_name)
-                .create_at(LocalDate.now())
-                .update_at(LocalDate.now())
-                .build();
-    }
-
+    
     public void updateMember_email(String member_email) {
         this.member_email = member_email;
     }

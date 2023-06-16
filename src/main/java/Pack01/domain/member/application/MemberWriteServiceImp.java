@@ -10,15 +10,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class MemberWriteServiceImp implements MemberWriteService{
+public class MemberWriteServiceImp implements MemberWriteService {
     private final MemberRepository memberRepository;
 
     @Override
-    public void register(MemberRegisterReqDto memberRegisterReqDto){
-        Member member = Member.of(memberRegisterReqDto.getMemberEmail(),
-                memberRegisterReqDto.getMemberPw(),
-                memberRegisterReqDto.getMemberPhoneNum(),
-                memberRegisterReqDto.getMemberName());
+    public void register(MemberRegisterReqDto memberRegisterReqDto) {
+        MemberRegisterReqDto member = new MemberRegisterReqDto().builder()
+                .memberEmail(memberRegisterReqDto.getMemberEmail())
+                .memberPw(memberRegisterReqDto.getMemberPw())
+                .memberName(memberRegisterReqDto.getMemberName())
+                .memberPhone(memberRegisterReqDto.getMemberPhone())
+                .build();
         memberRepository.registerMember(member);
     }
 

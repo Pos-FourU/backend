@@ -2,8 +2,10 @@ package Pack01.domain.member.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class MemberRegisterReqDto {
     private String memberEmail;
     private String memberPw;

@@ -11,6 +11,11 @@
     <title>Title</title>
 </head>
 <body>
+<script>
+    function menuClick(s){
+        location.href=s;
+    }
+</script>
 <button onclick="menuClick('manageRental')">대여 관리</button><br/>
 <button onclick="menuClick('manageItem')">물품 관리</button><br/>
 <button onclick="menuClick('manageMember')">유저 관리</button><br/>

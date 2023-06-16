@@ -34,12 +34,12 @@ public class AdminController {
         return "adminIndex";
     }
 
-    @PostMapping("/registerAdmin")
-    public String Register(MemberRegisterReqDto memberRegisterReqDto){
-        memberWriteService.registerCafeAdmin(memberRegisterReqDto);
-
-        return "registerAdmin";
-    }
+//    @PostMapping("/registerAdmin")
+//    public String Register(MemberRegisterReqDto memberRegisterReqDto){
+//        memberWriteService.registerCafeAdmin(memberRegisterReqDto);
+//
+//        return "registerAdmin";
+//    }
 
     @GetMapping("/manageItem")
     public String showItem(Model model){
