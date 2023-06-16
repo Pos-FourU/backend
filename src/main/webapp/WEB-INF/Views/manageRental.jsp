@@ -69,6 +69,9 @@
         </tr>
         </tbody>
     </table>
+    <button onclick="">대여</button>
+    <button onclick="">반납</button>
+    <button onclick="">훼손/분실</button>
 </div>
 <div id="footer">
     <jsp:include page="adminFooter.jsp"></jsp:include>

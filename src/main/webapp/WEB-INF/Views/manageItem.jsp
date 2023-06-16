@@ -54,6 +54,8 @@
                 <th>물품 ID</th>
                 <th>물품 상태</th>
                 <th>카테고리</th>
+                <th>물품 상태 변경</th>
+                <th>물품 삭제</th>
             </tr>
         </thead>
         <tbody>
@@ -64,9 +66,23 @@
                     out.println("<td>"+i.getCategory()+"</td>");
                 }
             %>
+                <td>
+                <form method="post" action="manageItem">
+                    <select name="item_status">
+                        <option value="VALID" selected>VALID</option>
+                        <option value="INVALID">INVALID</option>
+                        <option value="DAMAGED">DAMAGED</option>
+                    </select>
+                    <input type="submit" value="적용">
+                </form>
+                </td>
+                <td>
+                    <button onclick="deleteItem()">삭제</button>
+                </td>
             </tr>
         </tbody>
     </table>
+    <button onclick="addItem()">물품 추가</button>
 </div>
 <div id="footer">
     <jsp:include page="adminFooter.jsp"></jsp:include>

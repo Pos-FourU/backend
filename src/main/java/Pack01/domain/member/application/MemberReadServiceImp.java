@@ -1,14 +1,18 @@
 package Pack01.domain.member.application;
 
 import Pack01.domain.member.dto.AdminLoginReqDto;
-import Pack01.domain.member.dto.MemberRegisterReqDto;
+import Pack01.domain.member.dto.ManagerFindAllRespDto;
+import Pack01.domain.member.dto.MemberFindAllRespDto;
 import Pack01.domain.member.entity.Member;
+import Pack01.domain.member.entity.MemberRole;
+import Pack01.domain.member.entity.MemberStatus;
 import Pack01.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -19,6 +23,43 @@ public class MemberReadServiceImp implements MemberReadService{
     public void loginAdmin(AdminLoginReqDto adminLoginReqDto){
         List<Member> member = memberRepository.loginAdmin(adminLoginReqDto.getAdminId(), adminLoginReqDto.getAdminPw());
         validateUser(member);
+    }
+
+    @Override
+    public List<MemberFindAllRespDto> getMembers(MemberRole memberRole) {
+        List<Member>members;
+        if (memberRole==null){
+            members = memberRepository.findAll();
+        }else {
+            members = memberRepository.findMembers(memberRole);
+        }
+        return members
+                .stream()
+                .map(member -> new MemberFindAllRespDto().builder()
+                        .member_id(member.getMember_id())
+                        .member_email(member.getMember_email())
+                        .member_name(member.getMember_name())
+                        .member_phone(member.getMember_phone())
+                        .warning_count(member.getWarning_count())
+                        .member_status(member.getMember_status())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ManagerFindAllRespDto> getManagers() {
+        return memberRepository.findManagers()
+                .stream()
+                .map(manager -> new ManagerFindAllRespDto().builder()
+                        .member_id(manager.getMember_id())
+                        .member_phone(manager.getMember_phone())
+                        .member_name(manager.getMember_name())
+                        .member_email(manager.getMember_email())
+                        .cafe_id(manager.getCafe_id())
+                        .cafe_name(manager.getCafe_name())
+                        .cafe_address(manager.getCafe_address())
+                        .build())
+                .collect(Collectors.toList());
     }
 
     private void validateUser(List<Member> member) {
