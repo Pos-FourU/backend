@@ -12,13 +12,16 @@
 </head>
 <body>
 <%
-    if(session.getAttribute("role")=="ADMIN"){
+    if(session.getAttribute("role")==MemberRole.MANAGER){
         out.println("<button onclick=\"menuClick('manageRental')\">대여 관리</button><br/>");
         out.println("<button onclick=\"menuClick('manageItem')\">물품 관리</button><br/>");
     }
-    else{
+    else if(session.getAttribute("role")==MemberRole.ADMIN){
         out.println("<button onclick=\"menuClick('manageMember')\">유저 관리</button><br/>");
         out.println("<button onclick=\"menuClick('manageManager')\">관리자 관리</button><br/>");
+    }
+    else{
+        throw new RuntimeException();
     }
 %>
 <script>
