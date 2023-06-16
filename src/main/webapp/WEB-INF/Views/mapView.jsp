@@ -31,9 +31,8 @@
   List<CafeLeftCountRespDto> cafeLeftCountRespDtos = (List<CafeLeftCountRespDto>)request.getAttribute("leftItemCount");
 
 
-  ReservationReadService
 
-  // 예약 알림 창 표시 여부를 저장하기 위한 세션 변수
+//  // 예약 알림 창 표시 여부를 저장하기 위한 세션 변수
   session.setAttribute("reservationConfirmationShown", false);
 
 %>

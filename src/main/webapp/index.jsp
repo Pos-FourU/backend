@@ -4,6 +4,7 @@
 <%@ include file="header_footer.jsp" %>
 <head>
     <title>메인 페이지</title>
+    <meta charset="UTF-8">
 </head>
 
 <body>
