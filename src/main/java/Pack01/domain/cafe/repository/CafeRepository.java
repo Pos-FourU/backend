@@ -1,6 +1,5 @@
 package Pack01.domain.cafe.repository;
 
-import Pack01.domain.cafe.dto.CafeFindReqDto;
 import Pack01.domain.cafe.entity.Cafe;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,8 +18,7 @@ public class CafeRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public void registecafe(Cafe cafe) {
-
+    public void registerCafe(Cafe cafe) {
         String sql = "INSERT INTO " + TABLE + " ( member_id, cafe_name, cafe_address, cafe_latitude, cafe_longitude, create_at, update_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql,
                 cafe.getMember_id(),
