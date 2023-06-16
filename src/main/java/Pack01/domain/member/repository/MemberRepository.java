@@ -1,6 +1,5 @@
 package Pack01.domain.member.repository;
 
-import Pack01.domain.member.dto.MemberRegisterReqDto;
 import Pack01.domain.member.entity.Member;
 import Pack01.domain.member.entity.MemberRole;
 import lombok.RequiredArgsConstructor;
@@ -25,13 +24,14 @@ public class MemberRepository {
 
         String sql = "INSERT INTO " + TABLE + " (member_email, member_pw, member_phone, member_name, member_role, create_at, update_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql,
-                member.getMemberEmail(),
-                member.getMemberPw(),
-                member.getMemberPhone(),
-                member.getMemberName(),
-                MemberRole.USER,
-                LocalDate.now(),
-                LocalDate.now());
+                member.getMember_name(),
+                member.getMember_pw(),
+                member.getMember_phone(),
+                member.getMember_name(),
+                member.getMember_role(),
+                member.getCreate_at(),
+                member.getUpdate_at());
+
     }
 
     public List<Member> loginAdmin(String email, String pw) {

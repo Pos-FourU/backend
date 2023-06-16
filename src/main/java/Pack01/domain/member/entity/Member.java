@@ -34,7 +34,9 @@ public class Member {
 
     @Builder
     public Member(Long member_id, String member_email, String member_pw, String member_phone, MemberRole member_role, String member_name, LocalDate create_at, LocalDate update_at) {
+
         isValidEmail(member_email);
+
         this.member_id = member_id;
         this.member_email = member_email;
         this.member_pw = member_pw;
@@ -44,6 +46,7 @@ public class Member {
         this.create_at = create_at;
         this.update_at = update_at;
     }
+
     
     public void updateMember_email(String member_email) {
         this.member_email = member_email;
@@ -58,7 +61,5 @@ public class Member {
         this.member_role = member_role;
     }
 
-    public void setUpdate_at(LocalDate update_at) {
-        this.update_at = update_at;
-    }
+
 }

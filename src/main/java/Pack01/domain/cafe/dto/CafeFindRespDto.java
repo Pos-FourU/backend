@@ -26,14 +26,4 @@ public class CafeFindRespDto {
         this.cafe_longitude = cafe_longitude;
     }
 
-    public CafeFindRespDto of(Long cafe_id, Long member_id, String cafe_name, String cafe_address, Float cafe_latitude, Float cafe_longitude){
-       return CafeFindRespDto.builder()
-                .cafe_id(cafe_id)
-                .member_id(member_id)
-                .cafe_name(cafe_name)
-                .cafe_address(cafe_address)
-                .cafe_latitude(cafe_latitude)
-                .cafe_longitude(cafe_longitude)
-                .build();
-    }
 }

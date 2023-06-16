@@ -22,13 +22,13 @@ public class CafeReadServiceImp implements CafeReadService {
         List<Cafe> all = cafeRepository.findAll();
         return all
                 .stream()
-                .map(cafe -> new CafeFindRespDto()
-                        .of(cafe.getCafe_id(),
-                        cafe.getMember_id(),
-                        cafe.getCafe_name(),
-                        cafe.getCafe_address(),
-                        cafe.getCafe_latitude(),
-                        cafe.getCafe_longitude()))
+                .map(cafe ->new CafeFindRespDto().builder()
+                        .cafe_id(cafe.getCafe_id())
+                        .cafe_name(cafe.getCafe_name())
+                        .cafe_address(cafe.getCafe_address())
+                        .cafe_latitude(cafe.getCafe_latitude())
+                        .cafe_longitude(cafe.getCafe_longitude())
+                        .build())
                 .collect(Collectors.toList());
     }
 
