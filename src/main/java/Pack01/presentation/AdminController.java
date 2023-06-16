@@ -1,11 +1,10 @@
 package Pack01.presentation;
 
-import Pack01.domain.item.application.ItemReadService;
+import Pack01.domain.item.application.ItemReadServiceImp;
 import Pack01.domain.member.application.MemberReadService;
 import Pack01.domain.member.application.MemberWriteService;
 import Pack01.domain.member.dto.AdminLoginReqDto;
-import Pack01.domain.member.dto.MemberRegisterReqDto;
-import Pack01.domain.rental.application.RentalReadService;
+import Pack01.domain.rental.application.RentalReadServiceImp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +19,8 @@ public class AdminController {
 
     private final MemberWriteService memberWriteService;
     private final MemberReadService memberReadService;
-    private final ItemReadService itemReadService;
-    private final RentalReadService rentalReadService;
+    private final ItemReadServiceImp itemReadServiceImp;
+    private final RentalReadServiceImp rentalReadServiceImp;
 
     @PostMapping("/login")
     public String LoginAdmin(AdminLoginReqDto adminLoginReqDto){
@@ -43,13 +42,13 @@ public class AdminController {
 
     @GetMapping("/manageItem")
     public String showItem(Model model){
-        model.addAttribute("items",itemReadService.getAllItems());
+        model.addAttribute("items", itemReadServiceImp.getAllItems());
         return "manageItem";
     }
 
     @GetMapping("/manageRental")
     public String showRental(Model model){
-        model.addAttribute("rentals", rentalReadService.getAllRentals());
+        model.addAttribute("rentals", rentalReadServiceImp.getAllRentals());
         return "manageRental";
     }
 }
