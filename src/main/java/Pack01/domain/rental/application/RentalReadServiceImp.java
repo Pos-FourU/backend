@@ -30,4 +30,9 @@ public class RentalReadServiceImp implements RentalReadService{
                         .build())
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Long> findAllByExpireMembers() {
+        return rentalRepository.findAllByExpireMembers();
+    }
 }

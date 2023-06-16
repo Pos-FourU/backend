@@ -3,6 +3,7 @@ package Pack01.domain.member.application;
 import Pack01.domain.member.dto.AdminLoginReqDto;
 import Pack01.domain.member.dto.ManagerFindAllRespDto;
 import Pack01.domain.member.dto.MemberFindAllRespDto;
+
 import Pack01.domain.member.entity.Member;
 import Pack01.domain.member.entity.MemberRole;
 import Pack01.domain.member.entity.MemberStatus;
@@ -10,8 +11,8 @@ import Pack01.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +27,17 @@ public class MemberReadServiceImp implements MemberReadService{
     }
 
     @Override
+    public void findByWaringCountUser() {
+        List<Member> memberList = memberRepository.findByWaringCountUser();
+        if (memberList == null || memberList.stream().allMatch(Objects::isNull)) {
+            return;
+        }
+        List<Long> members = memberList
+                .stream()
+                .map(Member::getMember_id)
+                .collect(Collectors.toList());
+        members.forEach(memberRepository::ChangeBlackList);
+
     public List<MemberFindAllRespDto> getMembers(MemberRole memberRole) {
         List<Member>members;
         if (memberRole==null){
@@ -45,7 +57,6 @@ public class MemberReadServiceImp implements MemberReadService{
                         .build())
                 .collect(Collectors.toList());
     }
-
     @Override
     public List<ManagerFindAllRespDto> getManagers() {
         return memberRepository.findManagers()

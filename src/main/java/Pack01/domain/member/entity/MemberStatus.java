@@ -1,6 +1,9 @@
 package Pack01.domain.member.entity;
 
 public enum MemberStatus {
+
+    public static MemberStatus getMemberRole(String s){
+
     RESERVATION("reservation"), RENTAL("rental"), ABLE("able");
 
     private String status;
@@ -10,6 +13,7 @@ public enum MemberStatus {
     }
 
     public static MemberStatus getMemberStatus(String s){
+
         return MemberStatus.valueOf(s);
     }
 

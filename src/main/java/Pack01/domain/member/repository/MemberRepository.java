@@ -40,16 +40,17 @@ public class MemberRepository {
         return jdbcTemplate.query(sql, new MemberRowMapper());
     }
 
-    public Member findById(Long memberId) {
-        String sql = "SELECT * FROM " + TABLE + " WHERE member_id = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{memberId}, new MemberRowMapper());
-    }
+
 
     public List<Member> findAll() {
         String sql = "SELECT * FROM " + TABLE;
         return jdbcTemplate.query(sql, new MemberRowMapper());
     }
 
+  public List<Member> findByWaringCountUser() {
+        String sql = "SELECT * FROM " + TABLE+" where warning_count>=3";
+        return jdbcTemplate.query(sql, new MemberRowMapper());
+  
     public List<Member> findMembers(MemberRole memberRole){
         String sql = "SELECT * FROM " + TABLE + " WHERE member_role = '"+memberRole+"'";
         return jdbcTemplate.query(sql, new MemberRowMapper());
@@ -69,14 +70,18 @@ public class MemberRepository {
                 member.getMember_name(),
                 member.getUpdate_at(),
                 member.getMember_id());
+
     }
 
-    public void deleteMember(Long memberId) {
-        String sql = "DELETE FROM " + TABLE + " WHERE member_id = ?";
+    public void increaseWarningCount(Long memberId) {
+        String sql = "UPDATE members SET warning_count = warning_count + 1 WHERE member_id = ?";
+        jdbcTemplate.update(sql, memberId);
+    }
+    public void ChangeBlackList(Long memberId) {
+        String sql = "UPDATE members SET member_status = 'BLACK_LIST'WHERE member_id = ?";
         jdbcTemplate.update(sql, memberId);
     }
 
-    // RowMapper class for mapping database result set to Member object
     private class MemberRowMapper implements RowMapper<Member> {
         @Override
         public Member mapRow(ResultSet rs, int rowNum) throws SQLException {

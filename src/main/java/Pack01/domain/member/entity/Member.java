@@ -20,7 +20,9 @@ public class Member {
     private MemberRole member_role;
     private String member_name;
     private MemberStatus member_status;
+
     private Long warning_count;
+
     private LocalDate create_at;
     private LocalDate update_at;
 

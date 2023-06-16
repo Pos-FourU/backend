@@ -1,6 +1,5 @@
 package Pack01.domain.member.application;
 
-
 import Pack01.domain.member.dto.AdminLoginReqDto;
 import Pack01.domain.member.dto.ManagerFindAllRespDto;
 import Pack01.domain.member.dto.MemberFindAllRespDto;
@@ -14,4 +13,6 @@ public interface MemberReadService {
     List<MemberFindAllRespDto> getMembers(MemberRole memberRole);
 
     List<ManagerFindAllRespDto> getManagers();
+   void findByWaringCountUser();
 }
+

@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface RentalReadService {
     List<RentalFindAllRespDto> getAllRentals();
+    List<Long> findAllByExpireMembers();
 }
