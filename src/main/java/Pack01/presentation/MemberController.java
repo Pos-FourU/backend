@@ -45,15 +45,15 @@ public class MemberController {
             throw new RuntimeException();
         }
     }
-    @GetMapping("/1")
-
-    public void test(){
-        throw new FourUAdminException("어드민") {
-        };
-    }
-    @GetMapping("/3")
-    public void test1(){
-        throw new FourUUserException("유저");
-    }
+//    @GetMapping("/1")
+//
+//    public void test(){
+//        throw new FourUAdminException("어드민") {
+//        };
+//    }
+//    @GetMapping("/3")
+//    public void test1(){
+//        throw new FourUUserException("유저");
+//    }
 
 }

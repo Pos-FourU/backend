@@ -36,7 +36,7 @@ public class MemberRepository {
     }
 
     public List<Member> loginAdmin(String email, String pw) {
-        String sql = "SELECT * FROM " + TABLE + " WHERE member_email ='" + email + "' AND  member_pw = '" + pw + "'AND member_role in ('ADMIN','CAFE_ADMIN')";
+        String sql = "SELECT * FROM " + TABLE + " WHERE member_email ='" + email + "' AND  member_pw = '" + pw + "'";
         return jdbcTemplate.query(sql, new MemberRowMapper());
     }
 
