@@ -1,7 +1,7 @@
 package Pack01.domain.member.repository;
 
-import Pack01.domain.member.dto.MemberRegisterReqDto;
 import Pack01.domain.member.entity.Member;
+import Pack01.domain.member.entity.MemberRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -21,14 +21,20 @@ public class MemberRepository {
 
     public void registerMember(Member member) {
 
-        String sql = "INSERT INTO " + TABLE + " (member_email, member_pw, member_phonenum, member_name, create_at, update_at) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO " + TABLE + " (member_email, member_pw, member_phone, member_name, member_role, create_at, update_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql,
                 member.getMember_name(),
                 member.getMember_pw(),
-                member.getMember_phonenum(),
+                member.getMember_phone(),
                 member.getMember_name(),
+                member.getMember_role(),
                 member.getCreate_at(),
                 member.getUpdate_at());
+    }
+
+    public List<Member> loginAdmin(String email, String pw) {
+        String sql = "SELECT * FROM " + TABLE + " WHERE member_email ='"+ email+"' AND  member_pw = '"+pw+"'AND member_role in ('ADMIN','CAFE_ADMIN')";
+        return jdbcTemplate.query(sql, new MemberRowMapper());
     }
 
     public Member findById(Long memberId) {
@@ -42,11 +48,11 @@ public class MemberRepository {
     }
 
     public void updateMember(Member member) {
-        String sql = "UPDATE " + TABLE + " SET member_email = ?, member_pw = ?, member_phonenum = ?, member_name = ?, update_at = ? WHERE member_id = ?";
+        String sql = "UPDATE " + TABLE + " SET member_email = ?, member_pw = ?, member_phone = ?, member_name = ?, update_at = ? WHERE member_id = ?";
         jdbcTemplate.update(sql,
                 member.getMember_email(),
                 member.getMember_pw(),
-                member.getMember_phonenum(),
+                member.getMember_phone(),
                 member.getMember_name(),
                 member.getUpdate_at(),
                 member.getMember_id());
@@ -58,15 +64,18 @@ public class MemberRepository {
     }
 
     // RowMapper class for mapping database result set to Member object
-    private static class MemberRowMapper implements RowMapper<Member> {
+    private class MemberRowMapper implements RowMapper<Member> {
         @Override
         public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
+            if(rowNum==0) return null;
+
             return Member.builder()
                     .member_id(rs.getLong("member_id"))
                     .member_email(rs.getString("member_email"))
                     .member_pw(rs.getString("member_pw"))
-                    .member_phonenum(rs.getString("member_phonenum"))
+                    .member_phone(rs.getString("member_phone"))
                     .member_name(rs.getString("member_name"))
+                    .member_role(MemberRole.getMemberRole(rs.getString("member_role")))
                     .create_at(rs.getDate("create_at").toLocalDate())
                     .update_at(rs.getDate("update_at").toLocalDate())
                     .build();
