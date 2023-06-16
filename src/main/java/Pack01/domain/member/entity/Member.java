@@ -19,8 +19,25 @@ public class Member {
     private String member_phone;
     private MemberRole member_role;
     private String member_name;
+    private MemberStatus member_status;
+    private Long warning_count;
     private LocalDate create_at;
     private LocalDate update_at;
+
+    @Builder
+    public Member(Long member_id, String member_email, String member_pw, String member_phone, MemberRole member_role, String member_name, MemberStatus member_status, Long warning_count, LocalDate create_at, LocalDate update_at) {
+        isValidEmail(member_email);
+        this.member_id = member_id;
+        this.member_email = member_email;
+        this.member_pw = member_pw;
+        this.member_phone = member_phone;
+        this.member_role = member_role;
+        this.member_name = member_name;
+        this.member_status = member_status;
+        this.warning_count = warning_count;
+        this.create_at = create_at;
+        this.update_at = update_at;
+    }
 
     private static final Pattern EMAIL_PATTERN =
             Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
@@ -31,35 +48,4 @@ public class Member {
             throw new RuntimeException();
         }
     }
-
-    @Builder
-    public Member(Long member_id, String member_email, String member_pw, String member_phone, MemberRole member_role, String member_name, LocalDate create_at, LocalDate update_at) {
-
-        isValidEmail(member_email);
-
-        this.member_id = member_id;
-        this.member_email = member_email;
-        this.member_pw = member_pw;
-        this.member_phone = member_phone;
-        this.member_role = member_role;
-        this.member_name = member_name;
-        this.create_at = create_at;
-        this.update_at = update_at;
-    }
-
-    
-    public void updateMember_email(String member_email) {
-        this.member_email = member_email;
-    }
-
-    public void updateMember_pw(String member_pw) {
-        this.member_pw = member_pw;
-    }
-
-
-    public void updateUserRole(MemberRole member_role) {
-        this.member_role = member_role;
-    }
-
-
 }

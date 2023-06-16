@@ -2,8 +2,11 @@ package Pack01.presentation;
 
 import Pack01.domain.item.application.ItemReadServiceImp;
 import Pack01.domain.member.application.MemberReadService;
+import Pack01.domain.member.application.MemberReadServiceImp;
 import Pack01.domain.member.application.MemberWriteService;
+import Pack01.domain.member.application.MemberWriteServiceImp;
 import Pack01.domain.member.dto.AdminLoginReqDto;
+import Pack01.domain.member.entity.MemberRole;
 import Pack01.domain.rental.application.RentalReadServiceImp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/api/v1/admin")
 public class AdminController {
 
-    private final MemberWriteService memberWriteService;
+    private final MemberWriteServiceImp memberWriteServiceImp;
     private final MemberReadService memberReadService;
     private final ItemReadServiceImp itemReadServiceImp;
     private final RentalReadServiceImp rentalReadServiceImp;
@@ -46,9 +49,26 @@ public class AdminController {
         return "manageItem";
     }
 
+//    @PostMapping("/manageItem")
+//    public String updateItemStatus(Model model){
+//    }
+
     @GetMapping("/manageRental")
     public String showRental(Model model){
         model.addAttribute("rentals", rentalReadServiceImp.getAllRentals());
         return "manageRental";
     }
+
+    @GetMapping("/manageMember")
+    public String showMember(Model model){
+        model.addAttribute("members", memberReadService.getMembers(null));
+        return "manageMember";
+    }
+
+    @GetMapping("/manageManager")
+    public String showManager(Model model){
+        model.addAttribute("managers", memberReadService.getManagers());
+        return "manageManager";
+    }
+
 }
