@@ -83,13 +83,9 @@
 <div id="rentalForm">
   <h3>텀블러 대여 예약신청 </h3>
   <form id="rentalRequestForm" method="post" action="reservationResult">
+    <%= %>
+    <h3> 남은 텀블러 양은 </h3>
     <input type="hidden" id="<%=cafeId%>" name="<%=cafeId%>">
-    <label for="name">이름:</label>
-    <input type="text" id="name" name="name" required>
-    <br>
-    <label for="phone">전화번호:</label>
-    <input type="text" id="phone" name="phone" required>
-    <br>
     <button type="submit">신청</button>
   </form>
 </div>
