@@ -37,7 +37,7 @@ public class MemberReadServiceImp implements MemberReadService{
                 .map(Member::getMember_id)
                 .collect(Collectors.toList());
         members.forEach(memberRepository::ChangeBlackList);
-
+    }
     public List<MemberFindAllRespDto> getMembers(MemberRole memberRole) {
         List<Member>members;
         if (memberRole==null){
