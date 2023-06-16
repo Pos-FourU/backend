@@ -2,20 +2,13 @@ package Pack01.presentation;
 
 import Pack01.domain.item.application.ItemReadServiceImp;
 import Pack01.domain.member.application.MemberReadService;
-import Pack01.domain.member.application.MemberReadServiceImp;
-import Pack01.domain.member.application.MemberWriteService;
 import Pack01.domain.member.application.MemberWriteServiceImp;
-import Pack01.domain.member.dto.AdminLoginReqDto;
-import Pack01.domain.member.entity.MemberRole;
 import Pack01.domain.rental.application.RentalReadServiceImp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,11 +21,6 @@ public class AdminController {
     private final RentalReadServiceImp rentalReadServiceImp;
 
 
-
-    @GetMapping()
-    public String AccessAdminPage(){
-        return "adminIndex";
-    }
 
 //    @PostMapping("/registerAdmin")
 //    public String Register(MemberRegisterReqDto memberRegisterReqDto){
