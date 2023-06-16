@@ -2,11 +2,10 @@ package Pack01.presentation;
 
 import Pack01.domain.member.application.MemberReadService;
 import Pack01.domain.member.application.MemberWriteService;
-import Pack01.domain.member.dto.AdminLoginReqDto;
+import Pack01.domain.member.dto.LoginReqDto;
 import Pack01.domain.member.dto.MemberRegisterReqDto;
 import Pack01.domain.member.entity.MemberRole;
 import Pack01.global.exception.FourUAdminException;
-import Pack01.global.exception.FourUException;
 import Pack01.global.exception.FourUUserException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -33,8 +32,8 @@ public class MemberController {
         return "index";
     }
     @PostMapping("/login")
-    public String LoginAdmin(AdminLoginReqDto adminLoginReqDto, HttpSession session){
-        MemberRole role = memberReadService.loginAdmin(adminLoginReqDto);
+    public String LoginAdmin(LoginReqDto loginReqDto, HttpSession session){
+        MemberRole role = memberReadService.loginAdmin(loginReqDto);
         session.setAttribute("role",role);
         if (role== ADMIN){
             return "redirect:/api/v1/admin/manageMember";}

@@ -1,6 +1,6 @@
 package Pack01.domain.member.application;
 
-import Pack01.domain.member.dto.AdminLoginReqDto;
+import Pack01.domain.member.dto.LoginReqDto;
 import Pack01.domain.member.dto.ManagerFindAllRespDto;
 import Pack01.domain.member.dto.MemberFindAllRespDto;
 
@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
 public class MemberReadServiceImp implements MemberReadService{
     private final MemberRepository memberRepository;
 
-    public MemberRole loginAdmin(AdminLoginReqDto adminLoginReqDto){
-        List<Member> member = memberRepository.loginAdmin(adminLoginReqDto.getAdminId(), adminLoginReqDto.getAdminPw());
+    public MemberRole loginAdmin(LoginReqDto loginReqDto){
+        List<Member> member = memberRepository.loginAdmin(loginReqDto.getId(), loginReqDto.getPw());
         validateUser(member);
 
         MemberRole memberRole = member.get(0).getMember_role();

@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-<a href="/api/v1/admin">로그아웃</a>
+<a href="/">로그아웃</a>
 </body>
 </html>
