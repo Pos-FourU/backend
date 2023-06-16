@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class MemberReadServiceImp {
+public class MemberReadServiceImp implements MemberReadService{
 
 
 }

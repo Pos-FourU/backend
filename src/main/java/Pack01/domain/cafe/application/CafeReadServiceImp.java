@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 public class CafeReadServiceImp implements CafeReadService {
 
     private final CafeRepository cafeRepository;
+
+    @Override
     public List<CafeFindRespDto> findAll() {
         List<Cafe> all = cafeRepository.findAll();
         return all
