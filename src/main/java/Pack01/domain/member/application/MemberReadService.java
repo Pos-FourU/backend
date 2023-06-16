@@ -11,7 +11,7 @@ import java.util.List;
 import Pack01.domain.member.dto.AdminLoginReqDto;
 
 public interface MemberReadService {
-    void loginAdmin(AdminLoginReqDto adminLoginReqDto);
+    MemberRole loginAdmin(AdminLoginReqDto adminLoginReqDto);
     List<MemberFindAllRespDto> getMembers(MemberRole memberRole);
 
 

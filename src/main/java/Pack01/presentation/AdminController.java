@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/admin")
@@ -25,11 +27,7 @@ public class AdminController {
     private final ItemReadServiceImp itemReadServiceImp;
     private final RentalReadServiceImp rentalReadServiceImp;
 
-    @PostMapping("/login")
-    public String LoginAdmin(AdminLoginReqDto adminLoginReqDto){
-//        memberReadService.loginAdmin(adminLoginReqDto);
-        return "redirect:/api/v1/admin/manageRental";
-    }
+
 
     @GetMapping()
     public String AccessAdminPage(){
