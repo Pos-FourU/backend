@@ -17,13 +17,9 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class RentalRepository {
-
     private static final String TABLE = "rentals";
-
     private final JdbcTemplate jdbcTemplate;
-
     public void registerRental(Rental rental) {
-
         String sql = "INSERT INTO " + TABLE + " (member_id, item_id, rental_time, return_time) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql,
                 rental.getMember_id(),
@@ -32,9 +28,22 @@ public class RentalRepository {
                 rental.getReturn_time());
     }
 
-    public List<Rental> findAllRentals(){
+    public List<Long> findAllByExpireMembers() {
+        String sql = "SELECT member_id " +
+                "FROM rentals " +
+                "WHERE rental_days < CURDATE() AND return_time IS NULL " +
+                "  AND ((CURDATE() - rental_days) % 7) = 0;\n";
+        return jdbcTemplate.query(sql, new RentalMembersRowMapper());
+    }
+
+    public List<Rental> findAllRentals() {
         String sql = "SELECT * FROM rentals";
-        return jdbcTemplate.query(sql, new Pack01.domain.rental.repository.RentalRepository.RentalRowMapper());
+        return jdbcTemplate.query(sql, new RentalRowMapper());
+    }
+    public void deleteExpiredRentals(){
+        String sql ="DELETE FROM rentals\n" +
+                "WHERE rental_days < DATE_SUB(CURDATE(), INTERVAL 1 YEAR);\n";
+        jdbcTemplate.update(sql);
     }
 
     private class RentalRowMapper implements RowMapper<Rental> {
@@ -47,6 +56,13 @@ public class RentalRepository {
                     .rental_time(rs.getTime("rental_time"))
                     .return_time(rs.getTime("return_time"))
                     .build();
+        }
+    }
+
+    private class RentalMembersRowMapper implements RowMapper<Long> {
+        @Override
+        public Long mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+            return resultSet.getLong("member_id");
         }
     }
 }
