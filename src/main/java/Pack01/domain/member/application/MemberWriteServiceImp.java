@@ -10,9 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class MemberWriteServiceImp {
+public class MemberWriteServiceImp implements MemberWriteService{
     private final MemberRepository memberRepository;
 
+    @Override
     public void register(MemberRegisterReqDto memberRegisterReqDto){
         Member member = Member.of(memberRegisterReqDto.getMemberEmail(),
                 memberRegisterReqDto.getMemberPw(),
