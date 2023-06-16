@@ -7,20 +7,7 @@
 </head>
 
 <body>
-    <%=new Date()%>
-    <h2>Hello World</h2>
-    <a href="t1">링크1</a><br/>
-    <a href="t2">링크2</a><br/>
-    <a href="t3?name=apple">링크3</a><br/>
-    <a href="t4?name=apple&age=30">링크4</a><br/>
-    <a href="t5?name=apple&age=40">링크5</a><br/>
-    <a href="t6">링크6</a><br/>
-    <a href="t7?name=apple?age=60">링크7</a><br/>
-    <a href="t8">링크8</a><br/>
-    <a href="t9?select=true">링크9(true)</a><br/>
-    <a href="t9?select=false">링크9(false)</a><br/>
-    <a href="t10">링크10</a><br/>
-
+    <jsp:include page="WEB-INF/Views/Header.jsp"/>
 <form method="post" action="t11">
     <input type="text" name="id" value="tiger"><br/>
     <input type="number" name="pw" value=23><br/>
@@ -38,5 +25,6 @@
     </FORM>
 
     <a href="map"> ToMap </a><br/>
+
 
 </body>
