@@ -43,7 +43,7 @@ public class MemberReadServiceImp implements MemberReadService{
     public List<MemberFindAllRespDto> getMembers(MemberRole memberRole) {
         List<Member>members;
         if (memberRole==null){
-            members = memberRepository.findAll();
+            members = memberRepository.findByRole();
         }else {
             members = memberRepository.findMembers(memberRole);
         }

@@ -33,6 +33,20 @@ public class MemberWriteServiceImp implements MemberWriteService {
     }
 
     @Override
+    public void registerManager(MemberRegisterReqDto memberRegisterReqDto) {
+        Member member = Member.builder()
+                .member_email(memberRegisterReqDto.getMemberEmail())
+                .member_pw(memberRegisterReqDto.getMemberPw())
+                .member_role(MemberRole.MANAGER)
+                .member_phone(memberRegisterReqDto.getMemberPhone())
+                .member_name(memberRegisterReqDto.getMemberName())
+                .create_at(LocalDate.now())
+                .update_at(LocalDate.now())
+                .build();
+        memberRepository.registerMember(member);
+    }
+
+    @Override
     public void increaseWarningCount(List<Long> memberIds) {
         for(Long memberId:memberIds){
             memberRepository.increaseWarningCount(memberId);

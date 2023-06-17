@@ -25,8 +25,8 @@ public class CafeController {
     private final ReservationWriteService reservationWriteService;
 
     @GetMapping("/map")
-    public String Findfunc(Model model) {
-        List<CafeLeftCountRespDto> leftItemCount = cafeReadService.getLeftItemCount();
+        public String Findfunc(Model model) {
+            List<CafeLeftCountRespDto> leftItemCount = cafeReadService.getLeftItemCount();
         model.addAttribute("leftItemCount", leftItemCount);
         return "mapView";
     }
