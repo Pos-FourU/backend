@@ -1,6 +1,7 @@
 package Pack01.domain.member.application;
 
 import Pack01.domain.member.dto.MemberRegisterReqDto;
+import Pack01.domain.member.dto.MemberUpdateReqDto;
 import Pack01.domain.member.entity.Member;
 import Pack01.domain.member.entity.MemberRole;
 import Pack01.domain.member.repository.MemberRepository;
@@ -37,4 +38,10 @@ public class MemberWriteServiceImp implements MemberWriteService {
             memberRepository.increaseWarningCount(memberId);
         }
     }
+
+    @Override
+    public void updateMember(MemberUpdateReqDto memberUpdateReqDto) {
+        memberRepository.updateMember(memberUpdateReqDto);
+    }
+
 }

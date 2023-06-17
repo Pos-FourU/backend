@@ -55,7 +55,8 @@ public class MemberReadServiceImp implements MemberReadService{
                         .member_name(member.getMember_name())
                         .member_phone(member.getMember_phone())
                         .warning_count(member.getWarning_count())
-                        .member_status(member.getMember_status())
+                        .member_status( member.getMember_status())
+                        .member_role( member.getMember_role())
                         .build())
                 .collect(Collectors.toList());
     }
