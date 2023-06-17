@@ -24,4 +24,8 @@ public class ReservationWriteServiceImpl implements ReservationWriteService {
         reservationRepository.registerReservation(reservation);
 
     }
+    public boolean checkIfAlreadyReserved(Long memberId) {
+
+        return reservationRepository.checkIfAlready(memberId);
+    }
 }

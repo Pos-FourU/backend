@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +21,7 @@
             color: #333;
             margin: 0;
         }
+
         /* 푸터 스타일 */
         .footer {
             background-color: #FEE9E1;
@@ -45,11 +47,6 @@
     <h1>텀블러 대여 시스템</h1>
 </div>
 
-<div>
-</div>
 
-<div class="footer">
-    <img src="https://search.pstatic.net/sunny/?src=https%3A%2F%2Fcdn1.iconfinder.com%2Fdata%2Ficons%2Fearth-day-33%2F512%2FSTIKER_FLAT-02-512.png&type=sc960_832" alt="하트 아이콘">
-</div>
-</body>s
+</body>
 </html>
