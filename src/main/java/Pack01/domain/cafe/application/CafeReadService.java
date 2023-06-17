@@ -9,4 +9,5 @@ public interface CafeReadService {
     List<CafeFindRespDto> findAll();
 
     List<CafeLeftCountRespDto> getLeftItemCount() ;
+    Integer existCafeByMemberId(Long member_id);
 }

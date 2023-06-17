@@ -37,4 +37,9 @@ public class CafeReadServiceImp implements CafeReadService {
         return cafeRepository.getCafeLeftItemCount();
     }
 
+    @Override
+    public Integer existCafeByMemberId(Long member_id) {
+        return cafeRepository.existCafeByMemberId(member_id);
+    }
+
 }

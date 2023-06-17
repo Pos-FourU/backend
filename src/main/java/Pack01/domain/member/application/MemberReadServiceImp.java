@@ -1,12 +1,11 @@
 package Pack01.domain.member.application;
 
-import Pack01.domain.member.dto.AdminLoginReqDto;
+import Pack01.domain.member.dto.LoginReqDto;
 import Pack01.domain.member.dto.ManagerFindAllRespDto;
 import Pack01.domain.member.dto.MemberFindAllRespDto;
 
 import Pack01.domain.member.entity.Member;
 import Pack01.domain.member.entity.MemberRole;
-import Pack01.domain.member.entity.MemberStatus;
 import Pack01.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,9 +20,12 @@ import java.util.stream.Collectors;
 public class MemberReadServiceImp implements MemberReadService{
     private final MemberRepository memberRepository;
 
-    public void loginAdmin(AdminLoginReqDto adminLoginReqDto){
-        List<Member> member = memberRepository.loginAdmin(adminLoginReqDto.getAdminId(), adminLoginReqDto.getAdminPw());
+    public Member loginAdmin(LoginReqDto loginReqDto){
+        List<Member> member = memberRepository.loginAdmin(loginReqDto.getId(), loginReqDto.getPw());
         validateUser(member);
+
+        return member.get(0);
+
     }
 
     @Override
@@ -53,7 +55,8 @@ public class MemberReadServiceImp implements MemberReadService{
                         .member_name(member.getMember_name())
                         .member_phone(member.getMember_phone())
                         .warning_count(member.getWarning_count())
-                        .member_status(member.getMember_status())
+                        .member_status( member.getMember_status())
+                        .member_role( member.getMember_role())
                         .build())
                 .collect(Collectors.toList());
     }
