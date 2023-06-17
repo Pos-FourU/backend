@@ -1,9 +1,11 @@
 package Pack01.presentation;
 
+import Pack01.domain.cafe.application.CafeReadService;
 import Pack01.domain.member.application.MemberReadService;
 import Pack01.domain.member.application.MemberWriteService;
 import Pack01.domain.member.dto.LoginReqDto;
 import Pack01.domain.member.dto.MemberRegisterReqDto;
+import Pack01.domain.member.entity.Member;
 import Pack01.domain.member.entity.MemberRole;
 import Pack01.global.exception.FourUAdminException;
 import Pack01.global.exception.FourUUserException;
@@ -26,6 +28,7 @@ public class MemberController {
 
     private final MemberWriteService memberWriteService;
     private final MemberReadService memberReadService;
+    private final CafeReadService cafeReadService;
     @PostMapping()
     public String register(@RequestBody MemberRegisterReqDto memberRegisterReqDto){
         memberWriteService.register(memberRegisterReqDto);
@@ -33,11 +36,15 @@ public class MemberController {
     }
     @PostMapping("/login")
     public String LoginAdmin(LoginReqDto loginReqDto, HttpSession session){
-        MemberRole role = memberReadService.loginAdmin(loginReqDto);
-        session.setAttribute("role",role);
+        Member member = memberReadService.loginAdmin(loginReqDto);
+        MemberRole role = member.getMember_role();
+        session.setAttribute("role", role);
         if (role== ADMIN){
             return "redirect:/api/v1/admin/manageMember";}
         else if(role==MANAGER){
+            Integer integer = cafeReadService.existCafeByMemberId(member.getMember_id());
+
+
             return "redirect:/api/v1/admin/manageRental";
         }else if(role==USER){
             return "redirect:/api/v1/cafe/map";

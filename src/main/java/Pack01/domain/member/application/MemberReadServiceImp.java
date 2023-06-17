@@ -20,12 +20,12 @@ import java.util.stream.Collectors;
 public class MemberReadServiceImp implements MemberReadService{
     private final MemberRepository memberRepository;
 
-    public MemberRole loginAdmin(LoginReqDto loginReqDto){
+    public Member loginAdmin(LoginReqDto loginReqDto){
         List<Member> member = memberRepository.loginAdmin(loginReqDto.getId(), loginReqDto.getPw());
         validateUser(member);
 
-        MemberRole memberRole = member.get(0).getMember_role();
-        return memberRole;
+        return member.get(0);
+
     }
 
     @Override
