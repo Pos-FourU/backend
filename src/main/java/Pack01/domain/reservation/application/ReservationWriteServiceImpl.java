@@ -1,6 +1,6 @@
 package Pack01.domain.reservation.application;
 
-import Pack01.domain.reservation.dto.ReservationRegistDto;
+import Pack01.domain.reservation.dto.ReservationRegisterDto;
 import Pack01.domain.reservation.entity.Reservation;
 import Pack01.domain.reservation.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,10 +15,10 @@ import java.time.LocalDate;
 public class ReservationWriteServiceImpl implements ReservationWriteService {
     private final ReservationRepository reservationRepository;
     @Override
-    public void register(ReservationRegistDto reservationRegistDto) {
+    public void register(ReservationRegisterDto reservationRegisterDto) {
         Reservation reservation = Reservation.builder()
-                .member_id(reservationRegistDto.getMember_id())
-                .cafe_id(reservationRegistDto.getCafe_id())
+                .member_id(reservationRegisterDto.getMember_id())
+                .cafe_id(reservationRegisterDto.getCafe_id())
                 .reservation_time(LocalDate.now())
                 .build();
         reservationRepository.registerReservation(reservation);

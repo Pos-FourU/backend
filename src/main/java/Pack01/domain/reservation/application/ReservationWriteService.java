@@ -1,7 +1,7 @@
 package Pack01.domain.reservation.application;
 
-import Pack01.domain.reservation.dto.ReservationRegistDto;
+import Pack01.domain.reservation.dto.ReservationRegisterDto;
 
 public interface ReservationWriteService {
-    void register(ReservationRegistDto reservationRegistDto);
+    void register(ReservationRegisterDto reservationRegisterDto);
 }

@@ -9,9 +9,11 @@ import Pack01.domain.member.entity.Member;
 import Pack01.domain.member.entity.MemberRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 
@@ -33,9 +35,22 @@ public class MemberController {
         return "index";
     }
     @PostMapping("/manager")
-    public String registerManager(@RequestBody MemberRegisterReqDto memberRegisterReqDto) {
+    public String registerManager(@RequestParam String memberEmail,
+                                  @RequestParam String memberPw,
+                                  @RequestParam String memberPhone,
+                                  @RequestParam String memberName,
+                                  Model model) {
+        MemberRegisterReqDto memberRegisterReqDto = MemberRegisterReqDto.builder()
+                .memberEmail(memberEmail)
+                .memberPhone(memberPhone)
+                .memberName(memberName)
+                .memberPw(memberPw)
+                .build();
         memberWriteService.registerManager(memberRegisterReqDto);
-        return "reservation";
+        Member member = memberReadService.loginAdmin(LoginReqDto.builder().id(memberEmail).pw(memberPw)
+                .build());
+        model.addAttribute("member_id",member.getMember_id());
+        return "addCafe";
     }
 
     @PostMapping("/login")
@@ -53,6 +68,7 @@ public class MemberController {
             throw new RuntimeException();
         }
     }
+
 //    @GetMapping("/1")
 //
 //    public void test(){

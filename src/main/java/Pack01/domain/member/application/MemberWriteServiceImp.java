@@ -4,6 +4,7 @@ import Pack01.domain.member.dto.MemberRegisterReqDto;
 import Pack01.domain.member.dto.MemberUpdateReqDto;
 import Pack01.domain.member.entity.Member;
 import Pack01.domain.member.entity.MemberRole;
+import Pack01.domain.member.entity.MemberStatus;
 import Pack01.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,8 @@ public class MemberWriteServiceImp implements MemberWriteService {
                 .member_role(MemberRole.MANAGER)
                 .member_phone(memberRegisterReqDto.getMemberPhone())
                 .member_name(memberRegisterReqDto.getMemberName())
+                .member_status(MemberStatus.ABLE)
+                .warning_count(0L)
                 .create_at(LocalDate.now())
                 .update_at(LocalDate.now())
                 .build();
