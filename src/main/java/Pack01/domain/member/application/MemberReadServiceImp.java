@@ -40,6 +40,13 @@ public class MemberReadServiceImp implements MemberReadService{
                 .collect(Collectors.toList());
         members.forEach(memberRepository::ChangeBlackList);
     }
+
+    @Override
+    public List<Member> findById(Long member_id){
+        return memberRepository.findById(member_id);
+
+    }
+
     public List<MemberFindAllRespDto> getMembers(MemberRole memberRole) {
         List<Member>members;
         if (memberRole==null){
@@ -81,6 +88,7 @@ public class MemberReadServiceImp implements MemberReadService{
             throw new RuntimeException();
         }
     }
+
 
 
 }

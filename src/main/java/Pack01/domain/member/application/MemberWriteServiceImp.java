@@ -58,4 +58,5 @@ public class MemberWriteServiceImp implements MemberWriteService {
         memberRepository.updateMember(memberUpdateReqDto);
     }
 
+
 }
