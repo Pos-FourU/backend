@@ -1,19 +1,19 @@
-<%@ page import="Pack01.domain.cafe.application.CafeReadService" %>
-<%@ page import="Pack01.domain.cafe.entity.Cafe" %>
 <%@ page import="java.util.List" %>
-<%@ page import="Pack01.domain.cafe.dto.CafeFindRespDto" %>
 <%@ page import="Pack01.domain.cafe.dto.CafeLeftCountRespDto" %>
-<%@ page import="Pack01.domain.reservation.application.ReservationReadService" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-         pageEncoding="EUC-KR" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+
+<%@ include file="/nav_bar.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <title>Áöµµ</title>
+    <title>ì§€ë„</title>
     <script type="text/javascript"
             src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=3u5p451mjv"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"
@@ -21,8 +21,8 @@
     <style>
         #map {
             align-content: center;
-            width: 80%;
-            height: 500px;
+            width: 90%;
+            height: 700px;
         }
     </style>
 </head>
@@ -56,6 +56,15 @@
             Long memberId =1L;
             Long cafeId = cafe.getCafe_id();
             String  cafe_name = cafe.getCafe_name();
+            int remaining_tumblers = Math.toIntExact(cafe.getTotals());
+
+            String reservationButton;
+            if (remaining_tumblers > 0) {
+                reservationButton = "<a href=\"/api/v1/cafe/rent?cafe_id=" + cafeId + "&member_id=" + memberId + "\"> ì˜ˆì•½í•˜ê¸° </a>";
+            } else {
+                reservationButton = "í…€ë¸”ëŸ¬ ëª¨ë‘ ì†Œì§„";
+            }
+
         %>
 
         var marker<%= i %> = new naver.maps.Marker({
@@ -70,11 +79,11 @@
         });
 
         var infoWindow<%= i %> = new naver.maps.InfoWindow({
-            content: '<div style="width:100px;text-align:center;padding:5px;">' +
+            content: '<div style="width:100px;text-align:center;padding:5px;font-size:12px;">' +
                 '<b><%= cafe.getCafe_name() %></b>' +
-                '<br/> - ³²Àº ÅÒºí·¯ ¼ö -' +
-                '<br/> <%=cafe.getTotals() %> °³' +
-                '<br/> <a href="/api/v1/cafe/rent?cafe_id=<%= cafeId %>&member_id=<%= memberId %>"> ¿¹¾àÇÏ±â </a>' +
+                '<br/> - ë‚¨ì€ í…€ë¸”ëŸ¬ ìˆ˜ : ' +
+                '<br/> <%= remaining_tumblers%> ê°œ ' +
+                '<br/> <%=reservationButton%>'+
                 '</div>'
         });
 
@@ -86,7 +95,6 @@
         <%
           }
         %>
-
 
         function getClickHandler(index) {
             return function (e) {
