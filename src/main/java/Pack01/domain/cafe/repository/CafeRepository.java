@@ -50,6 +50,10 @@ public class CafeRepository {
                     .build();
         }
     }
+    public Integer existCafeByMemberId(Long member_id){
+        String sql = "SELECT COUNT(*) FROM "+TABLE+"  WHERE member_id = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, member_id);
+    }
 
     public List<CafeLeftCountRespDto> getCafeLeftItemCount() {
         String sql = "SELECT a.cafe_id, (COALESCE(a.total, 0) - COALESCE(b.res, 0) - COALESCE(c.ren, 0)) AS totals,d.cafe_name,d.cafe_latitude, d.cafe_longitude\n" +
