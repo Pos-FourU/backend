@@ -1,5 +1,6 @@
 package Pack01.domain.member.repository;
 
+import Pack01.domain.member.dto.MemberUpdateReqDto;
 import Pack01.domain.member.entity.Manager;
 import Pack01.domain.member.entity.Member;
 import Pack01.domain.member.entity.MemberRole;
@@ -61,16 +62,13 @@ public class MemberRepository {
         return jdbcTemplate.query(sql, new ManagerRowMapper());
     }
 
-    public void updateMember(Member member) {
-        String sql = "UPDATE " + TABLE + " SET member_email = ?, member_pw = ?, member_phone = ?, member_name = ?, update_at = ? WHERE member_id = ?";
+    public void updateMember(MemberUpdateReqDto memberUpdateReqDto) {
+        String sql = "UPDATE " + TABLE + " SET member_role = ? WHERE member_id = ?";
+        String s = memberUpdateReqDto.getMember_role().toString();
+        System.out.println(s);
         jdbcTemplate.update(sql,
-                member.getMember_email(),
-                member.getMember_pw(),
-                member.getMember_phone(),
-                member.getMember_name(),
-                member.getUpdate_at(),
-                member.getMember_id());
-
+               s,
+                memberUpdateReqDto.getMember_id());
     }
 
     public void increaseWarningCount(Long memberId) {

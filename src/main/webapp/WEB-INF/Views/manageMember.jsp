@@ -9,26 +9,30 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <style>
-    #header{
-        width:100%;
-        height:10%;
+    #header {
+        width: 100%;
+        height: 10%;
         background-color: aqua;
     }
-    body{
-        display:flex;
+
+    body {
+        display: flex;
         flex-direction: column;
     }
-    #contents{
-        width:100%;
-        height:80%;
-        display:flex;
+
+    #contents {
+        width: 100%;
+        height: 80%;
+        display: flex;
     }
-    #left{
-        width:10%;
+
+    #left {
+        width: 10%;
     }
-    #footer{
-        width:100%;
-        height:10%;
+
+    #footer {
+        width: 100%;
+        height: 10%;
         background-color: aqua;
     }
 </style>
@@ -41,7 +45,8 @@
         <jsp:include page="adminLeft.jsp"></jsp:include>
     </div>
     <%
-        List<MemberFindAllRespDto> members = (List<MemberFindAllRespDto>)request.getAttribute("members");
+        long admin_id=1L;
+        List<MemberFindAllRespDto> members = (List<MemberFindAllRespDto>) request.getAttribute("members");
     %>
     <table>
         <thead>
@@ -50,22 +55,37 @@
             <th>사용자 이메일</th>
             <th>사용자 이름</th>
             <th>사용자 핸드폰 번호</th>
-            <th>블랙리스트 해제</th>
+            <th>사용자 경고 횟수</th>
+            <th>사용자 상태</th>
+            <th>사용자 상태 변경</th>
         </tr>
         </thead>
         <tbody>
-        <tr><%
-            for(MemberFindAllRespDto i : members) {
-                out.println("<td>"+i.getMember_id()+"</td>");
-                out.println("<td>"+i.getMember_email()+"</td>");
-                out.println("<td>"+i.getMember_name()+"</td>");
-                out.println("<td>"+i.getMember_phone()+"</td>");
-            }
-        %>
-            <td>
-                <button onclick="">해제</button>
-            </td>
+        <% for(MemberFindAllRespDto i : members) { %>
+        <tr>
+            <td><%= i.getMember_id() %></td>
+            <td><%= i.getMember_email() %></td>
+            <td><%= i.getMember_name() %></td>
+            <td><%= i.getMember_phone() %></td>
+            <td><%= i.getWarning_count() %></td>
+            <td><%= i.getMember_role() %></td>
+            <form action="updateRole" method="get">
+                <td>
+                    <input type="hidden" name="admin" value="<%= admin_id %>">
+                    <input type="hidden" name="member_id" value="<%= i.getMember_id() %>">
+                    <select name="role">
+                        <option value="MANAGER" <% if (i.getMember_role().equals("MANAGER")) { %>selected<% } %>>MANAGER</option>
+                        <option value="USER" <% if (i.getMember_role().equals("USER")) { %>selected<% } %>>USER</option>
+                        <option value="BLACK_LIST" <% if (i.getMember_role().equals("BLACK_LIST")) { %>selected<% } %>>BLACK_LIST</option>
+                    </select>
+                </td>
+                <td>
+                    <button type="submit">신청</button>
+                </td>
+            </form>
+
         </tr>
+        <% } %>
         </tbody>
     </table>
 </div>
