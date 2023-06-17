@@ -33,12 +33,17 @@ public class CafeController {
 
     @GetMapping ("/rent")
     public String Rent(@RequestParam Long cafe_id, @RequestParam Long member_id,Model model) {
-        ReservationRegistDto reservationRegistDto= ReservationRegistDto.builder()
-                .cafe_id(cafe_id)
-                .member_id(member_id)
-                .build();
-        reservationWriteService.register(reservationRegistDto);
-
+        boolean isAlreadyReserved = reservationWriteService.checkIfAlreadyReserved(member_id);
+        if (isAlreadyReserved){
+            model.addAttribute("message", "이미 예약중 입니다.");
+        }  else {
+            ReservationRegistDto reservationRegistDto = ReservationRegistDto.builder()
+                    .cafe_id(cafe_id)
+                    .member_id(member_id)
+                    .build();
+            reservationWriteService.register(reservationRegistDto);
+            model.addAttribute("message","예약이 등록되었습니다.");
+        }
         return "success";
     }
 
