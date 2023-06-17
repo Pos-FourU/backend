@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
-  <title> 텀블러 대여 예약 </title>
+  <title> 카페 관리자 추가 </title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -79,18 +79,19 @@
 <%
 %>
 
-<div id="rentalForm">
-  <h3>카페 정보 추가 </h3>
-  <form id="rentalRequestForm" method="post" action="reservationResult">
+<div id="cafeAdminForm">
+  <h3>카페 관리자 추가 </h3>
+  <form id="rentalRequestForm" method="post" action="regist">
     <h3> 남은 텀블러 양은 </h3>
-    <input type="text" name="cafe_name" id = "cafe_name" placeholder="카페이름을 작성해주세요" required>
-    <input type="text" name="cafe_address" id = "cafe_address" placeholder="카페주소를 작성해주세요" required>
+    <input type="text" name="member_name" id = "member_name" placeholder="사용자의 이름을 작성해주세요" required>
+    <input type="text" name="member_phone" id = "member_phone" placeholder="사용자의 전화번호를 작성해주세요" required>
+    <input type="text" name="member_email" id = "member_email" placeholder="사용자의 이메일을 작성해주세요" required>
+    <input type="password" name="member_pw" id = "member_pw" placeholder="사용자의 비밀번호를 작성해주세요" required>
     <button type="submit">신청</button>
   </form>
 </div>
 
 <div id="result"></div>
-
 <%
   //  session.getAttribute("member_id");
   Long member_id = 1l;
@@ -120,4 +121,4 @@
 </script>
 
 </body>
-</html>
+</html>e

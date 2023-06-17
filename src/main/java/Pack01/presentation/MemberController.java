@@ -7,11 +7,8 @@ import Pack01.domain.member.dto.LoginReqDto;
 import Pack01.domain.member.dto.MemberRegisterReqDto;
 import Pack01.domain.member.entity.Member;
 import Pack01.domain.member.entity.MemberRole;
-import Pack01.global.exception.FourUAdminException;
-import Pack01.global.exception.FourUUserException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,26 +26,30 @@ public class MemberController {
     private final MemberWriteService memberWriteService;
     private final MemberReadService memberReadService;
     private final CafeReadService cafeReadService;
+
     @PostMapping()
-    public String register(@RequestBody MemberRegisterReqDto memberRegisterReqDto){
+    public String register(@RequestBody MemberRegisterReqDto memberRegisterReqDto) {
         memberWriteService.register(memberRegisterReqDto);
         return "index";
     }
+    @PostMapping("/manager")
+    public String registerManager(@RequestBody MemberRegisterReqDto memberRegisterReqDto) {
+        memberWriteService.registerManager(memberRegisterReqDto);
+        return "reservation";
+    }
+
     @PostMapping("/login")
-    public String LoginAdmin(LoginReqDto loginReqDto, HttpSession session){
+    public String LoginAdmin(LoginReqDto loginReqDto, HttpSession session) {
         Member member = memberReadService.loginAdmin(loginReqDto);
         MemberRole role = member.getMember_role();
         session.setAttribute("role", role);
-        if (role== ADMIN){
-            return "redirect:/api/v1/admin/manageMember";}
-        else if(role==MANAGER){
-            Integer integer = cafeReadService.existCafeByMemberId(member.getMember_id());
-
-
-            return "redirect:/api/v1/admin/manageRental";
-        }else if(role==USER){
+        if (role == ADMIN) {
+            return "redirect:/api/v1/admin/manageMember";
+        } else if (role == MANAGER) {
+                return "redirect:/api/v1/admin/manageRental";
+        } else if (role == USER) {
             return "redirect:/api/v1/cafe/map";
-        }else{
+        } else {
             throw new RuntimeException();
         }
     }
