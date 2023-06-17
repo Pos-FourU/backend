@@ -77,12 +77,14 @@
 </head>
 <body>
 <%
+  Long member_id = (Long) request.getAttribute("member_id");
 %>
 
 <div id="rentalForm">
   <h3>카페 정보 추가 </h3>
-  <form id="rentalRequestForm" method="post" action="reservationResult">
-    <h3> 남은 텀블러 양은 </h3>
+  <form action="/api/v1/cafe/register" method="post" >
+    <h3> 카페 정보 추가 </h3>
+    <input type="hidden" name="member_id" value="<%= member_id %>">
     <input type="text" name="cafe_name" id = "cafe_name" placeholder="카페이름을 작성해주세요" required>
     <input type="text" name="cafe_address" id = "cafe_address" placeholder="카페주소를 작성해주세요" required>
     <button type="submit">신청</button>
@@ -92,32 +94,8 @@
 <div id="result"></div>
 
 <%
-  //  session.getAttribute("member_id");
-  Long member_id = 1l;
+
 %>
-
-<script>
-  document.getElementById('rentalRequestForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // 기본 폼 제출 동작 막기
-
-    // 폼 데이터 가져오기
-    let formData = new FormData(document.getElementById('rentalRequestForm'));
-    let cafeId = document.getElementById('cafeId').value;
-
-    // AJAX를 사용하여 서버에 폼 데이터 전송
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', 'reservationResult', true);
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        // 결과 페이지를 include할 영역에 결과 데이터 출력
-        document.getElementById('result').innerHTML = xhr.responseText;
-      } else {
-        console.error('Error:', xhr.status);
-      }
-    };
-    xhr.send(formData);
-  });
-</script>
 
 </body>
 </html>

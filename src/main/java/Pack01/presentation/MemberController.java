@@ -11,7 +11,9 @@ import Pack01.domain.member.entity.MemberRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.*;
+
 
 import javax.servlet.http.HttpSession;
 
@@ -35,9 +37,22 @@ public class MemberController {
         return "index";
     }
     @PostMapping("/manager")
-    public String registerManager(@RequestBody MemberRegisterReqDto memberRegisterReqDto) {
+    public String registerManager(@RequestParam String memberEmail,
+                                  @RequestParam String memberPw,
+                                  @RequestParam String memberPhone,
+                                  @RequestParam String memberName,
+                                  Model model) {
+        MemberRegisterReqDto memberRegisterReqDto = MemberRegisterReqDto.builder()
+                .memberEmail(memberEmail)
+                .memberPhone(memberPhone)
+                .memberName(memberName)
+                .memberPw(memberPw)
+                .build();
         memberWriteService.registerManager(memberRegisterReqDto);
-        return "reservation";
+        Member member = memberReadService.loginAdmin(LoginReqDto.builder().id(memberEmail).pw(memberPw)
+                .build());
+        model.addAttribute("member_id",member.getMember_id());
+        return "addCafe";
     }
 
     @PostMapping("/login")
@@ -65,15 +80,5 @@ public class MemberController {
         return "mypage";
     }
 
-//    @GetMapping("/1")
-//
-//    public void test(){
-//        throw new FourUAdminException("어드민") {
-//        };
-//    }
-//    @GetMapping("/3")
-//    public void test1(){
-//        throw new FourUUserException("유저");
-//    }
 
 }
