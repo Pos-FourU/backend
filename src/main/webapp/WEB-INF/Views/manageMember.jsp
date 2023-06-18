@@ -41,9 +41,6 @@
     <jsp:include page="adminHeader.jsp"></jsp:include>
 </div>
 <div id="contents">
-    <div id="left">
-        <jsp:include page="adminLeft.jsp"></jsp:include>
-    </div>
     <%
         long admin_id=1L;
         List<MemberFindAllRespDto> members = (List<MemberFindAllRespDto>) request.getAttribute("members");

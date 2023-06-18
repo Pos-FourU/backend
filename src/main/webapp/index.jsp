@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@ include file="header.jsp" %>
-<%@ include file="nav_bar.jsp" %>
+<%@ include file="index_navbar.jsp" %>
 
 <html>
 <head>
@@ -50,8 +50,10 @@
         }
 
         input[type="submit"] {
+            display: block;
+            margin: 0 auto;
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #3CB371;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -59,7 +61,7 @@
         }
 
         input[type="submit"]:hover {
-            background-color: #0056b3;
+            background-color: #2E8B57;
         }
     </style>
 </head>
