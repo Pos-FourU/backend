@@ -1,11 +1,7 @@
 <%@ page import="Pack01.domain.rental.dto.RentalFindAllRespDto" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: kimheeah
-  Date: 2023/06/15
-  Time: 5:42 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -58,12 +54,13 @@
         </thead>
         <tbody>
         <tr><%
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             for(RentalFindAllRespDto i : rentals) {
                 out.println("<td>"+i.getRental_id()+"</td>");
                 out.println("<td>"+i.getMember_id()+"</td>");
                 out.println("<td>"+i.getItem_id()+"</td>");
-                out.println("<td>"+i.getRental_time()+"</td>");
-                out.println("<td>"+i.getReturn_time()+"</td>");
+                out.println("<td>"+formatter.format(i.getRental_time())+"</td>");
+                out.println("<td>"+formatter.format(i.getReturn_time())+"</td>");
             }
         %>
         </tr>
@@ -71,7 +68,7 @@
     </table>
     <button onclick="">대여</button>
     <button onclick="">반납</button>
-    <button onclick="">훼손/분실</button>
+<%--    <button onclick="">훼손/분실</button>--%>
 </div>
 <div id="footer">
     <jsp:include page="adminFooter.jsp"></jsp:include>
