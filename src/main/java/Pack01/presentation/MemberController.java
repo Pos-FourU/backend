@@ -86,7 +86,14 @@ public class MemberController {
 
     @PostMapping("/login")
     public String LoginAdmin(LoginReqDto loginReqDto, HttpSession session) {
-        Member member = memberReadService.loginAdmin(loginReqDto);
+        Member member=null;
+        try {
+            member = memberReadService.loginAdmin(loginReqDto);
+        }catch(Exception e){
+            return "wrongLogin";
+        }
+
+
         Jwt jwt = new Jwt();
         String token = jwt.createJWT(member);
 
