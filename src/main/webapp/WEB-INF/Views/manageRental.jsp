@@ -34,13 +34,34 @@
         background-color:#90EE90;
 
     }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        text-align: center;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    button {
+        margin-top: 10px;
+    }
 </style>
 <body>
 <div id="header">
     <jsp:include page="/adminHeader_middle.jsp"></jsp:include>
 </div>
 <div id="contents">
-
     <%
         List<RentalFindAllRespDto> rentals = (List<RentalFindAllRespDto>) request.getAttribute("rentals");
     %>
@@ -78,7 +99,6 @@
                     out.println("<button onclick=\"\" disabled>반납</button>");
                     out.println("</td>");
                 }
-
                 out.println("</tr>");
             }
         %>

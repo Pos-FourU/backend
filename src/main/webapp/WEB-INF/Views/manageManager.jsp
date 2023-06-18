@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: kimheeah
+  Date: 2023/06/16
+  Time: 1:43 PM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page import="Pack01.domain.member.dto.MemberFindAllRespDto" %>
 <%@ page import="java.util.List" %>
 <%@ page import="Pack01.domain.member.dto.ManagerFindAllRespDto" %><%--
@@ -10,27 +17,49 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <style>
-  #header{
-    width:100%;
-    height:10%;
+  #header {
+    width: 100%;
+    height: 10%;
     background-color: #90EE90;
   }
-  body{
-    display:flex;
+
+  body {
+    display: flex;
     flex-direction: column;
   }
-  #contents{
-    width:100%;
-    height:80%;
-    display:flex;
+
+  #contents {
+    width: 100%;
+    height: 80%;
+    display: flex;
   }
-  #left{
-    width:10%;
+
+  #left {
+    width: 10%;
   }
-  #footer{
-    width:100%;
-    height:10%;
+
+  #footer {
+    width: 100%;
+    height: 10%;
     background-color: #90EE90;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
   }
 </style>
 <body>
@@ -40,7 +69,7 @@
 <div id="contents">
 
   <%
-    List<ManagerFindAllRespDto> managers = (List<ManagerFindAllRespDto>)request.getAttribute("managers");
+    List<ManagerFindAllRespDto> managers = (List<ManagerFindAllRespDto>) request.getAttribute("managers");
   %>
   <table>
     <thead>
@@ -52,10 +81,11 @@
       <th>카페 관리인 이름</th>
       <th>카페 관리인 이메일</th>
       <th>카페 관리인 핸드폰 번호</th>
+      <th>삭제</th>
     </tr>
     </thead>
     <tbody>
-    <% for(ManagerFindAllRespDto i : managers) { %>
+    <% for (ManagerFindAllRespDto i : managers) { %>
     <tr>
       <td><%= i.getCafe_id() %></td>
       <td><%= i.getMember_id() %></td>
@@ -64,13 +94,13 @@
       <td><%= i.getMember_name() %></td>
       <td><%= i.getMember_email() %></td>
       <td><%= i.getMember_phone() %></td>
-      <form action="/api/v1/admin/deleteCafe" method="post">
+      <td>
+        <form action="/api/v1/admin/deleteCafe" method="post">
           <input type="hidden" name="cafe_id" value="<%= i.getCafe_id() %>">
-          <input type="hidden" name="member_id" value="<%=i.getMember_id() %>">
+          <input type="hidden" name="member_id" value="<%= i.getMember_id() %>">
           <button type="submit">삭제</button>
-
-      </form>
-
+        </form>
+      </td>
     </tr>
     <% } %>
     </tbody>
@@ -80,8 +110,6 @@
   <form action="/api/v1/cafe/AddManager" method="get">
     <button type="submit">신청</button>
   </form>
-
-
 </div>
 <div id="footer">
   <jsp:include page="/adminFooter.jsp"></jsp:include>

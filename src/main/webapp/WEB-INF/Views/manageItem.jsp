@@ -120,7 +120,7 @@
         %>
         </tbody>
     </table>
-    <button onclick="addItem">물품 추가</button>
+    <a href="/api/v1/item/add">물품 추가</a>
 </div>
 <div id="footer">
     <jsp:include page="/adminFooter.jsp"></jsp:include>

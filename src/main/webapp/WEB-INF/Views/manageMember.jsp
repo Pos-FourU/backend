@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: kimheeah
+  Date: 2023/06/15
+  Time: 5:42 PM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page import="Pack01.domain.member.dto.MemberFindAllRespDto" %>
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
@@ -34,6 +41,24 @@
         width: 100%;
         height: 10%;
         background-color: #90EE90;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        text-align: center;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
     }
 </style>
 <body>
@@ -79,7 +104,6 @@
                     <button type="submit">신청</button>
                 </td>
             </form>
-
         </tr>
         <% } %>
         </tbody>

@@ -11,6 +11,50 @@
 <head>
   <title>물품 추가</title>
   <meta charset="UTF-8">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border: 1px solid #dddddd;
+      border-radius: 4px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    select, input[type="radio"], input[type="submit"] {
+      margin-top: 5px;
+    }
+
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
 <body>
 <h1>물품 추가</h1>
@@ -18,10 +62,7 @@
   <div>
     <label>물품 카테고리</label>
     <select name="category" required>
-      <option value="카테고리1">카테고리1</option>
-      <option value="카테고리2">카테고리2</option>
-      <option value="카테고리3">카테고리3</option>
-      <!-- 다른 카테고리 옵션들 추가 -->
+      <option value="Tumbler">텀블러</option>
     </select>
   </div>
   <div>
