@@ -3,18 +3,14 @@ package Pack01.presentation;
 import Pack01.domain.cafe.application.CafeWriteService;
 import Pack01.domain.item.application.ItemReadService;
 import Pack01.domain.item.application.ItemWriterService;
-import Pack01.domain.item.entity.CafeItem;
 import Pack01.domain.member.application.MemberReadService;
 import Pack01.domain.member.application.MemberWriteService;
 import Pack01.domain.member.dto.MemberFindAllRespDto;
-import Pack01.domain.member.dto.MemberRegisterReqDto;
 import Pack01.domain.member.dto.MemberUpdateReqDto;
 import Pack01.domain.member.entity.MemberRole;
 import Pack01.domain.rental.application.RentalReadService;
 import Pack01.domain.rental.application.RentalWriteService;
-import Pack01.domain.rental.dto.RentalFindAllRespDto;
 import Pack01.domain.rental.dto.RentalInsertReqDto;
-import Pack01.domain.rental.dto.RentalReturnReqDto;
 import Pack01.domain.reservation.application.ReservationReadService;
 import Pack01.global.exception.FourUAdminException;
 import Pack01.global.exception.FourUPerMissionException;
@@ -22,14 +18,12 @@ import Pack01.global.jwt.Jwt;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -158,7 +152,6 @@ public class AdminController {
     @PostMapping("/manageRental")
     public String returnItem(@RequestParam Long rental_id, @RequestParam Long member_id, @RequestParam Long item_id, @RequestParam String rental_time, @RequestParam String return_time, @RequestParam String rental_days){
         rentalReadService.returnRentals(rental_id, member_id, item_id, rental_time, return_time, rental_days);
-
         return "redirect:/api/v1/admin/manageRental";
     }
 }
