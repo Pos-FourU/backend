@@ -26,7 +26,7 @@
         }
 
         #contents {
-            width: 100%;
+            width: 90%;
             height: 80%;
             display: flex;
             justify-content: center;
@@ -35,6 +35,7 @@
 
         table {
             border-collapse: collapse;
+            width: 90%;
         }
 
         th, td {
@@ -53,6 +54,19 @@
             background-color: #90EE90;
             text-align: center;
             padding-top: 20px;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input[type="text"][disabled], input[type="number"][disabled] {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -102,9 +116,9 @@
                 out.println("</td>");
                 out.println("<td>");
                 out.println("<form name=\"insertRentalInfo\" method=\"post\" action=\"insertRentalInfo\">");
-                out.println("<input type=\"text\" value=\"" + i.getItem_id() + "\" name=\"item_id\" style=display:none>");
-                out.println("<input type=\"text\" value=\"" + member_id + "\" name=\"cafe_manager_id\" style=display:none>");
-                out.println("<input type=\"text\" value=\"" + LocalDate.now() + "\" name=\"rental_time\" style=display:none>");
+                out.println("<input type=\"text\" value=\"" + i.getItem_id() + "\" name=\"item_id\" style=\"display:none;\">");
+                out.println("<input type=\"text\" value=\"" + member_id + "\" name=\"cafe_manager_id\" style=\"display:none;\">");
+                out.println("<input type=\"text\" value=\"" + LocalDate.now() + "\" name=\"rental_time\" style=\"display:none;\">");
                 if (i.getItem_status().toString() != "VALID") {
                     out.println("<button disabled>대여</button>");
                 } else {
@@ -120,7 +134,8 @@
         %>
         </tbody>
     </table>
-    <a href="/api/v1/item/add">물품 추가</a>
+    <br/>
+    <br/> <a href="/api/v1/item/add">물품 추가</a>
 </div>
 <div id="footer">
     <jsp:include page="/adminFooter.jsp"></jsp:include>
