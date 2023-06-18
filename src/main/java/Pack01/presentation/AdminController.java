@@ -91,7 +91,9 @@ public class AdminController {
 
     @PostMapping("/insertRentalInfo")
     public String applyRentalInfo(RentalInsertReqDto rentalInsertReqDto){
-        rentalWriteService.insertRentals(rentalInsertReqDto);
+        if(!rentalWriteService.insertRentals(rentalInsertReqDto)) {
+            return "alreadyRentOK";
+        }
         return "redirect:/api/v1/admin/manageItem";
     }
 }

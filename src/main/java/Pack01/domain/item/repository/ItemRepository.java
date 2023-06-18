@@ -41,6 +41,23 @@ public class ItemRepository {
         return jdbcTemplate.query(sql, new ItemRowMapper());
     }
 
+<<<<<<< Updated upstream
+=======
+    public void updateItem(Long itemId, String status){
+        String sql = "UPDATE "+TABLE+" SET item_status = \""+status+"\" WHERE item_id = "+itemId;
+        jdbcTemplate.update(sql);
+    }
+
+    public void deleteByItemIds(List<Long> itemIds) {
+
+        String sql = "DELETE FROM items WHERE item_id IN (:itemIds)";
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("itemIds", itemIds);
+        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
+        namedParameterJdbcTemplate.update(sql, parameters);
+    }
+
+>>>>>>> Stashed changes
     private class ItemRowMapper implements RowMapper<Item> {
         @Override
         public Item mapRow(ResultSet rs, int rowNum) throws SQLException {

@@ -5,5 +5,5 @@ import Pack01.domain.rental.dto.RentalInsertReqDto;
 public interface RentalWriteService {
 void deleteExpiredRentals();
 
-void insertRentals(RentalInsertReqDto rentalInsertReqDto);
+boolean insertRentals(RentalInsertReqDto rentalInsertReqDto);
 }

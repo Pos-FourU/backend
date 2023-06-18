@@ -62,6 +62,15 @@ public class RentalRepository {
         jdbcTemplate.update(sql, rental.getMember_id(), rental.getItem_id(), rental.getCafe_id(), rental.getRental_time(), rental.getReturn_time(), rental.getRental_days());
     }
 
+    public Boolean isNotRental(Long member_id){
+        String sql = "SELECT * FROM "+TABLE+" WHERE member_id = "+member_id;
+        if(jdbcTemplate.query(sql, new RentalRowMapper()).size()>0)
+        {
+            return false;
+        };
+        return true;
+    }
+
     private class RentalRowMapper implements RowMapper<Rental> {
         @Override
         public Rental mapRow(ResultSet rs, int rowNum) throws SQLException {

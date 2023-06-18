@@ -86,8 +86,13 @@
                     out.println("<input type=\"number\" min=\"1\" max=\"7\" name=\"rental_days\" disabled/>");
                     out.println("</td>");
                     out.println("<td>");
-                    out.println("<button onclick=\"rentalItem()\">대여</button>");
+                    out.println("<button onclick=\"rentalItem()\" disabled>대여</button>");
                     out.println("</td>");
+                    out.println("</form>");
+                    out.println("<td>");
+                    out.println("<button onclick=\"deleteItem()\" disabled>삭제</button>");
+                    out.println("</td>");
+                    out.println("</tr>");
                 } else {
                     out.println("<td>");
                     out.println("<input type=\"text\" name=\"member_email\"/>");
@@ -98,12 +103,13 @@
                     out.println("<td>");
                     out.println("<button onclick=\"rentalItem()\">대여</button>");
                     out.println("</td>");
+                    out.println("</form>");
+                    out.println("<td>");
+                    out.println("<button onclick=\"deleteItem()\">삭제</button>");
+                    out.println("</td>");
+                    out.println("</tr>");
                 }
-                out.println("</form>");
-                out.println("<td>");
-                out.println("<button onclick=\"deleteItem()\">삭제</button>");
-                out.println("</td>");
-                out.println("</tr>");
+
             }
         %>
         </tbody>
