@@ -81,7 +81,7 @@
 
 <div id="cafeAdminForm">
   <h3>카페 관리자 추가 </h3>
-  <form action="api/v1/member/manager" method="post" >
+  <form action="/api/v1/member/manager" method="post" >
     <h3> 남은 텀블러 양은 </h3>
     <input type="text" name="memberEmail"  placeholder="사용자의 이메일을 작성해주세요" >
     <input type="password" name="memberPw" placeholder="사용자의 비밀번호를 작성해주세요" >

@@ -6,11 +6,15 @@ import Pack01.domain.item.entity.ItemStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -39,6 +43,15 @@ public class ItemRepository {
                 "ON cafes.cafe_id = cafe_items.cafe_id " +
                 "WHERE member_id = "+member_id;
         return jdbcTemplate.query(sql, new ItemRowMapper());
+    }
+
+    public void deleteByItemIds(List<Long> itemIds) {
+
+        String sql = "DELETE FROM items WHERE item_id IN (:itemIds)";
+        MapSqlParameterSource parameters = new MapSqlParameterSource();
+        parameters.addValue("itemIds", itemIds);
+        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
+        namedParameterJdbcTemplate.update(sql, parameters);
     }
 
     private class ItemRowMapper implements RowMapper<Item> {

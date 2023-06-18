@@ -1,6 +1,8 @@
 package Pack01.domain.item.application;
 
 import Pack01.domain.item.dto.ItemFindAllRespDto;
+import Pack01.domain.item.entity.CafeItem;
+import Pack01.domain.item.repository.CafeItemRepository;
 import Pack01.domain.item.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class ItemReadServiceImp implements ItemReadService{
     private final ItemRepository itemRepository;
+    private final CafeItemRepository cafeItemRepository;
 
     @Override
     public List<ItemFindAllRespDto> getItems(Long member_id){
@@ -25,5 +28,14 @@ public class ItemReadServiceImp implements ItemReadService{
                         .category(item.getCategory())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Long> getCafeItem(Long cafe_id) {
+        List<Long> collect = cafeItemRepository
+                .findItems(cafe_id).stream()
+                .map(cafeItem -> cafeItem.getItem_id())
+                .collect(Collectors.toList());
+        return collect;
     }
 }

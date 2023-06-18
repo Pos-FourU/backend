@@ -5,4 +5,5 @@ import Pack01.domain.cafe.dto.CafeRegisterReqDto;
 public interface CafeWriteService {
 
     void register(CafeRegisterReqDto cafeRegisterReqDto);
+    void deleteByCafeId(Long cafe_id);
 }

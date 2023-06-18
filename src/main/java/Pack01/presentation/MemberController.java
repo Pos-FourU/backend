@@ -1,29 +1,24 @@
 package Pack01.presentation;
 
 import Pack01.domain.cafe.application.CafeReadService;
-import Pack01.domain.cafe.dto.CafeLeftCountRespDto;
 import Pack01.domain.member.application.MemberReadService;
 import Pack01.domain.member.application.MemberWriteService;
-import Pack01.domain.member.dto.LoginReqDto;
-import Pack01.domain.member.dto.MemberRegisterReqDto;
+import Pack01.domain.member.dto.*;
 import Pack01.domain.member.entity.Member;
 import Pack01.domain.member.entity.MemberRole;
 
 import Pack01.domain.rental.application.RentalReadService;
 import Pack01.global.exception.FourUAdminException;
 import Pack01.global.exception.FourUUserException;
+import Pack01.global.exception.FourUPerMissionException;
 import Pack01.global.jwt.Jwt;
-
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.*;
 
-
 import javax.servlet.http.HttpSession;
-
-import java.util.List;
 
 import static Pack01.domain.member.entity.MemberRole.*;
 
@@ -38,7 +33,7 @@ public class MemberController {
     private final RentalReadService rentalReadService;
     private final CafeReadService cafeReadService;
 
-
+    private final Jwt jwt = new Jwt();
     @PostMapping()
     public String register(@RequestBody MemberRegisterReqDto memberRegisterReqDto) {
         memberWriteService.register(memberRegisterReqDto);
@@ -56,7 +51,11 @@ public class MemberController {
                                   @RequestParam String memberPw,
                                   @RequestParam String memberPhone,
                                   @RequestParam String memberName,
-                                  Model model) {
+                                  Model model,HttpSession session) {
+        Object token1 = session.getAttribute("token");
+        if(token1==null){
+            throw new FourUPerMissionException("아이디 혹은 비밀번호가 잘못 되었습니다.");
+        }
         MemberRegisterReqDto memberRegisterReqDto = MemberRegisterReqDto.builder()
                 .memberEmail(memberEmail)
                 .memberPhone(memberPhone)
@@ -91,20 +90,40 @@ public class MemberController {
 
     @GetMapping("/mypage")
     public String mypage(Model model, HttpSession session) {
-//        session.getAttribute(member_id);
-        Long member_id = 1L;
-        Member members = memberReadService.findById(member_id);
+//        Jwt jwt = new Jwt;
+
+        Object token1 = session.getAttribute("token");
+        if(token1==null){
+            throw new FourUPerMissionException("아이디 혹은 비밀번호가 잘못 되었습니다.");
+        }
+        Claims token = jwt.getJwtContents(token1.toString());
+        Long member_id = Long.parseLong(token.get("id").toString());
+//        Long token = jwt.createJWT(member_id);
         Integer countThismonth = rentalReadService.countThismonth(member_id);
-        model.addAttribute("members", members);
+        model.addAttribute("member", memberReadService.findById(member_id));
         model.addAttribute("countThismonth",countThismonth);
         return "mypageView";
     }
 
-    @GetMapping("/memberUpdate")
-    public String updateMembers(Model model, HttpSession session){
-        //        session.getAttribute(member_id);
-        Long member_id = 1L;
-        return "memberUpdate";
+    @GetMapping("/mypage/toupdate")
+    public String toupdate(){
+        return "updateMember";
+    }
+    @PostMapping("/mypage/update")
+    public String updateMembers(@RequestParam String memberName,
+                                @RequestParam String memberEmail,
+                                @RequestParam String memberPhone,
+                                HttpSession session){
+        Claims token = jwt.getJwtContents(session.getAttribute("token").toString());
+        Long member_id = Long.parseLong(token.get("id").toString());
+        UserUpdateReqDto user = UserUpdateReqDto.builder()
+                .member_id(member_id)
+                .member_name(memberName)
+                .member_email(memberEmail)
+                .member_phone(memberPhone)
+                .build();
+        memberWriteService.updateUserInfo(user);
+        return "updateOK";
     }
 
 

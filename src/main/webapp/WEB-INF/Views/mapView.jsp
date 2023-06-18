@@ -2,7 +2,7 @@
 <%@ page import="Pack01.domain.cafe.dto.CafeLeftCountRespDto" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html;charset=UTF-8"
          pageEncoding="UTF-8" %>
 
 <%@ include file="/nav_bar.jsp" %>
@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <title>지도</title>
+    <title>예약페이지</title>
     <script type="text/javascript"
             src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=3u5p451mjv"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"
