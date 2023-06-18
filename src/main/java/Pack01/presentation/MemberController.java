@@ -6,6 +6,7 @@ import Pack01.domain.member.application.MemberWriteService;
 import Pack01.domain.member.dto.*;
 import Pack01.domain.member.entity.Member;
 import Pack01.domain.rental.application.RentalReadService;
+import Pack01.global.exception.FourUPerMissionException;
 import Pack01.global.jwt.Jwt;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +28,6 @@ public class MemberController {
     private final MemberReadService memberReadService;
     private final RentalReadService rentalReadService;
     private final CafeReadService cafeReadService;
-
-
-
     private final Jwt jwt = new Jwt();
     @PostMapping()
     public String register(@RequestBody MemberRegisterReqDto memberRegisterReqDto) {
@@ -48,7 +46,11 @@ public class MemberController {
                                   @RequestParam String memberPw,
                                   @RequestParam String memberPhone,
                                   @RequestParam String memberName,
-                                  Model model) {
+                                  Model model,HttpSession session) {
+        Object token1 = session.getAttribute("token");
+        if(token1==null){
+            throw new FourUPerMissionException("아이디 혹은 비밀번호가 잘못 되었습니다.");
+        }
         MemberRegisterReqDto memberRegisterReqDto = MemberRegisterReqDto.builder()
                 .memberEmail(memberEmail)
                 .memberPhone(memberPhone)
@@ -85,7 +87,11 @@ public class MemberController {
     public String mypage(Model model, HttpSession session) {
 //        Jwt jwt = new Jwt;
 
-        Claims token = jwt.getJwtContents(session.getAttribute("token").toString());
+        Object token1 = session.getAttribute("token");
+        if(token1==null){
+            throw new FourUPerMissionException("아이디 혹은 비밀번호가 잘못 되었습니다.");
+        }
+        Claims token = jwt.getJwtContents(token1.toString());
         Long member_id = Long.parseLong(token.get("id").toString());
 //        Long token = jwt.createJWT(member_id);
         Integer countThismonth = rentalReadService.countThismonth(member_id);
