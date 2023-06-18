@@ -54,7 +54,12 @@ public class RentalRepository {
                     "WHERE member_id = ? " +
                     "  AND MONTH(rental_time) = MONTH(CURRENT_DATE())" +
                     "  AND YEAR(rental_time) = YEAR(CURRENT_DATE());";
-            return jdbcTemplate.queryForObject(sql, Integer.class, member_id);
+
+
+
+
+        Integer integer = jdbcTemplate.queryForObject(sql, Integer.class, member_id);
+        return integer;
     }
 
     public void insertRental(Rental rental){

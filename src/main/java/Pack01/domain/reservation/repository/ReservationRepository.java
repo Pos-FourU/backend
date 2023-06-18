@@ -26,7 +26,7 @@ public class ReservationRepository {
 
     public boolean checkIfAlready( Long memeberId){
         // 멤버 아이디 확인을 위한 쿼리
-        String checkQuery = "SELECT COUNT(*) FROM " +TABLE+ " WHERE member_id = ? OR member_id IN (SELECT member_id FROM rent WHERE return_time IS NULL)";
+        String checkQuery = "SELECT COUNT(*) FROM " +TABLE+ " WHERE member_id = ? OR member_id IN (SELECT member_id FROM rentals WHERE return_time IS NULL)";
         int count = jdbcTemplate.queryForObject(checkQuery, Integer.class,memeberId);
         return count>0;
     }
