@@ -7,6 +7,7 @@ import Pack01.domain.member.dto.*;
 import Pack01.domain.member.entity.Member;
 import Pack01.domain.rental.application.RentalReadService;
 import Pack01.global.jwt.Jwt;
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,8 @@ public class MemberController {
     private final CafeReadService cafeReadService;
 
 
+
+    private final Jwt jwt = new Jwt();
     @PostMapping()
     public String register(@RequestBody MemberRegisterReqDto memberRegisterReqDto) {
         memberWriteService.register(memberRegisterReqDto);
@@ -81,8 +84,9 @@ public class MemberController {
     @GetMapping("/mypage")
     public String mypage(Model model, HttpSession session) {
 //        Jwt jwt = new Jwt;
-        Long member_id = 1L;
-        Object token = session.getAttribute("token");
+
+        Claims token = jwt.getJwtContents(session.getAttribute("token").toString());
+        Long member_id = Long.parseLong(token.get("id").toString());
 //        Long token = jwt.createJWT(member_id);
         Integer countThismonth = rentalReadService.countThismonth(member_id);
         model.addAttribute("member", memberReadService.findById(member_id));
@@ -95,8 +99,19 @@ public class MemberController {
         return "updateMember";
     }
     @PostMapping("/mypage/update")
-    public String updateMembers(@ModelAttribute UserUpdateReqDto member){
-        memberWriteService.updateUserInfo(member);
+    public String updateMembers(@RequestParam String memberName,
+                                @RequestParam String memberEmail,
+                                @RequestParam String memberPhone,
+                                HttpSession session){
+        Claims token = jwt.getJwtContents(session.getAttribute("token").toString());
+        Long member_id = Long.parseLong(token.get("id").toString());
+        UserUpdateReqDto user = UserUpdateReqDto.builder()
+                .member_id(member_id)
+                .member_name(memberName)
+                .member_email(memberEmail)
+                .member_phone(memberPhone)
+                .build();
+        memberWriteService.updateUserInfo(user);
         return "updateOK";
     }
 

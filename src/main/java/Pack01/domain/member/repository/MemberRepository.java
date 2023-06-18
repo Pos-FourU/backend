@@ -104,11 +104,12 @@ public class MemberRepository {
         String name = userUpdateReqDto.getMember_name();
         String email = userUpdateReqDto.getMember_email();
         String phone = userUpdateReqDto.getMember_phone();
+        Long memberId = userUpdateReqDto.getMember_id();
         jdbcTemplate.update(sql,
                 name,
-                phone,
                 email,
-                userUpdateReqDto.getMember_id());
+                phone,
+                memberId);
     }
 
     public void deleteByMemberId(Long member_id) {
