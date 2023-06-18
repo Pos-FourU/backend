@@ -54,14 +54,15 @@
 <h1> 마이페이지 </h1>
 <%
     Integer countThismonth = (Integer) request.getAttribute("countThismonth");
-//    List<Member> members = (List<Member>)request.getAttribute("managers");
+    Member members = (Member) request.getAttribute("member");
 %>
-<%--<div class="info">--%>
-<%--    <%= members.get(0).getMember_name() %>님의 정보 입니다.--%>
-<%--</div>--%>
+<div class="info">
+    <%= members.getMember_name() %>님의 정보 입니다.
+</div>
 <div class="info">
 <a href="/api/v1/member/mypage/toupdate" > 회원정보 수정 </a>
 
+<%--    <%= members.getMember_name()%> 님 의 이용 내역--%>
     이번달 총 대여 횟수는 <%= countThismonth %> 번입니다.
 </div>
 

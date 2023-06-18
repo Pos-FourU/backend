@@ -42,9 +42,9 @@ public class MemberReadServiceImp implements MemberReadService{
     }
 
     @Override
-    public List<Member> findById(Long member_id){
-        return memberRepository.findById(member_id);
-
+    public Member findById(Long member_id){
+        List<Member> members = memberRepository.findById(member_id);
+        return members.get(0);
     }
 
     public List<MemberFindAllRespDto> getMembers(MemberRole memberRole) {
@@ -67,6 +67,7 @@ public class MemberReadServiceImp implements MemberReadService{
                         .build())
                 .collect(Collectors.toList());
     }
+
     @Override
     public List<ManagerFindAllRespDto> getManagers() {
         return memberRepository.findManagers()
@@ -88,7 +89,4 @@ public class MemberReadServiceImp implements MemberReadService{
             throw new RuntimeException();
         }
     }
-
-
-
 }

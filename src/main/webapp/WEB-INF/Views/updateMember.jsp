@@ -58,7 +58,7 @@
 
 <h1> 회원 정보 수정 </h1>
   <div class="info">
-<p> 이름과 전화번호를 수정할 수 있습니다.</p>
+<p> 회원정보를 수정할 수 있습니다.</p>
 <form action="/api/v1/member/mypage/update" method="post">
   <label for="memberName">이름:</label>
   <input type="text" id="memberName" name="memberName" value="${member.member_name}" required>
@@ -67,6 +67,11 @@
   <label for="memberEmail">이메일:</label>
   <input type="email" id="memberEmail" name="memberEmail" value="${member.member_email}" required>
   <br>
+
+  <label for="memberEmail">전화번호:</label>
+  <input type="email" id="memberPhone" name="memberPhone" value="${member.member_phone}" required>
+  <br>
+
 
   <button class="w-btn w-btn-green" type="submit">
     수정하기

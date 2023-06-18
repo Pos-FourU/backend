@@ -8,6 +8,7 @@ import Pack01.domain.member.dto.*;
 import Pack01.domain.member.entity.Member;
 import Pack01.domain.member.entity.MemberRole;
 import Pack01.domain.rental.application.RentalReadService;
+import Pack01.global.jwt.Jwt;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,10 +60,12 @@ public class MemberController {
 
     @GetMapping("/mypage")
     public String mypage(Model model, HttpSession session) {
-//        session.getAttribute(member_id);
+//        Jwt jwt = new Jwt;
         Long member_id = 1L;
+        Object token = session.getAttribute("token");
+//        Long token = jwt.createJWT(member_id);
         Integer countThismonth = rentalReadService.countThismonth(member_id);
-//        model.addAttribute("member", memberReadService.findById(member_id));
+        model.addAttribute("member", memberReadService.findById(member_id));
         model.addAttribute("countThismonth",countThismonth);
         return "mypageView";
     }
@@ -74,20 +77,8 @@ public class MemberController {
     @PostMapping("/mypage/update")
     public String updateMembers(@ModelAttribute UserUpdateReqDto member){
         memberWriteService.updateUserInfo(member);
-        Long member_id = 1L;
-
         return "updateOK";
     }
 
-//    @GetMapping("/1")
-//
-//    public void test(){
-//        throw new FourUAdminException("어드민") {
-//        };
-//    }
-//    @GetMapping("/3")
-//    public void test1(){
-//        throw new FourUUserException("유저");
-//    }
 
 }
