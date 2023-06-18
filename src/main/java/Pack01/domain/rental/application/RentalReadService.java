@@ -7,4 +7,5 @@ import java.util.List;
 public interface RentalReadService {
     List<RentalFindAllRespDto> getRentals(Long cafe_id);
     List<Long> findAllByExpireMembers();
+    Integer countThismonth(Long member_id);
 }
