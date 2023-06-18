@@ -42,9 +42,11 @@ public class MemberController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
+    }
+
     @PostMapping("/manager")
     public String registerManager(@RequestParam String memberEmail,
                                   @RequestParam String memberPw,

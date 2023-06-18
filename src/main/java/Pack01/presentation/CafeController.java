@@ -43,7 +43,7 @@ public class CafeController {
         if (isAlreadyReserved){
             model.addAttribute("message", "이미 예약중 입니다.");
         }  else {
-            ReservationRegistDto reservationRegistDto = ReservationRegistDto.builder()
+            ReservationRegisterDto reservationRegistDto = ReservationRegisterDto.builder()
                     .cafe_id(cafe_id)
                     .member_id(member_id)
                     .build();
