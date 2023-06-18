@@ -42,6 +42,7 @@ public class CafeRepository {
     }
 
 
+
     // RowMapper class for mapping database result set to Member object
     private static class CafeRowMapper implements RowMapper<Cafe> {
         @Override
