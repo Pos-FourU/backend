@@ -81,6 +81,7 @@
         String member_id = jwt.getJwtContents(session.getAttribute("token").toString()).get("id").toString();
         List<ItemFindAllRespDto> items = (List<ItemFindAllRespDto>) request.getAttribute("items");
     %>
+    </div>
     <div id="table">
     <table>
         <thead>
