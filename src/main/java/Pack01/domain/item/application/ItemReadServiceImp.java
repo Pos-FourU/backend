@@ -16,8 +16,8 @@ public class ItemReadServiceImp implements ItemReadService{
     private final ItemRepository itemRepository;
 
     @Override
-    public List<ItemFindAllRespDto> getAllItems(){
-        return itemRepository.findAllItems()
+    public List<ItemFindAllRespDto> getItems(Long member_id){
+        return itemRepository.findItems(member_id)
                 .stream()
                 .map(item-> new ItemFindAllRespDto().builder()
                         .item_id(item.getItem_id())

@@ -1,9 +1,6 @@
 package Pack01.domain.rental.repository;
 
 
-import Pack01.domain.item.entity.Item;
-import Pack01.domain.item.entity.ItemCategory;
-import Pack01.domain.item.entity.ItemStatus;
 import Pack01.domain.rental.entity.Rental;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -36,8 +33,13 @@ public class RentalRepository {
         return jdbcTemplate.query(sql, new RentalMembersRowMapper());
     }
 
-    public List<Rental> findAllRentals() {
-        String sql = "SELECT * FROM rentals";
+    public List<Rental> findRentals(Long member_id) {
+        String sql = "SELECT * " +
+                "FROM rentals " +
+                "JOIN items ON rentals.item_id = items.item_id " +
+                "JOIN cafe_items ci on items.item_id = ci.item_id " +
+                "JOIN cafes c on ci.cafe_id = c.cafe_id " +
+                "WHERE c.member_id="+member_id;
         return jdbcTemplate.query(sql, new RentalRowMapper());
     }
     public void deleteExpiredRentals(){
@@ -53,8 +55,8 @@ public class RentalRepository {
                     .rental_id(rs.getLong("rental_id"))
                     .member_id(rs.getLong("member_id"))
                     .item_id(rs.getLong("item_id"))
-                    .rental_time(rs.getTime("rental_time"))
-                    .return_time(rs.getTime("return_time"))
+                    .rental_time(rs.getDate("rental_time"))
+                    .return_time(rs.getDate("return_time"))
                     .build();
         }
     }
