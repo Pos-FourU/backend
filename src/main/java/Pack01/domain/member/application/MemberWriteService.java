@@ -13,6 +13,5 @@ public interface MemberWriteService {
     void increaseWarningCount(List<Long> memberIds);
     void updateMember(MemberUpdateReqDto memberUpdateReqDto);
 
-
-
+    void deleteByMemberId(Long member_id);
 }

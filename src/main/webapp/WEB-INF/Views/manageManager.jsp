@@ -57,23 +57,29 @@
     </tr>
     </thead>
     <tbody>
-    <tr><%
-      for(ManagerFindAllRespDto i : managers) {
-        out.println("<td>"+i.getCafe_id()+"</td>");
-        out.println("<td>"+i.getMember_id()+"</td>");
-        out.println("<td>"+i.getCafe_name()+"</td>");
-        out.println("<td>"+i.getCafe_address()+"</td>");
-        out.println("<td>"+i.getMember_name()+"</td>");
-        out.println("<td>"+i.getMember_email()+"</td>");
-        out.println("<td>"+i.getMember_phone()+"</td>");
-      }
-    %>
+    <% for(ManagerFindAllRespDto i : managers) { %>
+    <tr>
+      <td><%= i.getCafe_id() %></td>
+      <td><%= i.getMember_id() %></td>
+      <td><%= i.getCafe_name() %></td>
+      <td><%= i.getCafe_address() %></td>
+      <td><%= i.getMember_name() %></td>
+      <td><%= i.getMember_email() %></td>
+      <td><%= i.getMember_phone() %></td>
+      <form action="/api/v1/admin/deleteCafe" method="post">
+          <input type="hidden" name="cafe_id" value="<%= i.getCafe_id() %>">
+          <input type="hidden" name="member_id" value="<%=i.getMember_id() %>">
+          <button type="submit">삭제</button>
+
+      </form>
+
     </tr>
+    <% } %>
     </tbody>
   </table>
 </div>
 <div>
-  <form action="./WEB-INF/views/addMember" method="POST">
+  <form action="/api/v1/cafe/AddManager" method="get">
     <button type="submit">신청</button>
   </form>
 

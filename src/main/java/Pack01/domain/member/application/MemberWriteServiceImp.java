@@ -61,5 +61,10 @@ public class MemberWriteServiceImp implements MemberWriteService {
         memberRepository.updateMember(memberUpdateReqDto);
     }
 
+    @Override
+    public void deleteByMemberId(Long member_id) {
+        memberRepository.deleteByMemberId(member_id);
+    }
+
 
 }
