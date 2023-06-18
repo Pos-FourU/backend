@@ -8,10 +8,10 @@
     <title>Title</title>
 </head>
 <style>
-    #header {
-        width: 100%;
-        height: 10%;
-        background-color: aqua;
+    #header{
+        width:100%;
+        height:10%;
+        background-color:#90EE90;
     }
 
     body {
@@ -28,16 +28,16 @@
     #left {
         width: 10%;
     }
+    #footer{
+        width:100%;
+        height:10%;
+        background-color:#90EE90;
 
-    #footer {
-        width: 100%;
-        height: 10%;
-        background-color: aqua;
     }
 </style>
 <body>
 <div id="header">
-    <jsp:include page="adminHeader_middle.jsp"></jsp:include>
+    <jsp:include page="/adminHeader_middle.jsp"></jsp:include>
 </div>
 <div id="contents">
 
@@ -85,8 +85,11 @@
         </tbody>
     </table>
 </div>
+<button onclick="">대여</button>
+<button onclick="">반납</button>
+
 <div id="footer">
-    <jsp:include page="adminFooter.jsp"></jsp:include>
+    <jsp:include page="/adminFooter.jsp"></jsp:include>
 </div>
 </body>
 </html>

@@ -93,9 +93,9 @@
 
 <div id="result"></div>
 
-<%
-
-%>
+<div id="footer">
+  <jsp:include page="/adminFooter.jsp"></jsp:include>
+</div>
 
 </body>
 </html>
