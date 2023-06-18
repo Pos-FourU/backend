@@ -50,8 +50,8 @@ public class MemberRepository {
     }
 
     public List<Member> findById(Long member_id){
-        String sql = "SELECT * FROM " +TABLE +"WHERE member_id = " + member_id;
-        return  jdbcTemplate.query(sql,new MemberRowMapper());
+        String sql = "SELECT * FROM " +TABLE +" WHERE member_id = " + member_id;
+        return jdbcTemplate.query(sql, new MemberRowMapper());
     }
 
     public List<Member> findByRole() {
@@ -98,13 +98,16 @@ public class MemberRepository {
         String sql = "UPDATE members SET member_status = 'BLACK_LIST'WHERE member_id = ?";
         jdbcTemplate.update(sql, memberId);
     }
+
     public void updateUserInfo(UserUpdateReqDto userUpdateReqDto){
-        String sql = "UPDATE members SET member_name = ?, member_phone = ? WHERE (`member_id` = ?)";
+        String sql = "UPDATE members SET member_name = ?, member_email = ?, member_phone = ? WHERE (`member_id` = ?)";
         String name = userUpdateReqDto.getMember_name();
+        String email = userUpdateReqDto.getMember_email();
         String phone = userUpdateReqDto.getMember_phone();
         jdbcTemplate.update(sql,
                 name,
                 phone,
+                email,
                 userUpdateReqDto.getMember_id());
     }
 

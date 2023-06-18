@@ -11,11 +11,8 @@ import java.util.List;
 public interface MemberReadService {
     Member loginAdmin(LoginReqDto loginReqDto);
     List<MemberFindAllRespDto> getMembers(MemberRole memberRole);
-
     List<ManagerFindAllRespDto> getManagers();
    void findByWaringCountUser();
-
-    List<Member> findById(Long member_id);
-
+    Member findById(Long member_id);
 }
 

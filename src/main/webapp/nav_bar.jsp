@@ -53,7 +53,7 @@
     <li><a href="/api/v1/cafe/map">예약하기</a></li>
     <li><a href="/api/v1/member/mypage">마이페이지</a></li>
   </ul>
-  <a href="/logout" class="logout">로그아웃</a>
+  <a href="/api/v1/member/logout" class="logout">로그아웃</a>
 </div>
 
 

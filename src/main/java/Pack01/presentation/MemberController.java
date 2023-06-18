@@ -80,10 +80,12 @@ public class MemberController {
 
     @GetMapping("/mypage")
     public String mypage(Model model, HttpSession session) {
-//        session.getAttribute(member_id);
+//        Jwt jwt = new Jwt;
         Long member_id = 1L;
+        Object token = session.getAttribute("token");
+//        Long token = jwt.createJWT(member_id);
         Integer countThismonth = rentalReadService.countThismonth(member_id);
-//        model.addAttribute("member", memberReadService.findById(member_id));
+        model.addAttribute("member", memberReadService.findById(member_id));
         model.addAttribute("countThismonth",countThismonth);
         return "mypageView";
     }
@@ -95,8 +97,6 @@ public class MemberController {
     @PostMapping("/mypage/update")
     public String updateMembers(@ModelAttribute UserUpdateReqDto member){
         memberWriteService.updateUserInfo(member);
-        Long member_id = 1L;
-
         return "updateOK";
     }
 
