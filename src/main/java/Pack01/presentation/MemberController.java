@@ -3,20 +3,21 @@ package Pack01.presentation;
 import Pack01.domain.cafe.application.CafeReadService;
 import Pack01.domain.member.application.MemberReadService;
 import Pack01.domain.member.application.MemberWriteService;
-import Pack01.domain.member.dto.*;
+import Pack01.domain.member.dto.LoginReqDto;
+import Pack01.domain.member.dto.MemberRegisterReqDto;
+import Pack01.domain.member.dto.UserUpdateReqDto;
 import Pack01.domain.member.entity.Member;
-import Pack01.domain.member.entity.MemberRole;
-
 import Pack01.domain.rental.application.RentalReadService;
-import Pack01.global.exception.FourUAdminException;
-import Pack01.global.exception.FourUUserException;
 import Pack01.global.exception.FourUPerMissionException;
 import Pack01.global.jwt.Jwt;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 
@@ -85,7 +86,14 @@ public class MemberController {
 
     @PostMapping("/login")
     public String LoginAdmin(LoginReqDto loginReqDto, HttpSession session) {
-        Member member = memberReadService.loginAdmin(loginReqDto);
+        Member member=null;
+        try {
+            member = memberReadService.loginAdmin(loginReqDto);
+        }catch(Exception e){
+            return "wrongLogin";
+        }
+
+
         Jwt jwt = new Jwt();
         String token = jwt.createJWT(member);
 

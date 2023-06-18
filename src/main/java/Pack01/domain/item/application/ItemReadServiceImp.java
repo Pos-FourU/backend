@@ -2,6 +2,7 @@ package Pack01.domain.item.application;
 
 import Pack01.domain.item.dto.ItemFindAllRespDto;
 import Pack01.domain.item.entity.CafeItem;
+import Pack01.domain.item.entity.Item;
 import Pack01.domain.item.repository.CafeItemRepository;
 import Pack01.domain.item.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,5 +38,10 @@ public class ItemReadServiceImp implements ItemReadService{
                 .map(cafeItem -> cafeItem.getItem_id())
                 .collect(Collectors.toList());
         return collect;
+    }
+
+    @Override
+    public List<Item> getAllItem() {
+        return itemRepository.findAllItems();
     }
 }

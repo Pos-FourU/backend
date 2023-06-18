@@ -3,11 +3,9 @@ package Pack01.presentation;
 import Pack01.domain.cafe.application.CafeWriteService;
 import Pack01.domain.item.application.ItemReadService;
 import Pack01.domain.item.application.ItemWriterService;
-import Pack01.domain.item.entity.CafeItem;
 import Pack01.domain.member.application.MemberReadService;
 import Pack01.domain.member.application.MemberWriteService;
 import Pack01.domain.member.dto.MemberFindAllRespDto;
-import Pack01.domain.member.dto.MemberRegisterReqDto;
 import Pack01.domain.member.dto.MemberUpdateReqDto;
 import Pack01.domain.member.entity.MemberRole;
 import Pack01.domain.rental.application.RentalReadService;
@@ -20,7 +18,6 @@ import Pack01.global.jwt.Jwt;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,7 +54,7 @@ public class AdminController {
     @GetMapping("/manageItem")
     public String showItem(Model model, HttpSession session) {
         Object token1 = session.getAttribute("token");
-        if(token1==null){
+        if (token1 == null) {
             throw new FourUPerMissionException("아이디 혹은 비밀번호가 잘못 되었습니다.");
         }
         Long member_id = Long.parseLong(jwt.getJwtContents(token1.toString()).get("id").toString());
@@ -66,9 +63,9 @@ public class AdminController {
     }
 
     @PostMapping("/deleteCafe")
-    public String updateItemStatus(@RequestParam Long cafe_id,@RequestParam Long member_id, HttpSession session) {
+    public String updateItemStatus(@RequestParam Long cafe_id, @RequestParam Long member_id, HttpSession session) {
         Object token1 = session.getAttribute("token");
-        if(token1==null){
+        if (token1 == null) {
             throw new FourUPerMissionException("아이디 혹은 비밀번호가 잘못 되었습니다.");
         }
         List<Long> cafeItem = itemReadService.getCafeItem(cafe_id);
@@ -81,7 +78,7 @@ public class AdminController {
     @GetMapping("/manageRental")
     public String showRental(Model model, HttpSession session) {
         Object token1 = session.getAttribute("token");
-        if(token1==null){
+        if (token1 == null) {
             throw new FourUPerMissionException("아이디 혹은 비밀번호가 잘못 되었습니다.");
         }
         Long member_id = Long.parseLong(jwt.getJwtContents(token1.toString()).get("id").toString());
@@ -90,9 +87,9 @@ public class AdminController {
     }
 
     @GetMapping("/manageReservation")
-    public String showReservation(Model model, HttpSession session){
+    public String showReservation(Model model, HttpSession session) {
         String token = session.getAttribute("token").toString();
-        if(token==null){
+        if (token == null) {
             throw new FourUAdminException("유효하지 않은 토큰입니다.");
         }
         Long member_id = Long.parseLong(jwt.getJwtContents(token).get("id").toString());
@@ -101,9 +98,9 @@ public class AdminController {
     }
 
     @GetMapping("/manageMember")
-    public String showMember(Model model,HttpSession session) {
+    public String showMember(Model model, HttpSession session) {
         Object token1 = session.getAttribute("token");
-        if(token1==null){
+        if (token1 == null) {
             throw new FourUPerMissionException("아이디 혹은 비밀번호가 잘못 되었습니다.");
         }
         List<MemberFindAllRespDto> members = memberReadService.getMembers(null);
@@ -120,9 +117,9 @@ public class AdminController {
     }
 
     @GetMapping("/manageManager")
-    public String showManager(Model model,HttpSession session) {
+    public String showManager(Model model, HttpSession session) {
         Object token1 = session.getAttribute("token");
-        if(token1==null){
+        if (token1 == null) {
             throw new FourUPerMissionException("아이디 혹은 비밀번호가 잘못 되었습니다.");
         }
         model.addAttribute("managers", memberReadService.getManagers());
@@ -134,7 +131,7 @@ public class AdminController {
                              @RequestParam String role,
                              HttpSession session) {
         Object token1 = session.getAttribute("token");
-        if(token1==null){
+        if (token1 == null) {
             throw new FourUPerMissionException("아이디 혹은 비밀번호가 잘못 되었습니다.");
         }
         memberWriteService.updateMember(MemberUpdateReqDto.builder()
@@ -146,14 +143,21 @@ public class AdminController {
 
     @PostMapping("/insertRentalInfo")
     public String applyRentalInfo(RentalInsertReqDto rentalInsertReqDto){
-        if(rentalInsertReqDto.getMember_email()==null){
+        if(rentalInsertReqDto.getMember_email()==null || rentalInsertReqDto.getRental_days()==null){
             throw new FourUAdminException("데이터가 다 입력되지 않았습니다.");
         }
         else {
             if (!rentalWriteService.insertRentals(rentalInsertReqDto)) {
                 return "alreadyRentOK";
             }
+
         }
         return "redirect:/api/v1/admin/manageItem";
+    }
+
+    @PostMapping("/manageRental")
+    public String returnItem(@RequestParam Long rental_id, @RequestParam Long member_id, @RequestParam Long item_id, @RequestParam String rental_time, @RequestParam String return_time, @RequestParam String rental_days){
+        rentalReadService.returnRentals(rental_id, member_id, item_id, rental_time, return_time, rental_days);
+        return "redirect:/api/v1/admin/manageRental";
     }
 }

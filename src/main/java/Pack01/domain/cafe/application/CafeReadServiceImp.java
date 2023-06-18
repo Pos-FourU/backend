@@ -32,6 +32,13 @@ public class CafeReadServiceImp implements CafeReadService {
                         .build())
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Long findByMemberId(Long memberId) {
+        Cafe byCafeManagerID = cafeRepository.findByCafeManagerID(memberId);
+        return byCafeManagerID.getCafe_id();
+    }
+
     @Override
     public List<CafeLeftCountRespDto>  getLeftItemCount() {
         return cafeRepository.getCafeLeftItemCount();

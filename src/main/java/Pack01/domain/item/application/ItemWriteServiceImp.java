@@ -1,9 +1,11 @@
 package Pack01.domain.item.application;
 
+import Pack01.domain.item.dto.CafeItemDto;
 import Pack01.domain.item.dto.ItemRegisterReqDto;
 import Pack01.domain.item.entity.Item;
 import Pack01.domain.item.entity.ItemCategory;
 import Pack01.domain.item.entity.ItemStatus;
+import Pack01.domain.item.repository.CafeItemRepository;
 import Pack01.domain.item.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,13 +18,19 @@ import java.util.List;
 @Transactional
 public class ItemWriteServiceImp implements ItemWriterService{
     private final ItemRepository itemRepository;
+    private final CafeItemRepository cafeItemRepository;
 
     @Override
     public void register(ItemRegisterReqDto itemRegisterReqDto){
         Item item = Item.of(
-                ItemStatus.VALID,
+                ItemStatus.valueOf(itemRegisterReqDto.getStatus()),
                 ItemCategory.getItemCategory(itemRegisterReqDto.getCategory()));
         itemRepository.registerItem(item);
+    }
+
+    @Override
+    public void registerCafeItem(CafeItemDto cafeItemDto) {
+        cafeItemRepository.register(cafeItemDto.getCafe_id(),cafeItemDto.getItem_id());
     }
 
     @Override

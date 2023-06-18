@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -74,6 +75,11 @@ public class RentalRepository {
             return false;
         };
         return true;
+    }
+
+    public void updateReturnTime(String return_time, Long rental_id){
+        String sql = "UPDATE "+TABLE+" SET return_Time = \""+return_time+"\" WHERE rental_id = "+rental_id;
+        jdbcTemplate.update(sql);
     }
 
     private class RentalRowMapper implements RowMapper<Rental> {

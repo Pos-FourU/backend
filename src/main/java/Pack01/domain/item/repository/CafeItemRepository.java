@@ -33,6 +33,15 @@ public class CafeItemRepository {
     }
 
 
+    public void register(Long cafe_id,Long item_id){
+        String sql = "INSERT INTO " + TABLE + " (cafe_id, item_id) VALUES (?, ?)";
+        jdbcTemplate.update(sql,
+                cafe_id,
+                item_id);
+
+    }
+
+
 
 
 
