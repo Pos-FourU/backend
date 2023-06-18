@@ -15,7 +15,7 @@ public interface MemberReadService {
     List<ManagerFindAllRespDto> getManagers();
    void findByWaringCountUser();
 
-    List<Member> findById(Long member_id);
+    Member findById(Long member_id);
 
 }
 

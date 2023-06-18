@@ -8,6 +8,7 @@ import Pack01.domain.member.dto.LoginReqDto;
 import Pack01.domain.member.dto.MemberRegisterReqDto;
 import Pack01.domain.member.entity.Member;
 import Pack01.domain.member.entity.MemberRole;
+
 import Pack01.global.exception.FourUAdminException;
 import Pack01.global.exception.FourUUserException;
 import Pack01.global.jwt.Jwt;
@@ -33,7 +34,8 @@ public class MemberController {
 
     private final MemberWriteService memberWriteService;
     private final MemberReadService memberReadService;
-    private final CafeReadService cafeReadService;
+    private final RentalReadService rentalReadService;
+
 
     @PostMapping()
     public String register(@RequestBody MemberRegisterReqDto memberRegisterReqDto) {
@@ -89,9 +91,18 @@ public class MemberController {
     public String mypage(Model model, HttpSession session) {
 //        session.getAttribute(member_id);
         Long member_id = 1L;
-        List<Member> members = memberReadService.findById(member_id);
+        Member members = memberReadService.findById(member_id);
+        Integer countThismonth = rentalReadService.countThismonth(member_id);
         model.addAttribute("members", members);
-        return "mypage";
+        model.addAttribute("countThismonth",countThismonth);
+        return "mypageView";
+    }
+
+    @GetMapping("/memberUpdate")
+    public String updateMembers(Model model, HttpSession session){
+        //        session.getAttribute(member_id);
+        Long member_id = 1L;
+        return "memberUpdate";
     }
 
 
