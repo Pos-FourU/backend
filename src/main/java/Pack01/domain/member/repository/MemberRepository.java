@@ -47,12 +47,14 @@ public class MemberRepository {
         String sql = "SELECT * FROM " + TABLE;
         return jdbcTemplate.query(sql, new MemberRowMapper());
     }
-    public List<Member> findById(Long member_id){
-        String sql = "SELECT * FROM " +TABLE +"WHERE member_id = " + member_id;
-        return jdbcTemplate.query(sql,new MemberRowMapper());
+
+    public List<Member> findById(Long member_id) {
+        String sql = "SELECT * FROM " + TABLE + " WHERE member_id = " + member_id;
+        return jdbcTemplate.query(sql, new MemberRowMapper());
     }
+
     public List<Member> findByRole() {
-        String sql = "SELECT * FROM " + TABLE+" where member_role='USER' or member_role ='BLACK_LIST'";
+        String sql = "SELECT * FROM " + TABLE + " where member_role='USER' or member_role ='BLACK_LIST'";
         return jdbcTemplate.query(sql, new MemberRowMapper());
     }
 
@@ -76,7 +78,7 @@ public class MemberRepository {
         String s = memberUpdateReqDto.getMember_role().toString();
         System.out.println(s);
         jdbcTemplate.update(sql,
-               s,
+                s,
                 memberUpdateReqDto.getMember_id());
     }
 
@@ -85,9 +87,20 @@ public class MemberRepository {
         jdbcTemplate.update(sql, memberId);
     }
 
+    public void DeleteByMemberId(Long memberId) {
+        String sql = "DELETE FROM " + TABLE + " WHERE member_id = ?";
+        jdbcTemplate.update(sql, memberId);
+    }
+
+
     public void ChangeBlackList(Long memberId) {
         String sql = "UPDATE members SET member_status = 'BLACK_LIST'WHERE member_id = ?";
         jdbcTemplate.update(sql, memberId);
+    }
+
+    public void deleteByMemberId(Long member_id) {
+        String sql = "DELETE FROM " + TABLE + " WHERE member_id = ?";
+        jdbcTemplate.update(sql, member_id);
     }
 
     private class MemberRowMapper implements RowMapper<Member> {

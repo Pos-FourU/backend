@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -21,5 +23,13 @@ public class ItemWriteServiceImp implements ItemWriterService{
                 ItemStatus.VALID,
                 ItemCategory.getItemCategory(itemRegisterReqDto.getCategory()));
         itemRepository.registerItem(item);
+    }
+
+    @Override
+    public void deleteByItemId(List<Long> itemIds) {
+        if(itemIds.isEmpty()){
+            return;
+        }
+        itemRepository.deleteByItemIds(itemIds);
     }
 }
