@@ -73,7 +73,7 @@
   </table>
 </div>
 <div>
-  <form action="./WEB-INF/views/addMember" method="POST">
+  <form action="/api/v1/cafe/AddManager" method="get">
     <button type="submit">신청</button>
   </form>
 

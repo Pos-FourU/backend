@@ -71,4 +71,9 @@ public class CafeController {
         return "redirect:/api/v1/admin/manageMember";
     }
 
+    @GetMapping("/AddManager")
+    public String gotoAddManager(){
+        return "addManager";
+    }
+
 }
