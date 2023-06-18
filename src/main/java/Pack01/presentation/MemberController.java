@@ -35,9 +35,23 @@ public class MemberController {
 
     private final Jwt jwt = new Jwt();
     @PostMapping()
-    public String register(@RequestBody MemberRegisterReqDto memberRegisterReqDto) {
-        memberWriteService.register(memberRegisterReqDto);
-        return "index";
+    public String register(@RequestParam String memberEmail,
+                           @RequestParam String memberPw,
+                           @RequestParam String memberPhone,
+                           @RequestParam String memberName) {
+        memberWriteService.register(MemberRegisterReqDto.builder()
+                .memberEmail(memberEmail)
+                .memberPw(memberPw)
+                .memberPhone(memberPhone)
+                .memberName(memberName)
+                .build()
+        );
+        return "redirect:/";
+    }
+
+    @GetMapping()
+    public String regist() {
+        return "addUser";
     }
 
     @GetMapping("/logout")
