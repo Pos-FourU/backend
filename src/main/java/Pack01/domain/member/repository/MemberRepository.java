@@ -1,6 +1,7 @@
 package Pack01.domain.member.repository;
 
 import Pack01.domain.member.dto.MemberUpdateReqDto;
+import Pack01.domain.member.dto.UserUpdateReqDto;
 import Pack01.domain.member.entity.Manager;
 import Pack01.domain.member.entity.Member;
 import Pack01.domain.member.entity.MemberRole;
@@ -48,9 +49,9 @@ public class MemberRepository {
         return jdbcTemplate.query(sql, new MemberRowMapper());
     }
 
-    public Member findById(Long member_id){
-        String sql = "SELECT * FROM " +TABLE +" WHERE member_id = " + member_id;
-        return (Member) jdbcTemplate.query(sql,new MemberRowMapper());
+    public List<Member> findById(Long member_id){
+        String sql = "SELECT * FROM " +TABLE +"WHERE member_id = " + member_id;
+        return  jdbcTemplate.query(sql,new MemberRowMapper());
     }
 
     public List<Member> findByRole() {
@@ -96,6 +97,15 @@ public class MemberRepository {
     public void ChangeBlackList(Long memberId) {
         String sql = "UPDATE members SET member_status = 'BLACK_LIST'WHERE member_id = ?";
         jdbcTemplate.update(sql, memberId);
+    }
+    public void updateUserInfo(UserUpdateReqDto userUpdateReqDto){
+        String sql = "UPDATE members SET member_name = ?, member_phone = ? WHERE (`member_id` = ?)";
+        String name = userUpdateReqDto.getMember_name();
+        String phone = userUpdateReqDto.getMember_phone();
+        jdbcTemplate.update(sql,
+                name,
+                phone,
+                userUpdateReqDto.getMember_id());
     }
 
     public void deleteByMemberId(Long member_id) {

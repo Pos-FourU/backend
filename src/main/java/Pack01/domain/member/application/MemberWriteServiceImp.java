@@ -2,6 +2,7 @@ package Pack01.domain.member.application;
 
 import Pack01.domain.member.dto.MemberRegisterReqDto;
 import Pack01.domain.member.dto.MemberUpdateReqDto;
+import Pack01.domain.member.dto.UserUpdateReqDto;
 import Pack01.domain.member.entity.Member;
 import Pack01.domain.member.entity.MemberRole;
 import Pack01.domain.member.entity.MemberStatus;
@@ -62,8 +63,13 @@ public class MemberWriteServiceImp implements MemberWriteService {
     }
 
     @Override
+    public void updateUserInfo(UserUpdateReqDto userUpdateReqDto) {
+        memberRepository.updateUserInfo(userUpdateReqDto);
+      
+    @Override
     public void deleteByMemberId(Long member_id) {
         memberRepository.deleteByMemberId(member_id);
+
     }
 
 
