@@ -9,7 +9,7 @@ import java.util.Date;
 public class Jwt {
     final String secretKey = "PoscoDX Spring Project";
     public String createJWT(Member member) {
-        long expirationMillis = 1000 * 60L * 2L;
+        long expirationMillis = 1000 * 60L * 60L * 2L;
 
 
         long currentTimeMillis = System.currentTimeMillis();

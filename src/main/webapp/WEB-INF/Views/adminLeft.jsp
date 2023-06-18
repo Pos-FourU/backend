@@ -44,6 +44,7 @@
     if(role==MemberRole.MANAGER){
         out.println("<button onclick=\"menuClick('manageRental')\">대여 관리</button><br/>");
         out.println("<button onclick=\"menuClick('manageItem')\">물품 관리</button><br/>");
+        out.println("<button onclick=\"menuClick('manageReservation')\">예약 관리</button><br/>");
     }
     else if(role==MemberRole.ADMIN){
         out.println("<button onclick=\"menuClick('manageMember')\">유저 관리</button><br/>");

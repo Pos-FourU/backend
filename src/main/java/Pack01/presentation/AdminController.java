@@ -13,6 +13,8 @@ import Pack01.domain.member.entity.MemberRole;
 import Pack01.domain.rental.application.RentalReadService;
 import Pack01.domain.rental.application.RentalWriteService;
 import Pack01.domain.rental.dto.RentalInsertReqDto;
+import Pack01.domain.reservation.application.ReservationReadService;
+import Pack01.global.exception.FourUAdminException;
 import Pack01.global.exception.FourUPerMissionException;
 import Pack01.global.jwt.Jwt;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +42,7 @@ public class AdminController {
     private final RentalReadService rentalReadService;
     private final RentalWriteService rentalWriteService;
     private final CafeWriteService cafeWriteService;
+    private final ReservationReadService reservationReadService;
 
     private final Jwt jwt = new Jwt();
 
@@ -84,6 +87,17 @@ public class AdminController {
         Long member_id = Long.parseLong(jwt.getJwtContents(token1.toString()).get("id").toString());
         model.addAttribute("rentals", rentalReadService.getRentals(member_id));
         return "manageRental";
+    }
+
+    @GetMapping("/manageReservation")
+    public String showReservation(Model model, HttpSession session){
+        String token = session.getAttribute("token").toString();
+        if(token==null){
+            throw new FourUAdminException("유효하지 않은 토큰입니다.");
+        }
+        Long member_id = Long.parseLong(jwt.getJwtContents(token).get("id").toString());
+        model.addAttribute("reservations", reservationReadService.getReservations(member_id));
+        return "manageReservation";
     }
 
     @GetMapping("/manageMember")

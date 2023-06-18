@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 @Service
@@ -19,7 +20,7 @@ public class ReservationWriteServiceImpl implements ReservationWriteService {
         Reservation reservation = Reservation.builder()
                 .member_id(reservationRegisterDto.getMember_id())
                 .cafe_id(reservationRegisterDto.getCafe_id())
-                .reservation_time(LocalDate.now())
+                .reservation_time(Date.valueOf(LocalDate.now()))
                 .build();
         reservationRepository.registerReservation(reservation);
 
