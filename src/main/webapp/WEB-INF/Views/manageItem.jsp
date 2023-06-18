@@ -62,7 +62,10 @@
             flex-direction: column;
         }
         #table{
-            height:90%;
+            height:80%;
+        }
+        #link{
+            height:20%;
         }
     </style>
 </head>
@@ -98,23 +101,23 @@
                 out.println("<td>" + i.getItem_id() + "</td>");
                 out.println("<td>" + i.getItem_status().toString() + "</td>");
                 out.println("<td>" + i.getCategory().toString() + "</td>");
-
-                out.println("</td>");
                 out.println("<td>");
                 out.println("<form name=\"insertRentalInfo\" method=\"post\" action=\"insertRentalInfo\">");
-                out.println("<td>");
                 if (i.getItem_status().toString() != "VALID") {
                     out.println("<input type=\"text\" name=\"member_email\" disabled/>");
                 } else {
                     out.println("<input type=\"text\" name=\"member_email\" required/>");
                 }
                 out.println("</td>");
+
                 out.println("<td>");
                 if (i.getItem_status().toString() != "VALID") {
                     out.println("<input type=\"number\" min=\"1\" max=\"7\" name=\"rental_days\" disabled/>");
                 } else {
                     out.println("<input type=\"number\" min=\"1\" max=\"7\" name=\"rental_days\" required/>");
                 }
+                out.println("</td>");
+                out.println("<td>");
                 out.println("<input type=\"text\" value=\"" + i.getItem_id() + "\" name=\"item_id\" style=\"display:none;\">");
                 out.println("<input type=\"text\" value=\"" + member_id + "\" name=\"cafe_manager_id\" style=\"display:none;\">");
                 out.println("<input type=\"text\" value=\"" + LocalDate.now() + "\" name=\"rental_time\" style=\"display:none;\">");
@@ -125,24 +128,22 @@
                 }
                 out.println("</form>");
                 out.println("</td>");
+                out.println("<td>");
                 if (i.getItem_status().toString() != "VALID") {
-                    out.println("<td>");
-                    out.println("<button disabled>삭제</button>");
-                    out.println("</td>");
-                } else {
-                    out.println("<td>");
-                    out.println("<button onclick=\"deleteItem()\">삭제</button>");
-                    out.println("</td>");
-                }
 
+                    out.println("<button disabled>삭제</button>");
+                } else {
+                    out.println("<button onclick=\"deleteItem()\">삭제</button>");
+                }
+                out.println("</td>");
                 out.println("</tr>");
             }
         %>
         </tbody>
     </table>
     </div>
-    <div>
-<a href="/api/v1/item">물품 추가</a>
+    <div id="link">
+        <a href="/api/v1/item">물품 추가</a>
     </div>
 </div>
 <div id="footer">
