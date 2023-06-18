@@ -35,4 +35,9 @@ public class RentalReadServiceImp implements RentalReadService{
     public List<Long> findAllByExpireMembers() {
         return rentalRepository.findAllByExpireMembers();
     }
+
+    @Override
+    public Integer countThismonth(Long member_id) {
+        return rentalRepository.countThismonth(member_id);
+    }
 }

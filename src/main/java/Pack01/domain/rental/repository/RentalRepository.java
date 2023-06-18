@@ -46,6 +46,16 @@ public class RentalRepository {
         jdbcTemplate.update(sql);
     }
 
+    public int countThismonth(Long member_id){
+            String sql = "SELECT COUNT(*) AS rental_count " +
+                    "FROM rentals " +
+                    "WHERE member_id = ? " +
+                    "  AND MONTH(rental_time) = MONTH(CURRENT_DATE())" +
+                    "  AND YEAR(rental_time) = YEAR(CURRENT_DATE());";
+            return jdbcTemplate.queryForObject(sql, Integer.class, member_id);
+        }
+
+
     private class RentalRowMapper implements RowMapper<Rental> {
         @Override
         public Rental mapRow(ResultSet rs, int rowNum) throws SQLException {

@@ -42,7 +42,7 @@ public class MemberReadServiceImp implements MemberReadService{
     }
 
     @Override
-    public List<Member> findById(Long member_id){
+    public Member findById(Long member_id){
         return memberRepository.findById(member_id);
 
     }
