@@ -135,7 +135,7 @@
         </tbody>
     </table>
     <br/>
-    <br/> <a href="/api/v1/item/add">물품 추가</a>
+    <br/> <a href="/api/v1/item">물품 추가</a>
 </div>
 <div id="footer">
     <jsp:include page="/adminFooter.jsp"></jsp:include>

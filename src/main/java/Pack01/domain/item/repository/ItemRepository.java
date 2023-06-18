@@ -28,8 +28,8 @@ public class ItemRepository {
 
         String sql = "INSERT INTO " + TABLE + " (item_status, category, create_at, update_at) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql,
-                item.getItem_status(),
-                item.getCategory(),
+                item.getItem_status().toString(),
+                item.getCategory().toString(),
                 item.getCreate_at(),
                 item.getUpdate_at());
     }
@@ -42,6 +42,12 @@ public class ItemRepository {
                 "JOIN cafes " +
                 "ON cafes.cafe_id = cafe_items.cafe_id " +
                 "WHERE member_id = "+member_id;
+        return jdbcTemplate.query(sql, new ItemRowMapper());
+    }
+
+    public List<Item> findAllItems(){
+        String sql = "SELECT * " +
+                "FROM items ";
         return jdbcTemplate.query(sql, new ItemRowMapper());
     }
 
