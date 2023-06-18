@@ -59,6 +59,11 @@ public class MemberRepository {
         return jdbcTemplate.query(sql, new MemberRowMapper());
     }
 
+    public Member findByEmail(String member_email){
+        String sql = "SELECT * FROM " + TABLE + " WHERE member_email = \""+member_email+"\"";
+        return jdbcTemplate.query(sql, new MemberRowMapper()).get(0);
+    }
+
     public List<Member> findByWaringCountUser() {
         String sql = "SELECT * FROM " + TABLE + " where warning_count>=3";
         return jdbcTemplate.query(sql, new MemberRowMapper());
