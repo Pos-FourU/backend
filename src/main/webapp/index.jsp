@@ -5,7 +5,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@ include file="header.jsp" %>
-<%@ include file="index_navbar.jsp" %>
 
 <html>
 <head>
@@ -80,5 +79,9 @@
     </div>
     <input name="submit" type="submit" value="로그인"/>
 </form>
+
+<div id="footer">
+    <jsp:include page="/adminFooter.jsp"></jsp:include>
+</div>
 </body>
 </html>

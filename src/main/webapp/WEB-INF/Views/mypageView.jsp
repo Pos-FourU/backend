@@ -71,6 +71,9 @@
     환경 보호에 동참해주셔서 감사합니다.
 </div>
 
+<div id="footer">
+    <jsp:include page="/adminFooter.jsp"></jsp:include>
+</div>
 
 </body>
 </html>

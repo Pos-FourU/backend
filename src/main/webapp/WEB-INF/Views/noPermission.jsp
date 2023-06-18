@@ -49,6 +49,8 @@
  로그인이 필요합니다..
   <a href="/">로그인창 가기</a>
 </div>
-
+<div id="footer">
+    <jsp:include page="/adminFooter.jsp"></jsp:include>
+</div>
 </body>
 </html>

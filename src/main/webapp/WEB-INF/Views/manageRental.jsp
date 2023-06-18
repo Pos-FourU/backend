@@ -11,7 +11,7 @@
     #header{
         width:100%;
         height:10%;
-        background-color: aqua;
+        background-color:#90EE90;
     }
     body{
         display:flex;
@@ -28,12 +28,12 @@
     #footer{
         width:100%;
         height:10%;
-        background-color: aqua;
+        background-color:#90EE90;
     }
 </style>
 <body>
 <div id="header">
-    <jsp:include page="adminHeader_middle.jsp"></jsp:include>
+    <jsp:include page="/adminHeader_middle.jsp"></jsp:include>
 </div>
 <div id="contents">
 
@@ -64,12 +64,12 @@
         </tr>
         </tbody>
     </table>
-    <button onclick="">대여</button>
-    <button onclick="">반납</button>
-<%--    <button onclick="">훼손/분실</button>--%>
 </div>
+<button onclick="">대여</button>
+<button onclick="">반납</button>
+
 <div id="footer">
-    <jsp:include page="adminFooter.jsp"></jsp:include>
+    <jsp:include page="/adminFooter.jsp"></jsp:include>
 </div>
 </body>
 </html>

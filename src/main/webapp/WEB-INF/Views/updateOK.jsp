@@ -49,6 +49,8 @@
   회원정보가 수정되었습니다. 감사합니다.
   <a href="/api/v1/member/mypage">마이페이지로 돌아가기</a>
 </div>
-
+<div id="footer">
+  <jsp:include page="/adminFooter.jsp"></jsp:include>
+</div>
 </body>
 </html>
