@@ -1,6 +1,7 @@
 <%@ page import="Pack01.domain.member.entity.MemberRole" %>
 <%@ page import="Pack01.global.jwt.Jwt" %>
-<%@ page import="io.jsonwebtoken.Claims" %><%--
+<%@ page import="io.jsonwebtoken.Claims" %>
+<%--
   Created by IntelliJ IDEA.
   User: kimheeah
   Date: 2023/06/15

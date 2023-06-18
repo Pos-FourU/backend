@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
-  <title> 텀블러 대여 예약 </title>
+  <title> 카페 등록 </title>
   <style>
     body {
       font-family: Arial, sans-serif;
