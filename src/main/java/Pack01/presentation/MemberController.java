@@ -94,7 +94,7 @@ public class MemberController {
             return "redirect:/api/v1/admin/manageMember";}
         else if(member.getMember_role()==MANAGER){
             Integer integer = cafeReadService.existCafeByMemberId(member.getMember_id());
-            return "redirect:/api/v1/admin/manageRental";
+            return "redirect:/api/v1/admin/manageItem";
         }else if(member.getMember_role()==USER){
             return "redirect:/api/v1/cafe/map";
         } else {

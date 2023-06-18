@@ -1,5 +1,6 @@
 package Pack01.domain.reservation.repository;
 
+import Pack01.domain.reservation.dto.ReservationFindRespDto;
 import Pack01.domain.reservation.entity.Reservation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class ReservationRepository {
@@ -24,11 +27,27 @@ public class ReservationRepository {
                 reservation.getReservation_time());
     }
 
-    public boolean checkIfAlready( Long memeberId){
+    public boolean checkIfAlready(Long memberId){
         // 멤버 아이디 확인을 위한 쿼리
         String checkQuery = "SELECT COUNT(*) FROM " +TABLE+ " WHERE member_id = ? OR member_id IN (SELECT member_id FROM rentals WHERE return_time IS NULL)";
-        int count = jdbcTemplate.queryForObject(checkQuery, Integer.class,memeberId);
+        int count = jdbcTemplate.queryForObject(checkQuery, Integer.class,memberId);
         return count>0;
+    }
+
+    public List<Reservation> findbyManager(Long manager_id){
+        String sql = "SELECT * FROM "+TABLE+" JOIN cafes ON reservations.cafe_id = cafes.cafe_id WHERE cafes.member_id = "+manager_id;
+        return jdbcTemplate.query(sql, new RowMapper<Reservation>() {
+            @Override
+            public Reservation mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Reservation reservation = new Reservation(
+                        rs.getLong("reservation_id"),
+                        rs.getLong("cafe_id"),
+                        rs.getLong("member_id"),
+                        rs.getDate("reservation_time")
+                );
+                return reservation;
+            }
+        });
     }
 
     public int getCafeReservedItems(Long cafeId) {
@@ -45,7 +64,7 @@ public class ReservationRepository {
                     .reservation_id(rs.getLong("reservation_id"))
                     .member_id(rs.getLong("member_id"))
                     .cafe_id(rs.getLong("cafe_id"))
-                    .reservation_time(rs.getDate("reservation_time").toLocalDate())
+                    .reservation_time(rs.getDate("reservation_time"))
                     .build();
 
 
