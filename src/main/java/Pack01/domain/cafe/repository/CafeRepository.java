@@ -36,6 +36,11 @@ public class CafeRepository {
         return jdbcTemplate.query(sql, new CafeRowMapper());
     }
 
+    public Cafe findByCafeManagerID(Long cafe_id){
+        String sql = "SELECT * FROM "+TABLE+" WHERE member_id = "+cafe_id;
+        return jdbcTemplate.query(sql, new CafeRowMapper()).get(0);
+    }
+
 
     // RowMapper class for mapping database result set to Member object
     private static class CafeRowMapper implements RowMapper<Cafe> {

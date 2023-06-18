@@ -9,6 +9,7 @@ import Pack01.domain.member.dto.MemberRegisterReqDto;
 import Pack01.domain.member.entity.Member;
 import Pack01.domain.member.entity.MemberRole;
 
+import Pack01.domain.rental.application.RentalReadService;
 import Pack01.global.exception.FourUAdminException;
 import Pack01.global.exception.FourUUserException;
 import Pack01.global.jwt.Jwt;
@@ -35,6 +36,7 @@ public class MemberController {
     private final MemberWriteService memberWriteService;
     private final MemberReadService memberReadService;
     private final RentalReadService rentalReadService;
+    private final CafeReadService cafeReadService;
 
 
     @PostMapping()
