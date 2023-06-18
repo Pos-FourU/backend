@@ -143,16 +143,20 @@ public class AdminController {
 
     @PostMapping("/insertRentalInfo")
     public String applyRentalInfo(RentalInsertReqDto rentalInsertReqDto){
-        if(rentalInsertReqDto.getMember_email()==null || rentalInsertReqDto.getRental_days()==null){
-            throw new FourUAdminException("데이터가 다 입력되지 않았습니다.");
-        }
-        else {
-            if (!rentalWriteService.insertRentals(rentalInsertReqDto)) {
-                return "alreadyRentOK";
-            }
+        try {
+            if (rentalInsertReqDto.getMember_email() == null || rentalInsertReqDto.getRental_days() == null) {
+                throw new FourUAdminException("데이터가 다 입력되지 않았습니다.");
+            } else {
+                if (!rentalWriteService.insertRentals(rentalInsertReqDto)) {
+                    return "alreadyRentOK";
+                }
 
+            }
+            return "redirect:/api/v1/admin/manageItem";
         }
-        return "redirect:/api/v1/admin/manageItem";
+        catch(Exception e){
+            throw new FourUAdminException("에러가 발생하였습니다.");
+        }
     }
 
     @PostMapping("/manageRental")
