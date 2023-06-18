@@ -45,6 +45,11 @@ public class ItemRepository {
         return jdbcTemplate.query(sql, new ItemRowMapper());
     }
 
+    public void updateItem(Long itemId, String status){
+        String sql = "UPDATE "+TABLE+" SET item_status = \""+status+"\" WHERE item_id = "+itemId;
+        jdbcTemplate.update(sql);
+    }
+
     public void deleteByItemIds(List<Long> itemIds) {
 
         String sql = "DELETE FROM items WHERE item_id IN (:itemIds)";

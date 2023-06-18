@@ -116,16 +116,14 @@ public class AdminController {
     }
 
     @GetMapping("/updateRole")
-    public String updateRole(@RequestParam Long admin,
+    public String updateRole(@RequestParam Long member_id,
                              @RequestParam String role,
                              HttpSession session) {
         Object token1 = session.getAttribute("token");
         if(token1==null){
             throw new FourUPerMissionException("아이디 혹은 비밀번호가 잘못 되었습니다.");
         }
-        Long member_id = Long.parseLong(jwt.getJwtContents(token1.toString()).get("id").toString());
         memberWriteService.updateMember(MemberUpdateReqDto.builder()
-                .admin_id(admin)
                 .member_id(member_id)
                 .member_role(MemberRole.valueOf(role))
                 .build());
@@ -134,7 +132,9 @@ public class AdminController {
 
     @PostMapping("/insertRentalInfo")
     public String applyRentalInfo(RentalInsertReqDto rentalInsertReqDto){
-        rentalWriteService.insertRentals(rentalInsertReqDto);
+        if(!rentalWriteService.insertRentals(rentalInsertReqDto)) {
+            return "alreadyRentOK";
+        }
         return "redirect:/api/v1/admin/manageItem";
     }
 }

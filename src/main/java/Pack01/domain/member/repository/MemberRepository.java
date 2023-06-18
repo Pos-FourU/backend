@@ -82,7 +82,6 @@ public class MemberRepository {
     public void updateMember(MemberUpdateReqDto memberUpdateReqDto) {
         String sql = "UPDATE " + TABLE + " SET member_role = ? WHERE member_id = ?";
         String s = memberUpdateReqDto.getMember_role().toString();
-        System.out.println(s);
         jdbcTemplate.update(sql,
                 s,
                 memberUpdateReqDto.getMember_id());

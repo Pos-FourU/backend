@@ -79,6 +79,9 @@
     </div>
     <input name="submit" type="submit" value="로그인"/>
 </form>
+<form action="/api/v1/member" method="get">
+    <input name="submit" type="submit" value="회원가입"/>
+</form>
 
 <div id="footer">
     <jsp:include page="/adminFooter.jsp"></jsp:include>

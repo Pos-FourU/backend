@@ -63,7 +63,7 @@ public class CafeController {
             reservationWriteService.register(reservationRegistDto);
             model.addAttribute("message","예약이 등록되었습니다.");
         }
-        return "success";
+        return "redirect:/api/v1/cafe/map";
     }
 
     @PostMapping("/register")

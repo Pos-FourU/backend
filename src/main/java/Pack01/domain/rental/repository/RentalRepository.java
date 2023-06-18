@@ -54,12 +54,26 @@ public class RentalRepository {
                     "WHERE member_id = ? " +
                     "  AND MONTH(rental_time) = MONTH(CURRENT_DATE())" +
                     "  AND YEAR(rental_time) = YEAR(CURRENT_DATE());";
-            return jdbcTemplate.queryForObject(sql, Integer.class, member_id);
+
+
+
+
+        Integer integer = jdbcTemplate.queryForObject(sql, Integer.class, member_id);
+        return integer;
     }
 
     public void insertRental(Rental rental){
         String sql = "INSERT INTO " + TABLE + " (member_id, item_id, cafe_id, rental_time, return_time, rental_days) VALUES (?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, rental.getMember_id(), rental.getItem_id(), rental.getCafe_id(), rental.getRental_time(), rental.getReturn_time(), rental.getRental_days());
+    }
+
+    public Boolean isNotRental(Long member_id){
+        String sql = "SELECT * FROM "+TABLE+" WHERE member_id = "+member_id;
+        if(jdbcTemplate.query(sql, new RentalRowMapper()).size()>0)
+        {
+            return false;
+        };
+        return true;
     }
 
     private class RentalRowMapper implements RowMapper<Rental> {
