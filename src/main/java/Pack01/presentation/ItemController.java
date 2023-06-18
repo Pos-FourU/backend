@@ -5,6 +5,7 @@ import Pack01.domain.item.dto.ItemRegisterReqDto;
 import Pack01.global.exception.FourUPerMissionException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpSession;
 public class ItemController {
     private final ItemWriteServiceImp itemWriteServiceImp;
 
-    @PostMapping()
+    @GetMapping ("/add")
     public String register(ItemRegisterReqDto itemRegisterReqDto, HttpSession session){
         Object token1 = session.getAttribute("token");
         if(token1==null){
@@ -24,7 +25,8 @@ public class ItemController {
         }
         itemWriteServiceImp.register(itemRegisterReqDto);
 
-        return "showItem";
+        return "redirect:/api/v1/item/add";
     }
+
 
 }
