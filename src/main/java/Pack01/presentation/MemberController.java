@@ -8,11 +8,17 @@ import Pack01.domain.member.dto.LoginReqDto;
 import Pack01.domain.member.dto.MemberRegisterReqDto;
 import Pack01.domain.member.entity.Member;
 import Pack01.domain.member.entity.MemberRole;
-import Pack01.domain.rental.application.RentalReadService;
+
+import Pack01.global.exception.FourUAdminException;
+import Pack01.global.exception.FourUUserException;
+import Pack01.global.jwt.Jwt;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.*;
+
 
 import javax.servlet.http.HttpSession;
 
@@ -36,22 +42,45 @@ public class MemberController {
         memberWriteService.register(memberRegisterReqDto);
         return "index";
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
+
     @PostMapping("/manager")
-    public String registerManager(@RequestBody MemberRegisterReqDto memberRegisterReqDto) {
+    public String registerManager(@RequestParam String memberEmail,
+                                  @RequestParam String memberPw,
+                                  @RequestParam String memberPhone,
+                                  @RequestParam String memberName,
+                                  Model model) {
+        MemberRegisterReqDto memberRegisterReqDto = MemberRegisterReqDto.builder()
+                .memberEmail(memberEmail)
+                .memberPhone(memberPhone)
+                .memberName(memberName)
+                .memberPw(memberPw)
+                .build();
         memberWriteService.registerManager(memberRegisterReqDto);
-        return "reservation";
+        Member member = memberReadService.loginAdmin(LoginReqDto.builder().id(memberEmail).pw(memberPw)
+                .build());
+        model.addAttribute("member_id",member.getMember_id());
+        return "addCafe";
     }
 
     @PostMapping("/login")
     public String LoginAdmin(LoginReqDto loginReqDto, HttpSession session) {
         Member member = memberReadService.loginAdmin(loginReqDto);
-        MemberRole role = member.getMember_role();
-        session.setAttribute("role", role);
-        if (role == ADMIN) {
-            return "redirect:/api/v1/admin/manageMember";
-        } else if (role == MANAGER) {
-                return "redirect:/api/v1/admin/manageRental";
-        } else if (role == USER) {
+        Jwt jwt = new Jwt();
+        String token = jwt.createJWT(member);
+
+        session.setAttribute("token", token);
+        if (member.getMember_role()== ADMIN){
+            return "redirect:/api/v1/admin/manageMember";}
+        else if(member.getMember_role()==MANAGER){
+            Integer integer = cafeReadService.existCafeByMemberId(member.getMember_id());
+            return "redirect:/api/v1/admin/manageRental";
+        }else if(member.getMember_role()==USER){
             return "redirect:/api/v1/cafe/map";
         } else {
             throw new RuntimeException();
@@ -76,15 +105,5 @@ public class MemberController {
         return "memberUpdate";
     }
 
-//    @GetMapping("/1")
-//
-//    public void test(){
-//        throw new FourUAdminException("어드민") {
-//        };
-//    }
-//    @GetMapping("/3")
-//    public void test1(){
-//        throw new FourUUserException("유저");
-//    }
 
 }

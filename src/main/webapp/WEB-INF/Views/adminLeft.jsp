@@ -1,4 +1,6 @@
-<%@ page import="Pack01.domain.member.entity.MemberRole" %><%--
+<%@ page import="Pack01.domain.member.entity.MemberRole" %>
+<%@ page import="Pack01.global.jwt.Jwt" %>
+<%@ page import="io.jsonwebtoken.Claims" %><%--
   Created by IntelliJ IDEA.
   User: kimheeah
   Date: 2023/06/15
@@ -12,11 +14,15 @@
 </head>
 <body>
 <%
-    if(session.getAttribute("role")==MemberRole.MANAGER){
+    Jwt jwt = new Jwt();
+    Claims claims = jwt.getJwtContents(session.getAttribute("token").toString());
+    MemberRole role = MemberRole.valueOf(claims.get("role").toString());
+
+    if(role==MemberRole.MANAGER){
         out.println("<button onclick=\"menuClick('manageRental')\">대여 관리</button><br/>");
         out.println("<button onclick=\"menuClick('manageItem')\">물품 관리</button><br/>");
     }
-    else if(session.getAttribute("role")==MemberRole.ADMIN){
+    else if(role==MemberRole.ADMIN){
         out.println("<button onclick=\"menuClick('manageMember')\">유저 관리</button><br/>");
         out.println("<button onclick=\"menuClick('manageManager')\">관리자 관리</button><br/>");
     }

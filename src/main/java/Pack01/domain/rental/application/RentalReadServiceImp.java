@@ -18,8 +18,8 @@ public class RentalReadServiceImp implements RentalReadService{
     private final RentalRepository rentalRepository;
 
     @Override
-    public List<RentalFindAllRespDto> getAllRentals(){
-        return rentalRepository.findAllRentals()
+    public List<RentalFindAllRespDto> getRentals(Long member_id){
+        return rentalRepository.findRentals(member_id)
                 .stream()
                 .map(rental->new RentalFindAllRespDto().builder()
                         .rental_id(rental.getRental_id())

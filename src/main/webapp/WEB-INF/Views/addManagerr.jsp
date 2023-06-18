@@ -81,44 +81,16 @@
 
 <div id="cafeAdminForm">
   <h3>카페 관리자 추가 </h3>
-  <form id="rentalRequestForm" method="post" action="regist">
+  <form action="api/v1/member/manager" method="post" >
     <h3> 남은 텀블러 양은 </h3>
-    <input type="text" name="member_name" id = "member_name" placeholder="사용자의 이름을 작성해주세요" required>
-    <input type="text" name="member_phone" id = "member_phone" placeholder="사용자의 전화번호를 작성해주세요" required>
-    <input type="text" name="member_email" id = "member_email" placeholder="사용자의 이메일을 작성해주세요" required>
-    <input type="password" name="member_pw" id = "member_pw" placeholder="사용자의 비밀번호를 작성해주세요" required>
-    <button type="submit">신청</button>
+    <input type="text" name="memberEmail"  placeholder="사용자의 이메일을 작성해주세요" >
+    <input type="password" name="memberPw" placeholder="사용자의 비밀번호를 작성해주세요" >
+    <input type="text" name="memberPhone"  placeholder="사용자의 전화번호를 작성해주세요" >
+    <input type="text" name="memberName"  placeholder="사용자의 이름을 작성해주세요" >
+
+    <input name="submit" type="submit" value="관리자 신청"/>
   </form>
 </div>
 
-<div id="result"></div>
-<%
-  //  session.getAttribute("member_id");
-  Long member_id = 1l;
-%>
-
-<script>
-  document.getElementById('rentalRequestForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // 기본 폼 제출 동작 막기
-
-    // 폼 데이터 가져오기
-    let formData = new FormData(document.getElementById('rentalRequestForm'));
-    let cafeId = document.getElementById('cafeId').value;
-
-    // AJAX를 사용하여 서버에 폼 데이터 전송
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', 'reservationResult', true);
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        // 결과 페이지를 include할 영역에 결과 데이터 출력
-        document.getElementById('result').innerHTML = xhr.responseText;
-      } else {
-        console.error('Error:', xhr.status);
-      }
-    };
-    xhr.send(formData);
-  });
-</script>
-
 </body>
-</html>e
+</html>

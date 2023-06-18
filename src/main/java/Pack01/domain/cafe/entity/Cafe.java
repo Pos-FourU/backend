@@ -24,8 +24,8 @@ public class Cafe {
 
 
     @Builder
-    public Cafe(Long cafe_id, Long member_id, String cafe_name, String cafe_address, Float cafe_latitude, Float cafe_longitude, LocalDate create_at, LocalDate update_at) {
-        this.cafe_id = cafe_id;
+    public Cafe(Long cafe_id,Long member_id, String cafe_name, String cafe_address, Float cafe_latitude, Float cafe_longitude, LocalDate create_at, LocalDate update_at) {
+        this.cafe_id=cafe_id;
         this.member_id = member_id;
         this.cafe_name = cafe_name;
         this.cafe_address = cafe_address;
@@ -35,29 +35,5 @@ public class Cafe {
         this.update_at = update_at;
     }
 
-    public static Cafe of(Long cafe_id, Long member_id, String cafe_name, String cafe_address, Float cafe_latitude, Float cafe_longitude, LocalDate create_at, LocalDate update_at){
-        return Cafe.builder()
-                .cafe_id(cafe_id)
-                .cafe_name(cafe_name)
-                .cafe_address(cafe_address)
-                .cafe_latitude(cafe_latitude)
-                .cafe_longitude(cafe_longitude)
-                .create_at(LocalDate.now())
-                .update_at(LocalDate.now())
-                .build();
-    }
 
-
-//    public void updateMember_pw(String member_pw) {
-//        this.member_pw = member_pw;
-//    }
-//
-//
-//    public void updateUserRole(MemberRole memberRole) {
-//        this.memberRole = memberRole;
-//    }
-//
-//    public void setUpdate_at(LocalDate update_at) {
-//        this.update_at = update_at;
-//    }
 }

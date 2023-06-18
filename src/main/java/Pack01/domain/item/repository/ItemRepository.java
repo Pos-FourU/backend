@@ -30,8 +30,14 @@ public class ItemRepository {
                 item.getUpdate_at());
     }
 
-    public List<Item> findAllItems(){
-        String sql = "SELECT * FROM Items";
+    public List<Item> findItems(Long member_id){
+        String sql = "SELECT * " +
+                "FROM items " +
+                "JOIN cafe_items " +
+                "ON items.item_id=cafe_items.item_id " +
+                "JOIN cafes " +
+                "ON cafes.cafe_id = cafe_items.cafe_id " +
+                "WHERE member_id = "+member_id;
         return jdbcTemplate.query(sql, new ItemRowMapper());
     }
 
