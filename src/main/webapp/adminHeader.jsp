@@ -51,7 +51,7 @@
 <div class="navbar">
     <ul>
         <li><a href="/api/v1/admin/manageMember">유저관리</a></li>
-        <li><a href="/api/v1/member/mypage">관리자 관리</a></li>
+        <li><a href="/api/v1/admin/manageManager">관리자 관리</a></li>
         <li><a href="/api/v1/member/logout" class="logout">로그아웃</a></li>
     </ul>
 </div>
