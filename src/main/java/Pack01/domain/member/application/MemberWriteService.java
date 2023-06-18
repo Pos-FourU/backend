@@ -15,5 +15,6 @@ public interface MemberWriteService {
     void updateMember(MemberUpdateReqDto memberUpdateReqDto);
     void updateUserInfo(UserUpdateReqDto userUpdateReqDto);
 
+    void deleteByMemberId(Long member_id);
 
 }

@@ -5,7 +5,7 @@ import Pack01.domain.rental.dto.RentalFindAllRespDto;
 import java.util.List;
 
 public interface RentalReadService {
-    List<RentalFindAllRespDto> getAllRentals();
+    List<RentalFindAllRespDto> getRentals(Long cafe_id);
     List<Long> findAllByExpireMembers();
     Integer countThismonth(Long member_id);
 }

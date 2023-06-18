@@ -59,27 +59,28 @@
             </tr>
         </thead>
         <tbody>
-            <tr><%
+            <%
                 for(ItemFindAllRespDto i : items) {
+                    out.println("<tr>");
                     out.println("<td>"+i.getItem_id()+"</td>");
-                    out.println("<td>"+i.getItem_status()+"</td>");
-                    out.println("<td>"+i.getCategory()+"</td>");
+                    out.println("<td>"+i.getItem_status().toString()+"</td>");
+                    out.println("<td>"+i.getCategory().toString()+"</td>");
+                    out.println("<td>");
+                    out.println("<form method=\"post\" action=\"manageItem\">");
+                    out.println("<select name=\"item_status\">");
+                    out.println("<option value=\"VALID\" selected>VALID</option>");
+                    out.println("<option value=\"INVALID\">INVALID</option>");
+                    out.println("<option value=\"DAMAGED\">DAMAGED</option>");
+                    out.println("</select>");
+                    out.println("<input type=\"submit\" value=\"적용\">");
+                    out.println("</form>");
+                    out.println("</td>");
+                    out.println("<td>");
+                    out.println("<button onclick=\"deleteItem()\">삭제</button>");
+                    out.println("</td>");
+                    out.println("</tr>");
                 }
             %>
-                <td>
-                <form method="post" action="manageItem">
-                    <select name="item_status">
-                        <option value="VALID" selected>VALID</option>
-                        <option value="INVALID">INVALID</option>
-                        <option value="DAMAGED">DAMAGED</option>
-                    </select>
-                    <input type="submit" value="적용">
-                </form>
-                </td>
-                <td>
-                    <button onclick="deleteItem()">삭제</button>
-                </td>
-            </tr>
         </tbody>
     </table>
     <button onclick="addItem()">물품 추가</button>

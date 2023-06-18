@@ -24,14 +24,15 @@ public class MemberRepository {
     private final JdbcTemplate jdbcTemplate;
 
     public void registerMember(Member member) {
-
-        String sql = "INSERT INTO " + TABLE + " (member_email, member_pw, member_phone, member_name, member_role, create_at, update_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO " + TABLE + " (member_email, member_pw, member_phone, member_name, member_role,member_status,warning_count, create_at, update_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql,
-                member.getMember_name(),
+                member.getMember_email(),
                 member.getMember_pw(),
                 member.getMember_phone(),
                 member.getMember_name(),
-                member.getMember_role(),
+                member.getMember_role().toString(),
+                member.getMember_status().toString(),
+                member.getWarning_count(),
                 member.getCreate_at(),
                 member.getUpdate_at());
 
@@ -47,12 +48,14 @@ public class MemberRepository {
         String sql = "SELECT * FROM " + TABLE;
         return jdbcTemplate.query(sql, new MemberRowMapper());
     }
+
     public List<Member> findById(Long member_id){
         String sql = "SELECT * FROM " +TABLE +"WHERE member_id = " + member_id;
         return  jdbcTemplate.query(sql,new MemberRowMapper());
     }
+
     public List<Member> findByRole() {
-        String sql = "SELECT * FROM " + TABLE+" where member_role='USER' or member_role ='BLACK_LIST'";
+        String sql = "SELECT * FROM " + TABLE + " where member_role='USER' or member_role ='BLACK_LIST'";
         return jdbcTemplate.query(sql, new MemberRowMapper());
     }
 
@@ -76,7 +79,7 @@ public class MemberRepository {
         String s = memberUpdateReqDto.getMember_role().toString();
         System.out.println(s);
         jdbcTemplate.update(sql,
-               s,
+                s,
                 memberUpdateReqDto.getMember_id());
     }
 
@@ -84,6 +87,12 @@ public class MemberRepository {
         String sql = "UPDATE members SET warning_count = warning_count + 1 WHERE member_id = ?";
         jdbcTemplate.update(sql, memberId);
     }
+
+    public void DeleteByMemberId(Long memberId) {
+        String sql = "DELETE FROM " + TABLE + " WHERE member_id = ?";
+        jdbcTemplate.update(sql, memberId);
+    }
+
 
     public void ChangeBlackList(Long memberId) {
         String sql = "UPDATE members SET member_status = 'BLACK_LIST'WHERE member_id = ?";
@@ -97,6 +106,11 @@ public class MemberRepository {
                 name,
                 phone,
                 userUpdateReqDto.getMember_id());
+    }
+
+    public void deleteByMemberId(Long member_id) {
+        String sql = "DELETE FROM " + TABLE + " WHERE member_id = ?";
+        jdbcTemplate.update(sql, member_id);
     }
 
     private class MemberRowMapper implements RowMapper<Member> {

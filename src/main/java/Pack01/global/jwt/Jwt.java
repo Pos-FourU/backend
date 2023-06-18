@@ -1,5 +1,6 @@
 package Pack01.global.jwt;
 
+import Pack01.domain.member.entity.Member;
 import Pack01.domain.member.entity.MemberRole;
 import io.jsonwebtoken.*;
 
@@ -7,7 +8,7 @@ import java.util.Date;
 
 public class Jwt {
     final String secretKey = "PoscoDX Spring Project";
-    public String createJWT(MemberRole memberRole) {
+    public String createJWT(Member member) {
         long expirationMillis = 1000 * 60L * 2L;
 
 
@@ -19,7 +20,9 @@ public class Jwt {
                 .setIssuedAt(now)
                 .setExpiration(new Date(currentTimeMillis + expirationMillis));
 
-        claims.put("role", memberRole);
+        claims.put("id", member.getMember_id());
+        claims.put("role", member.getMember_role());
+        claims.put("name", member.getMember_name());
 
         String jwt = Jwts.builder()
                 .setClaims(claims)
