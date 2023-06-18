@@ -4,8 +4,7 @@ import Pack01.domain.cafe.application.CafeReadService;
 import Pack01.domain.cafe.dto.CafeLeftCountRespDto;
 import Pack01.domain.member.application.MemberReadService;
 import Pack01.domain.member.application.MemberWriteService;
-import Pack01.domain.member.dto.LoginReqDto;
-import Pack01.domain.member.dto.MemberRegisterReqDto;
+import Pack01.domain.member.dto.*;
 import Pack01.domain.member.entity.Member;
 import Pack01.domain.member.entity.MemberRole;
 import Pack01.domain.rental.application.RentalReadService;
@@ -62,18 +61,22 @@ public class MemberController {
     public String mypage(Model model, HttpSession session) {
 //        session.getAttribute(member_id);
         Long member_id = 1L;
-        Member members = memberReadService.findById(member_id);
         Integer countThismonth = rentalReadService.countThismonth(member_id);
-        model.addAttribute("members", members);
+//        model.addAttribute("member", memberReadService.findById(member_id));
         model.addAttribute("countThismonth",countThismonth);
         return "mypageView";
     }
 
-    @GetMapping("/memberUpdate")
-    public String updateMembers(Model model, HttpSession session){
-        //        session.getAttribute(member_id);
+    @GetMapping("/mypage/toupdate")
+    public String toupdate(){
+        return "updateMember";
+    }
+    @PostMapping("/mypage/update")
+    public String updateMembers(@ModelAttribute UserUpdateReqDto member){
+        memberWriteService.updateUserInfo(member);
         Long member_id = 1L;
-        return "memberUpdate";
+
+        return "updateOK";
     }
 
 //    @GetMapping("/1")
