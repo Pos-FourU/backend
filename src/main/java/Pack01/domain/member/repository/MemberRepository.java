@@ -48,9 +48,9 @@ public class MemberRepository {
         return jdbcTemplate.query(sql, new MemberRowMapper());
     }
 
-    public List<Member> findById(Long member_id) {
-        String sql = "SELECT * FROM " + TABLE + " WHERE member_id = " + member_id;
-        return jdbcTemplate.query(sql, new MemberRowMapper());
+    public Member findById(Long member_id){
+        String sql = "SELECT * FROM " +TABLE +" WHERE member_id = " + member_id;
+        return (Member) jdbcTemplate.query(sql,new MemberRowMapper());
     }
 
     public List<Member> findByRole() {
