@@ -28,4 +28,9 @@ public class CafeWriteServiceImp implements CafeWriteService {
                 .build();
         cafeRepository.registerCafe(cafe);
     }
+
+    @Override
+    public void deleteByCafeId(Long cafe_id) {
+        cafeRepository.deleteCafeByMemberId(cafe_id);
+    }
 }

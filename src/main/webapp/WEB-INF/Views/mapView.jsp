@@ -1,8 +1,9 @@
 <%@ page import="java.util.List" %>
 <%@ page import="Pack01.domain.cafe.dto.CafeLeftCountRespDto" %>
+<%@ page import="Pack01.global.jwt.Jwt" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html;charset=UTF-8"
          pageEncoding="UTF-8" %>
 
 <%@ include file="/nav_bar.jsp" %>
@@ -13,7 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <title>지도</title>
+    <title>예약페이지</title>
     <script type="text/javascript"
             src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=3u5p451mjv"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"
@@ -53,14 +54,15 @@
             CafeLeftCountRespDto cafe = cafeLeftCountRespDtos.get(i);
             double latitude = cafe.getCafe_latitude();
             double longitude = cafe.getCafe_longitude();
-            Long memberId =1L;
+            Jwt jwt = new Jwt();
+        String member_id = jwt.getJwtContents(session.getAttribute("token").toString()).get("id").toString();
             Long cafeId = cafe.getCafe_id();
             String  cafe_name = cafe.getCafe_name();
             int remaining_tumblers = Math.toIntExact(cafe.getTotals());
 
             String reservationButton;
             if (remaining_tumblers > 0) {
-                reservationButton = "<a href=\"/api/v1/cafe/rent?cafe_id=" + cafeId + "&member_id=" + memberId + "\"> 예약하기 </a>";
+                reservationButton = "<a href=\"/api/v1/cafe/rent?cafe_id=" + cafeId + "&member_id=" + member_id + "\"> 예약하기 </a>";
             } else {
                 reservationButton = "텀블러 모두 소진";
             }
@@ -111,5 +113,8 @@
 
     }
 </script>
+<div id="footer">
+    <jsp:include page="/adminFooter.jsp"></jsp:include>
+</div>
 </body>
 </html>

@@ -6,11 +6,15 @@ import Pack01.domain.item.entity.ItemStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -41,8 +45,6 @@ public class ItemRepository {
         return jdbcTemplate.query(sql, new ItemRowMapper());
     }
 
-<<<<<<< Updated upstream
-=======
     public void updateItem(Long itemId, String status){
         String sql = "UPDATE "+TABLE+" SET item_status = \""+status+"\" WHERE item_id = "+itemId;
         jdbcTemplate.update(sql);
@@ -57,7 +59,6 @@ public class ItemRepository {
         namedParameterJdbcTemplate.update(sql, parameters);
     }
 
->>>>>>> Stashed changes
     private class ItemRowMapper implements RowMapper<Item> {
         @Override
         public Item mapRow(ResultSet rs, int rowNum) throws SQLException {
