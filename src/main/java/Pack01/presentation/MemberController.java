@@ -91,14 +91,12 @@ public class MemberController {
     @GetMapping("/mypage")
     public String mypage(Model model, HttpSession session) {
 //        Jwt jwt = new Jwt;
-
         Object token1 = session.getAttribute("token");
         if(token1==null){
             throw new FourUPerMissionException("아이디 혹은 비밀번호가 잘못 되었습니다.");
         }
         Claims token = jwt.getJwtContents(token1.toString());
         Long member_id = Long.parseLong(token.get("id").toString());
-//        Long token = jwt.createJWT(member_id);
         Integer countThismonth = rentalReadService.countThismonth(member_id);
         model.addAttribute("member", memberReadService.findById(member_id));
         model.addAttribute("countThismonth",countThismonth);
