@@ -56,13 +56,13 @@
     <table>
         <thead>
         <tr>
-            <th>물품 ID</th>
-            <th>물품 상태</th>
-            <th>카테고리</th>
-            <th>대여자 email</th>
-            <th>대여 기간</th>
-            <th>대여</th>
-            <th>삭제</th>
+            <th> 물품 ID </th>
+            <th> 상태 </th>
+            <th> 카테고리 </th>
+            <th> 대여자 email </th>
+            <th> 대여 기간 </th>
+            <th> 대여 </th>
+            <th> 삭제 </th>
         </tr>
         </thead>
         <%
