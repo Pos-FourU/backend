@@ -58,11 +58,11 @@
 </head>
 <body>
 <h1>물품 추가</h1>
-<form action="api/v1/item/add" method="post">
+<form action="/api/v1/item/add" method="post">
   <div>
     <label>물품 카테고리</label>
     <select name="category" required>
-      <option value="Tumbler">텀블러</option>
+      <option value="텀블러">텀블러</option>
     </select>
   </div>
   <div>

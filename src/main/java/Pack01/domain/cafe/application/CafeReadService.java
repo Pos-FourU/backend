@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface CafeReadService {
     List<CafeFindRespDto> findAll();
+    Long findByMemberId(Long memberId);
 
     List<CafeLeftCountRespDto> getLeftItemCount() ;
     Integer existCafeByMemberId(Long member_id);
