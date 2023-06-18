@@ -13,22 +13,26 @@
         height:10%;
         background-color:#90EE90;
     }
-    body{
-        display:flex;
+
+    body {
+        display: flex;
         flex-direction: column;
     }
-    #contents{
-        width:100%;
-        height:80%;
-        display:flex;
+
+    #contents {
+        width: 100%;
+        height: 80%;
+        display: flex;
     }
-    #left{
-        width:10%;
+
+    #left {
+        width: 10%;
     }
     #footer{
         width:100%;
         height:10%;
         background-color:#90EE90;
+
     }
 </style>
 <body>
@@ -38,7 +42,7 @@
 <div id="contents">
 
     <%
-        List<RentalFindAllRespDto> rentals = (List<RentalFindAllRespDto>)request.getAttribute("rentals");
+        List<RentalFindAllRespDto> rentals = (List<RentalFindAllRespDto>) request.getAttribute("rentals");
     %>
     <table>
         <thead>
@@ -46,22 +50,38 @@
             <th>대여 ID</th>
             <th>대여 회원 ID</th>
             <th>대여 물품 ID</th>
-            <th>대여 시간</th>
-            <th>반납 시간</th>
+            <th>대여 날짜</th>
+            <th>대여 기간</th>
+            <th>반납 날짜</th>
+            <th>반납</th>
         </tr>
         </thead>
         <tbody>
-        <tr><%
+        <%
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            for(RentalFindAllRespDto i : rentals) {
-                out.println("<td>"+i.getRental_id()+"</td>");
-                out.println("<td>"+i.getMember_id()+"</td>");
-                out.println("<td>"+i.getItem_id()+"</td>");
-                out.println("<td>"+formatter.format(i.getRental_time())+"</td>");
-                out.println("<td>"+formatter.format(i.getReturn_time())+"</td>");
+            for (RentalFindAllRespDto i : rentals) {
+                out.println("<tr>");
+                out.println("<td>" + i.getRental_id() + "</td>");
+                out.println("<td>" + i.getMember_id() + "</td>");
+                out.println("<td>" + i.getItem_id() + "</td>");
+                out.println("<td>" + formatter.format(i.getRental_time()) + "</td>");
+                out.println("<td>" + formatter.format(i.getRental_days()) + "</td>");
+                if (i.getReturn_time() == null) {
+                    out.println("<td></td>");
+                    out.println("<td>");
+                    out.println("<button onclick=\"\">반납</button>");
+                    out.println("</td>");
+                }
+                else {
+                    out.println("<td>" + formatter.format(i.getReturn_time()) + "</td>");
+                    out.println("<td>");
+                    out.println("<button onclick=\"\" disabled>반납</button>");
+                    out.println("</td>");
+                }
+
+                out.println("</tr>");
             }
         %>
-        </tr>
         </tbody>
     </table>
 </div>

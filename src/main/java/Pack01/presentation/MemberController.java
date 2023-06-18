@@ -5,7 +5,11 @@ import Pack01.domain.member.application.MemberReadService;
 import Pack01.domain.member.application.MemberWriteService;
 import Pack01.domain.member.dto.*;
 import Pack01.domain.member.entity.Member;
+import Pack01.domain.member.entity.MemberRole;
+
 import Pack01.domain.rental.application.RentalReadService;
+import Pack01.global.exception.FourUAdminException;
+import Pack01.global.exception.FourUUserException;
 import Pack01.global.exception.FourUPerMissionException;
 import Pack01.global.jwt.Jwt;
 import io.jsonwebtoken.Claims;
@@ -28,6 +32,7 @@ public class MemberController {
     private final MemberReadService memberReadService;
     private final RentalReadService rentalReadService;
     private final CafeReadService cafeReadService;
+
     private final Jwt jwt = new Jwt();
     @PostMapping()
     public String register(@RequestBody MemberRegisterReqDto memberRegisterReqDto) {

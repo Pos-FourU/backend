@@ -27,6 +27,7 @@ public class RentalReadServiceImp implements RentalReadService{
                         .item_id(rental.getItem_id())
                         .rental_time(rental.getRental_time())
                         .return_time(rental.getReturn_time())
+                        .rental_days(rental.getRental_days())
                         .build())
                 .collect(Collectors.toList());
     }
