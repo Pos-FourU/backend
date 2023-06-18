@@ -18,6 +18,13 @@ public class ControllerAdvice {
         mav.setViewName("erroradmin");
         return mav;
     }
+
+    @ExceptionHandler(FourUPerMissionException.class)
+    public ModelAndView handleFourUPerMissionException(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("noPermission");
+        return mav;
+    }
 //    @ExceptionHandler(FourUUserException.class)
 //    public ModelAndView handleFourUUserException(){
 //        ModelAndView mav = new ModelAndView();
