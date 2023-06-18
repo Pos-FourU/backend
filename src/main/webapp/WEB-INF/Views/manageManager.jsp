@@ -65,9 +65,9 @@
       <td><%= i.getMember_email() %></td>
       <td><%= i.getMember_phone() %></td>
       <form action="/api/v1/admin/deleteCafe" method="post">
-          <input type="hidden" name="cafe_id" value="<%= i.getCafe_id() %>">
-          <input type="hidden" name="member_id" value="<%=i.getMember_id() %>">
-          <button type="submit">삭제</button>
+        <input type="hidden" name="cafe_id" value="<%= i.getCafe_id() %>">
+        <input type="hidden" name="member_id" value="<%=i.getMember_id() %>">
+        <button type="submit">삭제</button>
 
       </form>
 
