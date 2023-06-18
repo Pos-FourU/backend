@@ -13,38 +13,52 @@
 <html>
 <head>
     <title>Title</title>
+    <style>
+        #header {
+            width: 100%;
+            height: 10%;
+            background-color: #90EE90;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #contents {
+            width: 100%;
+            height: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        #footer {
+            width: 100%;
+            height: 10%;
+            background-color: #90EE90;
+            text-align: center;
+            padding-top: 20px;
+        }
+    </style>
 </head>
-<style>
-    #header{
-        width:100%;
-        height:10%;
-        background-color: #90EE90;
-    }
-
-    body {
-        display: flex;
-        flex-direction: column;
-    }
-
-    #contents {
-        width: 100%;
-        height: 80%;
-        display: flex;
-    }
-
-    #left {
-        width: 10%;
-    }
-
-    #footer{
-        width:100%;
-        height:10%;
-        background-color: #90EE90;
-    }
-</style>
 <body>
 <div id="header">
-<%--TODO jwt 적용해서 OO님 환영합니다 --%>
+    <%--TODO jwt 적용해서 OO님 환영합니다 --%>
     <jsp:include page="/adminHeader_middle.jsp"></jsp:include>
 </div>
 <div id="contents">
@@ -56,47 +70,48 @@
     <table>
         <thead>
         <tr>
-            <th> 물품 ID </th>
-            <th> 상태 </th>
-            <th> 카테고리 </th>
-            <th> 대여자 email </th>
-            <th> 대여 기간 </th>
-            <th> 대여 </th>
-            <th> 삭제 </th>
+            <th>물품 ID</th>
+            <th>상태</th>
+            <th>카테고리</th>
+            <th>대여자 email</th>
+            <th>대여 기간</th>
+            <th>대여</th>
+            <th>삭제</th>
         </tr>
         </thead>
+        <tbody>
         <%
             for (ItemFindAllRespDto i : items) {
                 out.println("<tr>");
                 out.println("<td>" + i.getItem_id() + "</td>");
                 out.println("<td>" + i.getItem_status().toString() + "</td>");
                 out.println("<td>" + i.getCategory().toString() + "</td>");
-                out.println("<form name=\"insertRentalInfo\" method=\"post\" action=\"insertRentalInfo\">");
-                    out.println("<input type=\"text\" value=\"" + i.getItem_id() + "\" name=\"item_id\" style=display:none>");
-                    out.println("<input type=\"text\" value=\"" + member_id + "\" name=\"cafe_manager_id\" style=display:none>");
-                    out.println("<input type=\"text\" value=\""+LocalDate.now()+"\" name=\"rental_time\" style=display:none>");
+                out.println("<td>");
                 if (i.getItem_status().toString() != "VALID") {
-                    out.println("<td>");
                     out.println("<input type=\"text\" name=\"member_email\" disabled/>");
-                    out.println("</td>");
-                    out.println("<td>");
-                    out.println("<input type=\"number\" min=\"1\" max=\"7\" name=\"rental_days\" disabled/>");
-                    out.println("</td>");
-                    out.println("<td>");
-                    out.println("<button onclick=\"rentalItem()\">대여</button>");
-                    out.println("</td>");
                 } else {
-                    out.println("<td>");
                     out.println("<input type=\"text\" name=\"member_email\"/>");
-                    out.println("</td>");
-                    out.println("<td>");
+                }
+                out.println("</td>");
+                out.println("<td>");
+                if (i.getItem_status().toString() != "VALID") {
+                    out.println("<input type=\"number\" min=\"1\" max=\"7\" name=\"rental_days\" disabled/>");
+                } else {
                     out.println("<input type=\"number\" min=\"1\" max=\"7\" name=\"rental_days\"/>");
-                    out.println("</td>");
-                    out.println("<td>");
+                }
+                out.println("</td>");
+                out.println("<td>");
+                out.println("<form name=\"insertRentalInfo\" method=\"post\" action=\"insertRentalInfo\">");
+                out.println("<input type=\"text\" value=\"" + i.getItem_id() + "\" name=\"item_id\" style=display:none>");
+                out.println("<input type=\"text\" value=\"" + member_id + "\" name=\"cafe_manager_id\" style=display:none>");
+                out.println("<input type=\"text\" value=\"" + LocalDate.now() + "\" name=\"rental_time\" style=display:none>");
+                if (i.getItem_status().toString() != "VALID") {
+                    out.println("<button disabled>대여</button>");
+                } else {
                     out.println("<button onclick=\"rentalItem()\">대여</button>");
-                    out.println("</td>");
                 }
                 out.println("</form>");
+                out.println("</td>");
                 out.println("<td>");
                 out.println("<button onclick=\"deleteItem()\">삭제</button>");
                 out.println("</td>");
@@ -105,7 +120,7 @@
         %>
         </tbody>
     </table>
-    <button onclick="addItem()">물품 추가</button>
+    <button onclick="addItem">물품 추가</button>
 </div>
 <div id="footer">
     <jsp:include page="/adminFooter.jsp"></jsp:include>
