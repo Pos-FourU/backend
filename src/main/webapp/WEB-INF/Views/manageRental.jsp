@@ -105,8 +105,6 @@
         </tbody>
     </table>
 </div>
-<button onclick="">대여</button>
-<button onclick="">반납</button>
 
 <div id="footer">
     <jsp:include page="/adminFooter.jsp"></jsp:include>

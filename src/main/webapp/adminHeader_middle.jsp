@@ -50,8 +50,8 @@
 <body>
 <div class="navbar">
     <ul>
-        <li><a href="/api/v1/admin/manageRental"> 대여 관리 </a></li>
         <li><a href="/api/v1/admin/manageItem"> 대여 물품 관리</a></li>
+        <li><a href="/api/v1/admin/manageRental"> 대여 관리 </a></li>
         <li><a href="/api/v1/admin/manageReservation">예약 관리</a></li>
 
         <li><a href="/api/v1/member/logout" class="logout">로그아웃</a></li>

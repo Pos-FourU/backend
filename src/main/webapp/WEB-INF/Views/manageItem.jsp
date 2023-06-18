@@ -14,10 +14,10 @@
 <head>
     <title>Title</title>
     <style>
-        #header {
-            width: 100%;
-            height: 10%;
-            background-color: #90EE90;
+        #header{
+            width:100%;
+            height:10%;
+            background-color:#90EE90;
         }
 
         body {
@@ -26,47 +26,48 @@
         }
 
         #contents {
-            width: 90%;
+            width: 100%;
             height: 80%;
             display: flex;
-            justify-content: center;
-            align-items: center;
+        }
+
+        #left {
+            width: 10%;
+        }
+        #footer{
+            width:100%;
+            height:10%;
+            background-color:#90EE90;
+
         }
 
         table {
             border-collapse: collapse;
-            width: 90%;
+            width: 100%;
         }
 
         th, td {
-            padding: 8px;
             text-align: center;
-            border: 1px solid #ddd;
+            padding: 8px;
         }
 
         th {
             background-color: #f2f2f2;
         }
 
-        #footer {
-            width: 100%;
-            height: 10%;
-            background-color: #90EE90;
-            text-align: center;
-            padding-top: 20px;
-        }
-
-        input[type="text"], input[type="number"] {
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        input[type="text"][disabled], input[type="number"][disabled] {
-            background-color: #f2f2f2;
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
 
         button {
             margin-top: 10px;
+        }
+        #contents{
+            display: flex;
+            flex-direction: column;
+        }
+        #table{
+            height:90%;
         }
     </style>
 </head>
@@ -81,6 +82,7 @@
         String member_id = jwt.getJwtContents(session.getAttribute("token").toString()).get("id").toString();
         List<ItemFindAllRespDto> items = (List<ItemFindAllRespDto>) request.getAttribute("items");
     %>
+    <div id="table">
     <table>
         <thead>
         <tr>
@@ -104,14 +106,14 @@
                 if (i.getItem_status().toString() != "VALID") {
                     out.println("<input type=\"text\" name=\"member_email\" disabled/>");
                 } else {
-                    out.println("<input type=\"text\" name=\"member_email\"/>");
+                    out.println("<input type=\"text\" name=\"member_email\" required/>");
                 }
                 out.println("</td>");
                 out.println("<td>");
                 if (i.getItem_status().toString() != "VALID") {
                     out.println("<input type=\"number\" min=\"1\" max=\"7\" name=\"rental_days\" disabled/>");
                 } else {
-                    out.println("<input type=\"number\" min=\"1\" max=\"7\" name=\"rental_days\"/>");
+                    out.println("<input type=\"number\" min=\"1\" max=\"7\" name=\"rental_days\" required/>");
                 }
                 out.println("</td>");
                 out.println("<td>");
@@ -122,7 +124,7 @@
                 if (i.getItem_status().toString() != "VALID") {
                     out.println("<button disabled>대여</button>");
                 } else {
-                    out.println("<button onclick=\"rentalItem()\">대여</button>");
+                    out.println("<button type=\"submit\">대여</button>");
                 }
                 out.println("</form>");
                 out.println("</td>");
@@ -134,8 +136,10 @@
         %>
         </tbody>
     </table>
-    <br/>
-    <br/> <a href="/api/v1/item/add">물품 추가</a>
+    </div>
+    <div>
+        <a href="/api/v1/item/add">물품 추가</a>
+    </div>
 </div>
 <div id="footer">
     <jsp:include page="/adminFooter.jsp"></jsp:include>
