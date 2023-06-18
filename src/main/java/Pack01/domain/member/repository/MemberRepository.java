@@ -23,14 +23,15 @@ public class MemberRepository {
     private final JdbcTemplate jdbcTemplate;
 
     public void registerMember(Member member) {
-
-        String sql = "INSERT INTO " + TABLE + " (member_email, member_pw, member_phone, member_name, member_role, create_at, update_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO " + TABLE + " (member_email, member_pw, member_phone, member_name, member_role,member_status,warning_count, create_at, update_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql,
-                member.getMember_name(),
+                member.getMember_email(),
                 member.getMember_pw(),
                 member.getMember_phone(),
                 member.getMember_name(),
-                member.getMember_role(),
+                member.getMember_role().toString(),
+                member.getMember_status().toString(),
+                member.getWarning_count(),
                 member.getCreate_at(),
                 member.getUpdate_at());
 
@@ -44,6 +45,14 @@ public class MemberRepository {
 
     public List<Member> findAll() {
         String sql = "SELECT * FROM " + TABLE;
+        return jdbcTemplate.query(sql, new MemberRowMapper());
+    }
+    public List<Member> findById(Long member_id){
+        String sql = "SELECT * FROM " +TABLE +"WHERE member_id = " + member_id;
+        return jdbcTemplate.query(sql,new MemberRowMapper());
+    }
+    public List<Member> findByRole() {
+        String sql = "SELECT * FROM " + TABLE+" where member_role='USER' or member_role ='BLACK_LIST'";
         return jdbcTemplate.query(sql, new MemberRowMapper());
     }
 

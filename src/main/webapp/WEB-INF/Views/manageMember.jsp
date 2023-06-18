@@ -74,7 +74,6 @@
                     <input type="hidden" name="admin" value="<%= admin_id %>">
                     <input type="hidden" name="member_id" value="<%= i.getMember_id() %>">
                     <select name="role">
-                        <option value="MANAGER" <% if (i.getMember_role().equals("MANAGER")) { %>selected<% } %>>MANAGER</option>
                         <option value="USER" <% if (i.getMember_role().equals("USER")) { %>selected<% } %>>USER</option>
                         <option value="BLACK_LIST" <% if (i.getMember_role().equals("BLACK_LIST")) { %>selected<% } %>>BLACK_LIST</option>
                     </select>

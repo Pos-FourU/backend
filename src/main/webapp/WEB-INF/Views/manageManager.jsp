@@ -72,6 +72,13 @@
     </tbody>
   </table>
 </div>
+<div>
+  <form action="./WEB-INF/views/addMember" method="POST">
+    <button type="submit">신청</button>
+  </form>
+
+
+</div>
 <div id="footer">
   <jsp:include page="adminFooter.jsp"></jsp:include>
 </div>

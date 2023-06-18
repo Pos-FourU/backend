@@ -17,12 +17,18 @@ public class ReservationRepository {
     private final JdbcTemplate jdbcTemplate;
 
     public void registerReservation(Reservation reservation) {
-
-        String sql = "INSERT INTO " + TABLE + " (member_id, cafe_id,reservation_time) VALUES ( ?, ?, ?)";
+        String sql = "INSERT INTO " + TABLE + " (member_id, cafe_id, reservation_time) VALUES (?, ?, ?)";
         jdbcTemplate.update(sql,
                 reservation.getMember_id(),
                 reservation.getCafe_id(),
                 reservation.getReservation_time());
+    }
+
+    public boolean checkIfAlready( Long memeberId){
+        // 멤버 아이디 확인을 위한 쿼리
+        String checkQuery = "SELECT COUNT(*) FROM reservation WHERE member_id = ? OR member_id IN (SELECT member_id FROM rent WHERE return_time IS NULL)";
+        int count = jdbcTemplate.queryForObject(checkQuery, Integer.class,memeberId);
+        return count>0;
     }
 
     public int getCafeReservedItems(Long cafeId) {
