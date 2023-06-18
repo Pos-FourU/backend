@@ -2,6 +2,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.sql.Date" %>
+<%@ page import="java.time.LocalDate" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -90,7 +92,15 @@
                 if (i.getReturn_time() == null) {
                     out.println("<td></td>");
                     out.println("<td>");
-                    out.println("<button onclick=\"\">반납</button>");
+                    out.println("<form method=\"post\" action=\"manageRental\">");
+                        out.println("<input type=\"text\" value=\""+i.getRental_id()+"\" name=\"rental_id\" style=\"display:none;\"/>");
+                        out.println("<input type=\"text\" value=\""+i.getMember_id()+"\" name=\"member_id\" style=\"display:none;\"/>");
+                        out.println("<input type=\"text\" value=\""+i.getItem_id()+"\" name=\"item_id\" style=\"display:none;\"/>");
+                        out.println("<input type=\"text\" value=\""+formatter.format(i.getRental_time())+"\" name=\"rental_time\" style=\"display:none;\"/>");
+                        out.println("<input type=\"text\" value=\""+formatter.format(Date.valueOf(LocalDate.now()))+"\" name=\"return_time\" style=\"display:none;\"/>");
+                        out.println("<input type=\"text\" value=\""+formatter.format(i.getRental_days())+"\" name=\"rental_days\" style=\"display:none;\"/>");
+                        out.println("<button type=\"submit\">반납</button>");
+                    out.println("</form>");
                     out.println("</td>");
                 }
                 else {
@@ -105,8 +115,6 @@
         </tbody>
     </table>
 </div>
-<button onclick="">대여</button>
-<button onclick="">반납</button>
 
 <div id="footer">
     <jsp:include page="/adminFooter.jsp"></jsp:include>

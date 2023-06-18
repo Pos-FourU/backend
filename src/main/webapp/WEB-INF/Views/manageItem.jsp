@@ -14,10 +14,10 @@
 <head>
     <title>Title</title>
     <style>
-        #header {
-            width: 100%;
-            height: 10%;
-            background-color: #90EE90;
+        #header{
+            width:100%;
+            height:10%;
+            background-color:#90EE90;
         }
 
         body {
@@ -26,47 +26,46 @@
         }
 
         #contents {
-            width: 90%;
+            width: 100%;
             height: 80%;
             display: flex;
-            justify-content: center;
-            align-items: center;
+        }
+
+        #left {
+            width: 10%;
+        }
+        #footer{
+            width:100%;
+            height:10%;
+            background-color:#90EE90;
+
         }
 
         table {
             border-collapse: collapse;
-            width: 90%;
+            width: 100%;
         }
 
         th, td {
-            padding: 8px;
             text-align: center;
-            border: 1px solid #ddd;
+            padding: 8px;
         }
 
         th {
             background-color: #f2f2f2;
         }
 
-        #footer {
-            width: 100%;
-            height: 10%;
-            background-color: #90EE90;
-            text-align: center;
-            padding-top: 20px;
-        }
-
-        input[type="text"], input[type="number"] {
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        input[type="text"][disabled], input[type="number"][disabled] {
-            background-color: #f2f2f2;
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
 
         button {
             margin-top: 10px;
+        }
+
+        #contents{
+            display: flex;
+            flex-direction: column;
         }
     </style>
 </head>
@@ -76,6 +75,7 @@
     <jsp:include page="/adminHeader_middle.jsp"></jsp:include>
 </div>
 <div id="contents">
+    <div>
     <%
         Jwt jwt = new Jwt();
         String member_id = jwt.getJwtContents(session.getAttribute("token").toString()).get("id").toString();
@@ -100,6 +100,10 @@
                 out.println("<td>" + i.getItem_id() + "</td>");
                 out.println("<td>" + i.getItem_status().toString() + "</td>");
                 out.println("<td>" + i.getCategory().toString() + "</td>");
+
+                out.println("</td>");
+                out.println("<td>");
+                out.println("<form name=\"insertRentalInfo\" method=\"post\" action=\"insertRentalInfo\">");
                 out.println("<td>");
                 if (i.getItem_status().toString() != "VALID") {
                     out.println("<input type=\"text\" name=\"member_email\" disabled/>");
@@ -113,29 +117,35 @@
                 } else {
                     out.println("<input type=\"number\" min=\"1\" max=\"7\" name=\"rental_days\"/>");
                 }
-                out.println("</td>");
-                out.println("<td>");
-                out.println("<form name=\"insertRentalInfo\" method=\"post\" action=\"insertRentalInfo\">");
                 out.println("<input type=\"text\" value=\"" + i.getItem_id() + "\" name=\"item_id\" style=\"display:none;\">");
                 out.println("<input type=\"text\" value=\"" + member_id + "\" name=\"cafe_manager_id\" style=\"display:none;\">");
                 out.println("<input type=\"text\" value=\"" + LocalDate.now() + "\" name=\"rental_time\" style=\"display:none;\">");
                 if (i.getItem_status().toString() != "VALID") {
-                    out.println("<button disabled>대여</button>");
+                    out.println("<input type=\"submit\" disabled/>");
                 } else {
-                    out.println("<button onclick=\"rentalItem()\">대여</button>");
+                    out.println("<input type=\"submit\"/>");
                 }
                 out.println("</form>");
                 out.println("</td>");
-                out.println("<td>");
-                out.println("<button onclick=\"deleteItem()\">삭제</button>");
-                out.println("</td>");
+                if (i.getItem_status().toString() != "VALID") {
+                    out.println("<td>");
+                    out.println("<button disabled>삭제</button>");
+                    out.println("</td>");
+                } else {
+                    out.println("<td>");
+                    out.println("<button onclick=\"deleteItem()\">삭제</button>");
+                    out.println("</td>");
+                }
+
                 out.println("</tr>");
             }
         %>
         </tbody>
     </table>
-    <br/>
-    <br/> <a href="/api/v1/item/add">물품 추가</a>
+    </div>
+    <div>
+    <a href="/api/v1/item/add">물품 추가</a>
+    </div>
 </div>
 <div id="footer">
     <jsp:include page="/adminFooter.jsp"></jsp:include>

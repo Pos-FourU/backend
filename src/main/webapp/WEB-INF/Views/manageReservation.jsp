@@ -36,6 +36,28 @@
         background-color:#90EE90;
 
     }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        text-align: center;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    button {
+        margin-top: 10px;
+    }
 </style>
 <body>
 <div id="header">
