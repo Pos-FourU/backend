@@ -37,12 +37,10 @@
 </style>
 <body>
 <div id="header">
-    <jsp:include page="adminHeader.jsp"></jsp:include>
+    <jsp:include page="adminHeader_middle.jsp"></jsp:include>
 </div>
 <div id="contents">
-    <div id="left">
-        <jsp:include page="adminLeft.jsp"></jsp:include>
-    </div>
+
     <%
         List<RentalFindAllRespDto> rentals = (List<RentalFindAllRespDto>) request.getAttribute("rentals");
     %>

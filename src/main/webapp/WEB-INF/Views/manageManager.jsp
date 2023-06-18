@@ -38,9 +38,7 @@
   <jsp:include page="adminHeader.jsp"></jsp:include>
 </div>
 <div id="contents">
-  <div id="left">
-    <jsp:include page="adminLeft.jsp"></jsp:include>
-  </div>
+
   <%
     List<ManagerFindAllRespDto> managers = (List<ManagerFindAllRespDto>)request.getAttribute("managers");
   %>

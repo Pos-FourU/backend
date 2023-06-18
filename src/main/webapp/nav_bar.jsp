@@ -42,7 +42,9 @@
     position: absolute;
     top: 5px;
     right: 10px;
-    font-size: 12px;
+    text-decoration: none;
+    text-align: center;
+    color: #333;
   }
 </style>
 <body>

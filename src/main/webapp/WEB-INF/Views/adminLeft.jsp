@@ -11,7 +11,29 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        button {
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px 20px;
+            background-color: #3CB371;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #2E8B57;
+        }
+    </style>
 </head>
 <body>
 <%

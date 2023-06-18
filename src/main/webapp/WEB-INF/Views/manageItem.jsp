@@ -44,13 +44,11 @@
 </style>
 <body>
 <div id="header">
-    <%--TODO jwt 적용해서 OO님 환영합니다--%>
-    <jsp:include page="adminHeader.jsp"></jsp:include>
+<%--TODO jwt 적용해서 OO님 환영합니다 --%>
+    <jsp:include page="adminHeader_middle.jsp"></jsp:include>
+
 </div>
 <div id="contents">
-    <div id="left">
-        <jsp:include page="adminLeft.jsp"></jsp:include>
-    </div>
     <%
         Jwt jwt = new Jwt();
         String member_id = jwt.getJwtContents(session.getAttribute("token").toString()).get("id").toString();
