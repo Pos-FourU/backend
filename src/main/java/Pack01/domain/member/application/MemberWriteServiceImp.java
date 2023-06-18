@@ -28,6 +28,8 @@ public class MemberWriteServiceImp implements MemberWriteService {
                 .member_role(MemberRole.USER)
                 .member_phone(memberRegisterReqDto.getMemberPhone())
                 .member_name(memberRegisterReqDto.getMemberName())
+                .member_status(MemberStatus.ABLE)
+                .warning_count(0L)
                 .create_at(LocalDate.now())
                 .update_at(LocalDate.now())
                 .build();
