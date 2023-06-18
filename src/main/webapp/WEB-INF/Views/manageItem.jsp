@@ -61,6 +61,9 @@
             display: flex;
             flex-direction: column;
         }
+        #table{
+            height:90%;
+        }
     </style>
 </head>
 <body>
@@ -75,6 +78,7 @@
         String member_id = jwt.getJwtContents(session.getAttribute("token").toString()).get("id").toString();
         List<ItemFindAllRespDto> items = (List<ItemFindAllRespDto>) request.getAttribute("items");
     %>
+    <div id="table">
     <table>
         <thead>
         <tr>
@@ -102,14 +106,14 @@
                 if (i.getItem_status().toString() != "VALID") {
                     out.println("<input type=\"text\" name=\"member_email\" disabled/>");
                 } else {
-                    out.println("<input type=\"text\" name=\"member_email\"/>");
+                    out.println("<input type=\"text\" name=\"member_email\" required/>");
                 }
                 out.println("</td>");
                 out.println("<td>");
                 if (i.getItem_status().toString() != "VALID") {
                     out.println("<input type=\"number\" min=\"1\" max=\"7\" name=\"rental_days\" disabled/>");
                 } else {
-                    out.println("<input type=\"number\" min=\"1\" max=\"7\" name=\"rental_days\"/>");
+                    out.println("<input type=\"number\" min=\"1\" max=\"7\" name=\"rental_days\" required/>");
                 }
                 out.println("<input type=\"text\" value=\"" + i.getItem_id() + "\" name=\"item_id\" style=\"display:none;\">");
                 out.println("<input type=\"text\" value=\"" + member_id + "\" name=\"cafe_manager_id\" style=\"display:none;\">");
@@ -117,7 +121,7 @@
                 if (i.getItem_status().toString() != "VALID") {
                     out.println("<input type=\"submit\" disabled/>");
                 } else {
-                    out.println("<input type=\"submit\"/>");
+                    out.println("<button type=\"submit\">대여</button>");
                 }
                 out.println("</form>");
                 out.println("</td>");
@@ -138,7 +142,7 @@
     </table>
     </div>
     <div>
-    <a href="/api/v1/item">물품 추가</a>
+<a href="/api/v1/item">물품 추가</a>
     </div>
 </div>
 <div id="footer">
