@@ -1,28 +1,19 @@
 package Pack01.presentation;
 
 import Pack01.domain.cafe.application.CafeReadService;
-import Pack01.domain.cafe.dto.CafeLeftCountRespDto;
 import Pack01.domain.member.application.MemberReadService;
 import Pack01.domain.member.application.MemberWriteService;
 import Pack01.domain.member.dto.LoginReqDto;
 import Pack01.domain.member.dto.MemberRegisterReqDto;
 import Pack01.domain.member.entity.Member;
-import Pack01.domain.member.entity.MemberRole;
-
-import Pack01.global.exception.FourUAdminException;
-import Pack01.global.exception.FourUUserException;
+import Pack01.domain.rental.application.RentalReadService;
 import Pack01.global.jwt.Jwt;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.*;
 
-
 import javax.servlet.http.HttpSession;
-
-import java.util.List;
 
 import static Pack01.domain.member.entity.MemberRole.*;
 
@@ -35,6 +26,7 @@ public class MemberController {
     private final MemberWriteService memberWriteService;
     private final MemberReadService memberReadService;
     private final RentalReadService rentalReadService;
+    private final CafeReadService cafeReadService;
 
 
     @PostMapping()

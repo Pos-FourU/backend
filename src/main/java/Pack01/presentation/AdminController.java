@@ -58,7 +58,7 @@ public class AdminController {
         cafeWriteService.deleteByCafeId(cafe_id);
         itemWriterService.deleteByItemId(cafeItem);
         memberWriteService.deleteByMemberId(member_id);
-        return "manageMember";
+        return "redirect:/api/v1/admin/manageMember";
     }
 
     @GetMapping("/manageRental")
