@@ -22,7 +22,7 @@
     <style>
         #map {
             align-content: center;
-            width: 90%;
+            width: 100%;
             height: 700px;
         }
     </style>
@@ -74,7 +74,7 @@
             title: "<%= cafe_name %>",
             position: new naver.maps.LatLng(<%= latitude %>, <%= longitude %>),
             icon: {
-                content: '<img src="<c:url value="https://m.bonitahouse.co.kr/layout_dp/img/search_icon_11.png"/>" alt="" style="margin: 0px; padding: 0px; border: 0px solid transparent; display: block; max-width: none; max-height: none; -webkit-user-select: none; position: absolute; width: 32px; height: 32px; left: 0px; top: 0px;">',
+                content: '<img src="<c:url value="https://m.bonitahouse.co.kr/layout_dp/img/search_icon_11.png"/>" alt="" style="margin: 0px; padding: 0px; border: 0px solid transparent; display: block; max-width: none; max-height: none; -webkit-user-select: none; position: absolute; width: 50px; height: 50px; left: 0px; top: 0px;">',
                 size: new naver.maps.Size(32, 32),
                 anchor: new naver.maps.Point(16, 32)
             }
